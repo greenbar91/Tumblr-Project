@@ -9,11 +9,11 @@ Welcome to Rumblr, your new go-to spot for sharing your thoughts, photos, and qu
 
 # Index
 
-- API Documentation
-- Database Schema
-- Frontend Routes
-- MVP Feature List
-- User Stories
+- [API Documentation](https://github.com/greenbar91/Tumblr-Project/wiki/API-Routes)
+- [Database Schema](https://github.com/greenbar91/Tumblr-Project/wiki/Database-Schema)
+- [Frontend Routes]()
+- [MVP Feature List](https://github.com/greenbar91/Tumblr-Project/wiki/Frontend-Routes)
+- [User Stories](https://github.com/greenbar91/Tumblr-Project/wiki/User-Stories)
 
 # Technologies Used
 
