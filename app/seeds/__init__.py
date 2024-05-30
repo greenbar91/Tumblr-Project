@@ -18,9 +18,9 @@ def seed():
         # command, which will  truncate all tables prefixed with
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
-        undo_comments()
-        undo_posts()
         undo_users()
+        undo_posts()
+        undo_comments()
     seed_users()
     seed_posts()
     seed_comments()
@@ -30,7 +30,7 @@ def seed():
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_comments()
-    undo_posts()
     undo_users()
+    undo_posts()
+    undo_comments()
     # Add other undo functions here
