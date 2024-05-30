@@ -22,6 +22,7 @@ def seed():
         undo_users()
         undo_posts()
         undo_comments()
+        undo_likes()
     seed_users()
     seed_posts()
     seed_comments()
