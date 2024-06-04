@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, redirect, request
 from flask_login import login_required
+from app.forms.create_comment import CommentForm
 from app.models import Post, Comment
 from app.models.db import db
 
@@ -18,25 +19,35 @@ def get_all_comments(postId):
     print(comments)
     return jsonify({'comments':comment.to_dict() for comment in comments}), 200
 
+#--------------------------------------------------------------------------------------//
+#                             CREATE A COMMENT                              //
+#--------------------------------------------------------------------------------------//
+
 @comment_routes.route('/<int:postId>/comments', methods=['POST'])
 def create_comment(postId):
-    data = request.get_json()
-    print(data)
-    # newComment = Comment(1, postId, 'This is a new comment')
+    newComment = Comment(user_id=2, post_id=postId, body='This is a new comment...again')
     # db.session.add(newComment)
     # db.session.commit()
-    # redirect(f'/api/posts/{postId}/comments')
-    return jsonify({'message': 'Testing'}), 200
+    return jsonify({'message': 'Success'}), 200
+    # Code needs form/frontend data. Creates record successfully with test code above
     """
     create a comment form
     if the form validates create new comment with the form data(automatically retrieved)
     add the comment to database and commit
     redirect/refresh ?
     """
-    
-@comment_routes.route("/<int:commentId>", methods=['PUT'])
+  
+  #--------------------------------------------------------------------------------------//
+#                             EDIT A COMMENT                              //
+#--------------------------------------------------------------------------------------//  
+@comment_routes.route("/<int:postId>/comments/<int:commentId>", methods=['PUT'])
 def edit_comment(postId, commentId):
-    pass
+    the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
+    print(the_comment.body)
+    the_comment.body = 'I edited the comment :)'
+    db.session.commit()
+    return jsonify({'message': 'Success'})
+    # The code above successully edits a comment record, needs refactor for frontend/form
     """
     create new comment form
     if form validates retrieve the comment,
@@ -44,7 +55,10 @@ def edit_comment(postId, commentId):
     commit to database
     redirect/refresh?
     """
-    
+
+#--------------------------------------------------------------------------------------//
+#                             DELETE A COMMENT                              //
+#--------------------------------------------------------------------------------------//
 @comment_routes.route('/<int:postId>/<int:commentId>')
 def delete_comment(postId, commentId):
     pass
