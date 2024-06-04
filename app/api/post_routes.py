@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
+from app.forms.post_form import PostForm
 from app.models import Post, db, Comment, Like
 from sqlalchemy import func
+from flask_login import current_user
 
 post_routes = Blueprint('posts', __name__)
 
@@ -49,35 +51,31 @@ def get_post_by_id(post_Id):
 #--------------------------------------------------------------------------------------//
 #                                    CREATE A POST                                     //
 #--------------------------------------------------------------------------------------//
+@post_routes.route("/", methods=["POST"])
+def create_post():
+    form = PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    current_user_id = current_user.id
 
+    if form.validate_on_submit():
+        try:
+            new_post = Post(
+                title=form.data["title"],
+                body=form.data["body"],
+                user_id = current_user_id
+            )
 
+            db.session.add(new_post)
+            db.session.commit()
+            return jsonify(new_post.to_dict()), 201
 
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"errors": str(e)}), 500
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    else:
+        errors = {field: error[0] for field, error in form.errors.items()}
+        return jsonify({"errors": errors}), 400
 
 #--------------------------------------------------------------------------------------//
 #                                     UPDATE POST                                      //
