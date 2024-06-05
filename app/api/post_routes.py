@@ -80,37 +80,28 @@ def create_post():
 #--------------------------------------------------------------------------------------//
 #                                     UPDATE POST                                      //
 #--------------------------------------------------------------------------------------//
+@post_routes.route("/<int:post_Id>", methods=["PUT"])
+def update_post(post_Id):
+    form = PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
+    if form.validate_on_submit():
+        try:
+            post_to_update = Post.query.get(post_Id)
 
+            if not post_to_update:
+                    return jsonify({"errors": "Post not found"}), 404
 
+            post_to_update.title = form.data["title"]
+            post_to_update.body = form.data["body"]
 
+            db.session.commit()
 
+            return jsonify(post_to_update.to_dict()), 200
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"errors": str(e)}), 500
 #--------------------------------------------------------------------------------------//
 #                                     DELETE POST                                      //
 #--------------------------------------------------------------------------------------//
