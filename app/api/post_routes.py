@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.forms.post_form import PostForm
 from app.models import Post, db, Comment, Like
 from sqlalchemy import func
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 post_routes = Blueprint('posts', __name__)
 
@@ -52,6 +52,7 @@ def get_post_by_id(post_Id):
 #                                    CREATE A POST                                     //
 #--------------------------------------------------------------------------------------//
 @post_routes.route("/", methods=["POST"])
+@login_required
 def create_post():
     form = PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -81,6 +82,7 @@ def create_post():
 #                                     UPDATE POST                                      //
 #--------------------------------------------------------------------------------------//
 @post_routes.route("/<int:post_Id>", methods=["PUT"])
+@login_required
 def update_post(post_Id):
     form = PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -105,3 +107,19 @@ def update_post(post_Id):
 #--------------------------------------------------------------------------------------//
 #                                     DELETE POST                                      //
 #--------------------------------------------------------------------------------------//
+@post_routes.route("/<int:post_Id>", methods=["DELETE"])
+def delete_post(post_Id):
+    try:
+        current_post = Post.query.get(post_Id)
+
+        if not current_post:
+            return jsonify({"errors": "Post not found"}), 404
+
+        if current_user.id == current_post.user_id:
+            return jsonify({"errors":"Unauthorized to delete"}), 401
+
+        db.session.delete(current_post)
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"errors": str(e)}), 500
