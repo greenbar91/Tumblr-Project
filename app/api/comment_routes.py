@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, redirect, request
 from flask_login import login_required
+from app.forms.create_comment import CommentForm
 from app.models import Post, Comment
 from app.models.db import db
 
@@ -9,34 +10,51 @@ comment_routes = Blueprint('comments', __name__)
 #                             GET ALL COMMENTS BY POST ID                              //
 #--------------------------------------------------------------------------------------//
 
-
-# comment_routes = Blueprint('comments', url_prefix='/api/posts/<int:postId>')
-
 @comment_routes.route('/<int:postId>/comments', methods=['GET'])
+@login_required
 def get_all_comments(postId):
     comments = Comment.query.filter_by(post_id=postId).all()
     print(comments)
     return jsonify({'comments':comment.to_dict() for comment in comments}), 200
 
+#--------------------------------------------------------------------------------------//
+#                             CREATE A COMMENT                              //
+#--------------------------------------------------------------------------------------//
+
 @comment_routes.route('/<int:postId>/comments', methods=['POST'])
+@login_required
 def create_comment(postId):
-    data = request.get_json()
-    print(data)
-    # newComment = Comment(1, postId, 'This is a new comment')
-    # db.session.add(newComment)
-    # db.session.commit()
-    # redirect(f'/api/posts/{postId}/comments')
-    return jsonify({'message': 'Testing'}), 200
+    com_form = CommentForm()
+    
+    if com_form.validate_on_submit():
+        new_comment = CommentForm(body=com_form['comment'])
+        db.session.add(new_comment)
+        db.session.commit()
+        return jsonify({'message': 'Success'}), 200
+    return jsonify({'message': 'Validation Error'})
+    # Code needs form/frontend data. Creates record successfully with test code above
     """
     create a comment form
     if the form validates create new comment with the form data(automatically retrieved)
     add the comment to database and commit
     redirect/refresh ?
     """
-    
-@comment_routes.route("/<int:commentId>", methods=['PUT'])
+  
+#--------------------------------------------------------------------------------------//
+#                             EDIT A COMMENT                              //
+#--------------------------------------------------------------------------------------//  
+@comment_routes.route("/<int:postId>/comments/<int:commentId>", methods=['PUT'])
+@login_required
 def edit_comment(postId, commentId):
-    pass
+    com_form = CommentForm()
+    
+    if com_form.validate_on_submit():
+        the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
+        the_comment.body = com_form['comment']
+        db.session.commit()
+        return jsonify({'message': 'Success'})
+    return jsonify({'message': 'Validation Error'})
+    # The code above successully edits a comment record, needs refactor for frontend/form
     """
     create new comment form
     if form validates retrieve the comment,
@@ -44,115 +62,19 @@ def edit_comment(postId, commentId):
     commit to database
     redirect/refresh?
     """
-    
+
+#--------------------------------------------------------------------------------------//
+#                             DELETE A COMMENT                              //
+#--------------------------------------------------------------------------------------//
 @comment_routes.route('/<int:postId>/<int:commentId>')
+@login_required
 def delete_comment(postId, commentId):
-    pass
+    the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
+    db.session.delete(the_comment)
+    db.session.commit()
     """
     retrieve the comment from the database
     call the session delete method on the comment
     commit
     redirect/refresh?
     """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#--------------------------------------------------------------------------------------//
-#                                   CREATE COMMENT                                     //
-#--------------------------------------------------------------------------------------//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#--------------------------------------------------------------------------------------//
-#                                    UPDATE COMMENT                                    //
-#--------------------------------------------------------------------------------------//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#--------------------------------------------------------------------------------------//
-#                                    DELETE COMMENT                                    //
-#--------------------------------------------------------------------------------------//
