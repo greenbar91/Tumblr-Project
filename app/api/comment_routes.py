@@ -10,10 +10,8 @@ comment_routes = Blueprint('comments', __name__)
 #                             GET ALL COMMENTS BY POST ID                              //
 #--------------------------------------------------------------------------------------//
 
-
-# comment_routes = Blueprint('comments', url_prefix='/api/posts/<int:postId>')
-
 @comment_routes.route('/<int:postId>/comments', methods=['GET'])
+@login_required
 def get_all_comments(postId):
     comments = Comment.query.filter_by(post_id=postId).all()
     print(comments)
@@ -24,11 +22,16 @@ def get_all_comments(postId):
 #--------------------------------------------------------------------------------------//
 
 @comment_routes.route('/<int:postId>/comments', methods=['POST'])
+@login_required
 def create_comment(postId):
-    newComment = Comment(user_id=2, post_id=postId, body='This is a new comment...again')
-    # db.session.add(newComment)
-    # db.session.commit()
-    return jsonify({'message': 'Success'}), 200
+    com_form = CommentForm()
+    
+    if com_form.validate_on_submit():
+        new_comment = CommentForm(body=com_form['comment'])
+        db.session.add(new_comment)
+        db.session.commit()
+        return jsonify({'message': 'Success'}), 200
+    return jsonify({'message': 'Validation Error'})
     # Code needs form/frontend data. Creates record successfully with test code above
     """
     create a comment form
@@ -37,16 +40,20 @@ def create_comment(postId):
     redirect/refresh ?
     """
   
-  #--------------------------------------------------------------------------------------//
+#--------------------------------------------------------------------------------------//
 #                             EDIT A COMMENT                              //
 #--------------------------------------------------------------------------------------//  
 @comment_routes.route("/<int:postId>/comments/<int:commentId>", methods=['PUT'])
+@login_required
 def edit_comment(postId, commentId):
-    the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
-    print(the_comment.body)
-    the_comment.body = 'I edited the comment :)'
-    db.session.commit()
-    return jsonify({'message': 'Success'})
+    com_form = CommentForm()
+    
+    if com_form.validate_on_submit():
+        the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
+        the_comment.body = com_form['comment']
+        db.session.commit()
+        return jsonify({'message': 'Success'})
+    return jsonify({'message': 'Validation Error'})
     # The code above successully edits a comment record, needs refactor for frontend/form
     """
     create new comment form
@@ -60,6 +67,7 @@ def edit_comment(postId, commentId):
 #                             DELETE A COMMENT                              //
 #--------------------------------------------------------------------------------------//
 @comment_routes.route('/<int:postId>/<int:commentId>')
+@login_required
 def delete_comment(postId, commentId):
     the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
     db.session.delete(the_comment)

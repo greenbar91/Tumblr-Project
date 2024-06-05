@@ -3,5 +3,5 @@ from wtforms import TextAreaField
 from wtforms.validators import DataRequired, ValidationError
 
 class CommentForm():
-    comment = TextAreaField('Comment', validators=[DataRequired()])
+    comment = TextAreaField('comment', validators=[DataRequired()])
     
