@@ -59,7 +59,13 @@ const AuthFormModal = () => {
     return (
         <>
             <h1>{isExistingUser ? "Log In" : "Sign Up"}</h1>
-            <form onSubmit={step === 1 ? handleEmailSubmit : isExistingUser ? handleLoginSubmit : handleSignupSubmit}>
+            <form onSubmit={
+                step === 1
+                    ? handleEmailSubmit
+                    : isExistingUser
+                        ? handleLoginSubmit
+                        : handleSignupSubmit
+            }>
                 {step === 1 && (
                     <>
                         <label>

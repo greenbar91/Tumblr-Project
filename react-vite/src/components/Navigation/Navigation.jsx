@@ -10,9 +10,9 @@ function Navigation() {
         <NavLink to="/">Home</NavLink>
       </li>
 
-      <li>
+      {/* <li>
         <ProfileButton />
-      </li>
+      </li> */}
 
       <li><AuthFormModal /></li>
     </ul>
