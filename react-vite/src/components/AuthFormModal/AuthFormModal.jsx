@@ -58,7 +58,7 @@ const AuthFormModal = () => {
 
     return (
         <>
-            <h1>{isExistingUser ? "Log In" : "Sign Up"}</h1>
+            {/* <h1>{isExistingUser ? "Log In" : "Sign Up"}</h1> */}
             <form onSubmit={
                 step === 1
                     ? handleEmailSubmit
@@ -68,6 +68,7 @@ const AuthFormModal = () => {
             }>
                 {step === 1 && (
                     <>
+                        <p>Enter your email to log in or register:</p>
                         <label>
                             Email
                             <input
@@ -83,6 +84,7 @@ const AuthFormModal = () => {
                 )}
                 {step === 2 && isExistingUser && (
                     <>
+                        <p>Welcome back to your corner of the internet.</p>
                         <label>
                             Password
                             <input
@@ -98,6 +100,7 @@ const AuthFormModal = () => {
                 )}
                 {step === 2 && !isExistingUser && (
                     <>
+                        <p>Welcome to your corner of the internet. Glad you&apos;re here.</p>
                         <label>
                             Set a password
                             <input
@@ -123,10 +126,16 @@ const AuthFormModal = () => {
                 )}
                 {step === 3 && (
                     <>
+                        <p>What should we call you?
+                            This will be how you appear to others on your URL.
+                            Don&apos;t worry, you can change this later.
+                        </p>
+
                         <label>
-                            Username
+                            @
                             <input
                                 type="text"
+                                placeholder="username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required
