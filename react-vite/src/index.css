@@ -1,1 +1,17 @@
 /* TODO: Add sitewide styles */
+body {
+    background-color: #001935;
+    /* width: 100vw;
+    height: 100vh; */
+    /* min-height: inherit; */
+    flex-direction: row;
+    /* justify-content: center; */
+    display: flex;
+
+}
+
+
+
+/* div {
+    outline: 1px solid #036cdb !important;
+} */

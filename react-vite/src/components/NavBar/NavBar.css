@@ -1,0 +1,91 @@
+.nav-bar-container {
+  display: flex;
+  position: absolute;
+  top: 0%;
+  left: 16%;
+  color: white;
+  /* justify-content: center;
+  align-items: center; */
+  flex-direction: column;
+  min-width: 240px;
+}
+
+.logo {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  flex-direction: column;
+  display: flex;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-bar-home-container {
+  width: 239px;
+  height: 41px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+
+}
+
+.fa-home {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.nav-bar-home-container:hover {
+  background-color: #122943;
+}
+
+.nav-bar-explore-container {
+  width: 239px;
+  height: 41px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+
+.md-explore {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.nav-bar-explore-container:hover {
+  background-color: #122943;
+}
+
+.nav-bar-account-container {
+  width: 239px;
+  height: 41px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.person-sharp{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.nav-bar-account-container:hover {
+  background-color: #122943;
+}
+
+/* .dropdown-content li {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  } */
