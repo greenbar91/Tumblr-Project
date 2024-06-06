@@ -1,15 +1,18 @@
+
+import ProfileButton from "./ProfileButton";
+import "./Navigation.css";
+import NavBar from "../NavBar";
 import { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
-// import ProfileButton from "./ProfileButton";
+// import { useSelector } from 'react-redux';
 import "./Navigation.css";
 import OpenModalMenuItem from './OpenModalMenuItem';
 import AuthFormModal from '../AuthFormModal';
 
+
 function Navigation() {
 
   const [showMenu, setShowMenu] = useState(false);
-  const user = useSelector((store) => store.session.user);
+  // const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
   useEffect(() => {
@@ -29,17 +32,17 @@ function Navigation() {
   const closeMenu = () => setShowMenu(false);
 
   return (
-    <>
+
+    <div className="site-container">
       <ul>
+        <div className="nav-bar">
+          <NavBar />
+        </div>
+
         <li>
-          <NavLink to="/">Home</NavLink>
+          <ProfileButton />
         </li>
-
-        {/* <li>
-        <ProfileButton />
-      </li> */}
       </ul>
-
       <div>
         <OpenModalMenuItem
           itemText="Sign me up"
@@ -53,7 +56,7 @@ function Navigation() {
           modalComponent={<AuthFormModal />}
         />
       </div>
-    </>
+     </div>
   );
 }
 
