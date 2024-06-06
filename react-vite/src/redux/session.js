@@ -23,9 +23,13 @@ export const thunkAuthenticate = () => async (dispatch) => {
 };
 
 export const thunkLogin = (credentials) => async dispatch => {
+
   const response = await fetch("/api/auth/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+
+    },
     body: JSON.stringify(credentials)
   });
 
@@ -63,7 +67,7 @@ export const thunkLogout = () => async (dispatch) => {
   dispatch(removeUser());
 };
 
-export const thunkCheckEmail = async () => {
+export const thunkCheckEmail = async ({ email }) => {
   const response = await fetch("/api/auth/check-email", {
     method: 'POST',
     headers: {

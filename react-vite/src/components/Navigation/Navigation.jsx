@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
+import AuthFormModal from '../AuthFormModal';
 
 function Navigation() {
   return (
@@ -12,6 +13,8 @@ function Navigation() {
       <li>
         <ProfileButton />
       </li>
+
+      <li><AuthFormModal /></li>
     </ul>
   );
 }
