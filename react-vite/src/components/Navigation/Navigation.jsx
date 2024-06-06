@@ -3,8 +3,7 @@ import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import NavBar from "../NavBar";
 import { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
+// import { useSelector } from 'react-redux';
 import "./Navigation.css";
 import OpenModalMenuItem from './OpenModalMenuItem';
 import AuthFormModal from '../AuthFormModal';
@@ -13,7 +12,7 @@ import AuthFormModal from '../AuthFormModal';
 function Navigation() {
 
   const [showMenu, setShowMenu] = useState(false);
-  const user = useSelector((store) => store.session.user);
+  // const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
   useEffect(() => {
