@@ -5,17 +5,15 @@ class Follow(db.Model):
     
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
-        
-    id = db.Column(db.Integer, primary_key=True)
-    follower_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     
-    follower = db.relationship('User', back_populates='follows')
-    user = db.relationship('User', back_populates='follows')
+    follower_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True, nullable=False)
+    followed_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True, nullable=False)
+    
+    follower = db.relationship('User', foreign_keys=[follower_id])
+    followed = db.relationship('User', foreign_keys=[followed_id])
     
     def to_dict(self):
         return {
-            "id": self.id,
             "follower_id": self.follower_id,
-            "user_id": self.user_id
+            "followed_id": self.followed_id
         }
