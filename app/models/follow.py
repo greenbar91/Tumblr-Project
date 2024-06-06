@@ -14,7 +14,6 @@ class Follow(db.Model):
     
     def to_dict(self):
         return {
-            "id": self.id,
             "follower_id": self.follower_id,
-            "user_id": self.user_id
+            "followed_id": self.followed_id
         }
