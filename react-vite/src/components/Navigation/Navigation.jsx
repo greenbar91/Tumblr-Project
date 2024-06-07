@@ -56,7 +56,7 @@ function Navigation() {
           modalComponent={<AuthFormModal />}
         />
       </div>
-     </div>
+    </div>
   );
 }
 
