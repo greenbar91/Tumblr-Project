@@ -1,0 +1,12 @@
+.main-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+#following-ul{
+    border: solid green 2px;
+    padding: 0;
+    list-style-type: none;
+}

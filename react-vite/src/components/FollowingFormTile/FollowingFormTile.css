@@ -1,0 +1,11 @@
+.following_tile{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+#user_updated{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
