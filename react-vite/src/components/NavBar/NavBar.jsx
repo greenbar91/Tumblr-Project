@@ -42,7 +42,7 @@ function NavBar() {
               <div className="nav-bar-home">Home</div>
             </li>
           </NavLink>
-          <NavLink to={"/"} className={"nav-link"}>
+          <NavLink to={"/explore/trending"} className={"nav-link"}>
             <li className="nav-bar-explore-container">
               <div className="md-explore">
                 <MdExplore />
