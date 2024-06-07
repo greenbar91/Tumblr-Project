@@ -42,7 +42,13 @@ def post_like(post_Id):
         if current_user.id == current_post.user_id:
             return jsonify({"errors": "Unauthorized"}), 401
 
+        existing_like = Like.query.filter_by(user_id=current_user.id, post_id=post_Id).first()
+
+        if existing_like:
+            return jsonify({"errors": "Already liked"}), 400
+
         new_like = Like(user_id=current_user.id, post_id=current_post.id)
+
 
         db.session.add(new_like)
         db.session.commit()

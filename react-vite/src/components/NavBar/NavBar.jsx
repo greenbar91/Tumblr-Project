@@ -1,18 +1,20 @@
-import { NavLink , useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { FaHome } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { IoPersonSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { thunkLogout } from "../../redux/session";
-import { useDispatch} from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getUserLikesThunk } from "../../redux/session";
 
 function NavBar() {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const likes = useSelector((store) => store.session.likes);
+  const user = useSelector((store) => store.session.user);
 
   const handleDropdownToggle = () => {
     setDropdownVisible(!isDropdownVisible);
@@ -21,15 +23,19 @@ function NavBar() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout());
-    handleDropdownToggle()
-    navigate("/")
+    handleDropdownToggle();
+    navigate("/");
   };
+
+  useEffect(() => {
+    dispatch(getUserLikesThunk);
+  }, [dispatch, user]);
 
   return (
     <nav className="nav-bar-container">
       <ul>
-        <li className="logo">
-          <NavLink to={"/"} className={"nav-link"}>
+        <li className="logo-container">
+          <NavLink to={"/"} className="logo">
             Rumblr
           </NavLink>
         </li>
@@ -50,31 +56,31 @@ function NavBar() {
               <div className="nav-bar-explore">Explore</div>
             </li>
           </NavLink>
-          <li className="nav-bar-account-container">
+          <li
+            className="nav-bar-account-container"
+            onClick={handleDropdownToggle}
+          >
             <div className="person-sharp">
               <IoPersonSharp />
             </div>
-            <div className="nav-bar-account" onClick={handleDropdownToggle}>
-              Account
-            </div>
+            <div className="nav-bar-account">Account</div>
             {isDropdownVisible && (
               <ul className="dropdown-content">
-                <li>
-                  <NavLink to={"/likes"} className={"nav-link"}>
+                <NavLink to={"/likes"} className={"nav-link"}>
+                  <li className="dropdown-options">
                     Likes
-                  </NavLink>
+                    <div className="likes-count">{likes.length}</div>
+                  </li>
+                </NavLink>
+                <NavLink to={"/following"} className={"nav-link"}>
+                  <li className="dropdown-options">Following</li>
+                </NavLink>
+                <li className="dropdown-options" onClick={logout}>
+                  Log Out
                 </li>
-                <li>
-                  <NavLink to={"/following"} className={"nav-link"}>
-                    Following
-                  </NavLink>
-                </li>
-                <li onClick={logout}>Log Out</li>
-                <li>
-                  <NavLink to={"/blog"} className={"nav-link"}>
-                    Blog
-                  </NavLink>
-                </li>
+                <NavLink to={"/blog"} className={"nav-link"}>
+                  <li className="dropdown-options">Blog</li>
+                </NavLink>
               </ul>
             )}
           </li>
