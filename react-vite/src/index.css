@@ -10,7 +10,9 @@ body {
 
 }
 
-
+* {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
 
 /* div {
     outline: 1px solid #036cdb !important;
