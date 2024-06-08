@@ -33,7 +33,7 @@ function NavBar() {
 
   return (
     <nav className="nav-bar-container">
-      <ul>
+      <ul id="user-nav-ul">
         <li className="logo-container">
           <NavLink to={"/"} className="logo">
             Rumblr

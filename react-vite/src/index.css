@@ -1,17 +1,54 @@
 /* TODO: Add sitewide styles */
+#root{
+    display: grid;
+    grid-template-columns: 20% 50% 30%;
+    grid-template-areas: 'nav main side';
+    align-items: center;
+}
+
+/* .site-container{
+    grid-area: side;
+} */
+
+.logo-container{
+grid-area: nav;
+}
+
+.dropdown-content{
+    grid-area: nav;
+}
+
+#user-nav-ul, #custom-ul{
+    grid-area: nav;
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}
+.nav-bar-options{
+    grid-area: nav;
+}
+
+.nav-bar-container{
+    grid-area: nav;
+}
+
+.main-content{
+    grid-area: main;
+}
+
 body {
     background-color: #001935;
+    box-sizing: border-box;
+    padding: 5px;
     /* width: 100vw;
     height: 100vh; */
-    /* min-height: inherit; */
-    flex-direction: row;
     /* justify-content: center; */
-    display: flex;
-
+    /* ------------------ */
 }
 
 * {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
 }
 
 /* div {
