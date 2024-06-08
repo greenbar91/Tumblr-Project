@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import current_user, login_required
 from app.models import User
+from app.models.comment import Comment
 from app.models.like import Like
 from app.models.post import Post
 
@@ -37,7 +38,14 @@ def current_user_likes():
     user_ids = [post.user_id for post in posts]
     users = User.query.filter(User.id.in_(user_ids)).all()
 
-    post_map = {post.id: post.to_dict() for post in posts}
+    # Create a map to store post information with counts
+    post_map = {}
+    for post in posts:
+        post_dict = post.to_dict()
+        post_dict["comment_count"] = len(Comment.query.filter_by(post_id=post.id).all())
+        post_dict["likes_count"] = len(Like.query.filter_by(post_id=post.id).all())
+        post_map[post.id] = post_dict
+
     user_map = {user.id: user.username for user in users}
 
     likes_list = [
