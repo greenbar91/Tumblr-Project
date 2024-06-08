@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: left;
     align-items: flex-start;
+    color: gray;
 }
 
 #following-ul{
