@@ -27,6 +27,21 @@ def user(id):
     user = User.query.get(id)
     return user.to_dict()
 
+@user_routes.route('/<string:username>')
+@login_required
+def user_by_username(username):
+    """
+    Query for a user by username, returns that user in a dictionary
+    """
+    user = User.query.filter_by(username=username).first()
+    
+    if user:
+        return user.to_dict()
+    
+    return jsonify({'errors': {
+        'user_not_found': 'Whoops! Thats not a Rumblr user.'
+        }}), 400
+
 
 @user_routes.route("/likes", methods=["GET"])
 @login_required
