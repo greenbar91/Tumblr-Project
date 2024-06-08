@@ -27,7 +27,7 @@ const postReducer = (state = initialState, action) => {
         case LOAD_ALL_POSTS:
             return {
                 ...state,
-                allPosts: action.posts
+                allPosts: action.payload
             };
         default:
             return state;
