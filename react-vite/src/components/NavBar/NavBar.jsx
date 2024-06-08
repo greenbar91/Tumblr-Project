@@ -36,27 +36,31 @@ function NavBar() {
       <ul id="user-nav-ul">
         <li className="logo-container">
           <NavLink to={"/"} className="logo">
-            Rumblr
+            <h3>Rumblr</h3>
           </NavLink>
         </li>
         <div className="nav-bar-options">
           <div className="nav-bar-sizing">
             <NavLink to={"/"} className={"nav-link"}>
               <li className="nav-bar-home-container">
-                <div className="fa-home">
-                  <FaHome />
+                <div id="grouped">
+                  <div className="fa-home">
+                    <FaHome />
+                  </div>
+                  <div className="nav-bar-home">Home</div>
                 </div>
-                <div className="nav-bar-home">Home</div>
               </li>
             </NavLink>
           </div>
           <div className="nav-bar-sizing">
             <NavLink to={"/explore/trending"} className={"nav-link"}>
               <li className="nav-bar-explore-container">
-                <div className="md-explore">
-                  <MdExplore />
+                <div id="grouped">
+                  <div className="md-explore">
+                    <MdExplore />
+                  </div>
+                  <div className="nav-bar-explore">Explore</div>
                 </div>
-                <div className="nav-bar-explore">Explore</div>
               </li>
             </NavLink>
           </div>
@@ -65,19 +69,23 @@ function NavBar() {
               className="nav-bar-account-container"
               onClick={handleDropdownToggle}
             >
-              <div className="person-sharp">
+              <div id="grouped">
+                <div className="person-sharp">
                 <IoPersonSharp />
+                </div>
+                <div className="nav-bar-account">Account</div>
               </div>
-              <div className="nav-bar-account">Account</div>
             </li>
           </div>
           {isDropdownVisible && (
             <ul className="dropdown-content" id="likes-border">
               <NavLink to={"/likes"} className={"nav-link"}>
-                <li className="dropdown-options" id="likes-sizing">
-                  Likes
+                <div id="grouped">
+                  <li className="dropdown-options" id="likes-sizing">
+                    Likes
+                  </li>
                   <div className="likes-count">{likes.length}</div>
-                </li>
+                </div>
               </NavLink>
 
               <div className="nav-bar-sizing">

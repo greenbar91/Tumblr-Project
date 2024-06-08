@@ -38,12 +38,11 @@ function Navigation() {
         <div className="nav-bar">
           <NavBar />
         </div>
-
+      </ul>
+      <div>
         <li>
           <ProfileButton />
         </li>
-      </ul>
-      <div>
         <OpenModalMenuItem
           itemText="Sign me up"
           onItemClick={closeMenu}
