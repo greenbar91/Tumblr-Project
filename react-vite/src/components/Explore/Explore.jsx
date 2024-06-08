@@ -6,16 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import { fetchAllPostsThunk } from "../../redux/post";
 import CommentsPage from "../CommentsPage";
-import { getCommentsByPostIdThunk } from "../../redux/comment";
+import { getAllCommentsThunk, getCommentsByPostIdThunk } from "../../redux/comment";
 
 const Explore = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postState.allPosts);
   const userLikes = useSelector((state) => state.likes.likes);
+  const comments = useSelector((state)=> state.comments.comments)
   const [selectedPostId, setSelectedPostId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchAllPostsThunk());
+    dispatch(getAllCommentsThunk())
     // dispatch(getCommentsByPostIdThunk());
   }, [dispatch, userLikes]);
 

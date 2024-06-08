@@ -42,7 +42,7 @@ export const getAllCommentsThunk = () => async (dispatch) => {
     if (res.ok) {
       const data = await res.json();
       console.log(data)
-      dispatch(getCommentsByPostId(data));
+      dispatch(getAllComments(data));
     } else {
       const errors = await res.json();
       return errors
