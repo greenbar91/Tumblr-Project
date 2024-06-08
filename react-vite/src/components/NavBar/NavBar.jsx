@@ -40,50 +40,64 @@ function NavBar() {
           </NavLink>
         </li>
         <div className="nav-bar-options">
-          <NavLink to={"/"} className={"nav-link"}>
-            <li className="nav-bar-home-container">
-              <div className="fa-home">
-                <FaHome />
+          <div className="nav-bar-sizing">
+            <NavLink to={"/"} className={"nav-link"}>
+              <li className="nav-bar-home-container">
+                <div className="fa-home">
+                  <FaHome />
+                </div>
+                <div className="nav-bar-home">Home</div>
+              </li>
+            </NavLink>
+          </div>
+          <div className="nav-bar-sizing">
+            <NavLink to={"/"} className={"nav-link"}>
+              <li className="nav-bar-explore-container">
+                <div className="md-explore">
+                  <MdExplore />
+                </div>
+                <div className="nav-bar-explore">Explore</div>
+              </li>
+            </NavLink>
+          </div>
+          <div className="nav-bar-sizing">
+            <li
+              className="nav-bar-account-container"
+              onClick={handleDropdownToggle}
+            >
+              <div className="person-sharp">
+                <IoPersonSharp />
               </div>
-              <div className="nav-bar-home">Home</div>
+              <div className="nav-bar-account">Account</div>
             </li>
-          </NavLink>
-          <NavLink to={"/"} className={"nav-link"}>
-            <li className="nav-bar-explore-container">
-              <div className="md-explore">
-                <MdExplore />
+          </div>
+          {isDropdownVisible && (
+            <ul className="dropdown-content" id="likes-border">
+
+              <NavLink to={"/likes"} className={"nav-link"}>
+                <li className="dropdown-options" id="likes-sizing">
+                  Likes
+                  <div className="likes-count">{likes.length}</div>
+                </li>
+              </NavLink>
+            
+              <div className="nav-bar-sizing">
+              <NavLink to={"/following"} className={"nav-link"}>
+                <li className="dropdown-options">Following</li>
+              </NavLink>
               </div>
-              <div className="nav-bar-explore">Explore</div>
-            </li>
-          </NavLink>
-          <li
-            className="nav-bar-account-container"
-            onClick={handleDropdownToggle}
-          >
-            <div className="person-sharp">
-              <IoPersonSharp />
-            </div>
-            <div className="nav-bar-account">Account</div>
-            {isDropdownVisible && (
-              <ul className="dropdown-content">
-                <NavLink to={"/likes"} className={"nav-link"}>
-                  <li className="dropdown-options">
-                    Likes
-                    <div className="likes-count">{likes.length}</div>
-                  </li>
-                </NavLink>
-                <NavLink to={"/following"} className={"nav-link"}>
-                  <li className="dropdown-options">Following</li>
-                </NavLink>
+              <div className="nav-bar-sizing">
                 <li className="dropdown-options" onClick={logout}>
                   Log Out
                 </li>
-                <NavLink to={"/blog"} className={"nav-link"}>
-                  <li className="dropdown-options">Blog</li>
-                </NavLink>
-              </ul>
-            )}
-          </li>
+              </div>
+              <div className="nav-bar-sizing">
+              <NavLink to={"/blog"} className={"nav-link"}>
+                <li className="dropdown-options">Posts</li>
+              </NavLink>
+              </div>
+            </ul>
+          )}
         </div>
       </ul>
     </nav>
