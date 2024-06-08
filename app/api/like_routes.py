@@ -11,6 +11,7 @@ like_routes = Blueprint("likes", __name__)
 #                                 GET LIKES BY POST ID                                 //
 # --------------------------------------------------------------------------------------//
 @like_routes.route("/<int:post_Id>/likes", methods=["GET"])
+@login_required
 def get_likes_by_post_id(post_Id):
     try:
         current_post = Post.query.get(post_Id)
