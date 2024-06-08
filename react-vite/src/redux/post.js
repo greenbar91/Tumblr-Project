@@ -5,7 +5,7 @@ const LOAD_ALL_POSTS = 'post/LOAD_ALL_POSTS';
 const loadAllPosts = (posts) => {
     return {
         type: LOAD_ALL_POSTS,
-        posts
+        payload:posts
     };
 };
 
@@ -27,7 +27,7 @@ const postReducer = (state = initialState, action) => {
         case LOAD_ALL_POSTS:
             return {
                 ...state,
-                allPosts: action.posts
+                allPosts: action.payload
             };
         default:
             return state;
