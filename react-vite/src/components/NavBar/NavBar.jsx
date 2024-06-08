@@ -51,7 +51,7 @@ function NavBar() {
             </NavLink>
           </div>
           <div className="nav-bar-sizing">
-            <NavLink to={"/"} className={"nav-link"}>
+            <NavLink to={"/explore/trending"} className={"nav-link"}>
               <li className="nav-bar-explore-container">
                 <div className="md-explore">
                   <MdExplore />
