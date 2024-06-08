@@ -16,7 +16,6 @@ function CommentsPage({ postId }) {
   return (
     <div className="comments-container">
 
-
           <div key={comments?.id}>
             <div>{comments?.id}</div>
             <div>{comments?.body}</div>
