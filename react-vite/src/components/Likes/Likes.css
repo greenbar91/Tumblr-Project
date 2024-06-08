@@ -21,6 +21,13 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 .post-username {
   border-bottom: 1px solid rgb(93, 93, 93);
 }
@@ -33,4 +40,18 @@
 .un-liked {
   color:black;
   cursor: pointer;
+}
+
+/* .post-title, .post-body{
+  text-decoration: none;
+  color: black;
+} */
+
+.likes-post-navlink {
+  text-decoration: none;
+  color: black;
+}
+
+.likes-post-navlink:hover {
+  background-color: #F5F5F5
 }
