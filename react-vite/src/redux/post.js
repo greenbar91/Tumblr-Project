@@ -10,7 +10,12 @@ const loadAllPosts = (posts) => {
 };
 
 export const fetchAllPostsThunk = () => async (dispatch) => {
-    const response = await fetch(`/api/posts`);
+    const response = await fetch(`/api/posts`, {
+        method: 'GET',
+        headers: {
+          'Content-Security-Policy': 'upgrade-insecure-requests'
+        }
+      });
 
     if (response.ok) {
         const data = await response.json();
