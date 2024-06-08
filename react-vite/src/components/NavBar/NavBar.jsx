@@ -1,6 +1,6 @@
 import { FaPencil } from "react-icons/fa6";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import CreateContentButton from './CreateContentButton';
+import CreateContentButton from '../CreateContentButton';
 import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { FaHome } from "react-icons/fa";
