@@ -5,7 +5,7 @@ const LOAD_ALL_POSTS = 'post/LOAD_ALL_POSTS';
 const loadAllPosts = (posts) => {
     return {
         type: LOAD_ALL_POSTS,
-        posts
+        payload:posts
     };
 };
 
