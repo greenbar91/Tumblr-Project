@@ -1,0 +1,16 @@
+.following_tile{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.following_tile div{
+    margin: 5px;
+}
+
+#user_updated{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
