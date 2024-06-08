@@ -10,12 +10,7 @@ const loadAllPosts = (posts) => {
 };
 
 export const fetchAllPostsThunk = () => async (dispatch) => {
-    const response = await fetch(`/api/posts`, {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-        }
-      });
+    const response = await fetch(`/api/posts`);
 
     if (response.ok) {
         const data = await response.json();
