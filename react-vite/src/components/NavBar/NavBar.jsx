@@ -51,7 +51,7 @@ function NavBar() {
             </NavLink>
           </div>
           <div className="nav-bar-sizing">
-            <NavLink to={"/"} className={"nav-link"}>
+            <NavLink to={"/explore/trending"} className={"nav-link"}>
               <li className="nav-bar-explore-container">
                 <div className="md-explore">
                   <MdExplore />
@@ -81,12 +81,12 @@ function NavBar() {
                   <div className="likes-count">{likes.length}</div>
                 </li>
               </NavLink>
-            
+
               <div className="nav-bar-sizing">
               <NavLink to={"/following"} className={"nav-link"}>
                 <li className="dropdown-options">Following</li>
               </NavLink>
-
+              </div>
               <div className="nav-bar-sizing">
                 <li className="dropdown-options" onClick={logout}>
                   Log Out
