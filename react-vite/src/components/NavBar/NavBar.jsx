@@ -1,5 +1,3 @@
-import { FaPencil } from "react-icons/fa6";
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import CreateContentButton from '../CreateContentButton';
 import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
@@ -104,8 +102,9 @@ function NavBar() {
       </ul>
 
       <div>
-        <FaPencil /><CreateContentButton/>
+        <CreateContentButton />
       </div>
+
     </nav>
   );
 }

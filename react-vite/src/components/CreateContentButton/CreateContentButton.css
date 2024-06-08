@@ -16,13 +16,13 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    /* background-color: #007bff; */
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     font-size: 24px;
     margin-bottom: 5px;
+    margin-right: 5px;
 }
 
 .button-text {
@@ -30,7 +30,6 @@
     text-align: center;
 }
 
-/* Using CSS instead of the inline style from the array*/
 .content-button:nth-child(1) .circle {
     background-color: white;
 }
@@ -57,4 +56,10 @@
 
 .content-button:nth-child(7) .circle {
     background-color: pink;
+}
+
+.create-content-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
