@@ -70,6 +70,7 @@ function NavBar() {
               </div>
               <div className="nav-bar-account">Account</div>
             </li>
+
           </div>
           {isDropdownVisible && (
             <ul className="dropdown-content" id="likes-border">
@@ -85,7 +86,7 @@ function NavBar() {
               <NavLink to={"/following"} className={"nav-link"}>
                 <li className="dropdown-options">Following</li>
               </NavLink>
-              </div>
+
               <div className="nav-bar-sizing">
                 <li className="dropdown-options" onClick={logout}>
                   Log Out

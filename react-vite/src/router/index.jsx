@@ -3,6 +3,8 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Likes from '../components/Likes';
+import Explore from '../components/Explore';
+
 
 export const router = createBrowserRouter([
   {
@@ -21,9 +23,15 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
+
         path: "likes",
         element: <Likes/>
-      }
+      },
+      {
+        path: "explore/trending",
+        element: <Explore />
+
+      },
     ],
   },
 ]);
