@@ -10,7 +10,7 @@ const loadAllPosts = (posts) => {
 };
 
 export const fetchAllPostsThunk = () => async (dispatch) => {
-    const response = await csrfFetch(`/api/posts`);
+    const response = await fetch(`/api/posts`);
 
     if (response.ok) {
         const data = await response.json();
