@@ -6,14 +6,14 @@ import { IoPersonSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { thunkLogout } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserLikesThunk } from "../../redux/session";
+import { getUserLikesThunk } from "../../redux/like";
 
 function NavBar() {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const likes = useSelector((store) => store.session.likes);
+  const likes = useSelector((store) => store.likes.likes);
   const user = useSelector((store) => store.session.user);
 
   const handleDropdownToggle = () => {

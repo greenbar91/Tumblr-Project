@@ -1,13 +1,13 @@
 import "./Likes.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
-import { getUserLikesThunk } from "../../redux/session";
+import { getUserLikesThunk, deleteLikeThunk } from "../../redux/like";
+import { NavLink } from "react-router-dom";
 
 function Likes() {
-
-  const likes = useSelector((store) => store.session.likes);
+  const likes = useSelector((store) => store.likes.likes);
   const dispatch = useDispatch();
   const [likedPosts, setLikedPosts] = useState([]);
 
@@ -15,13 +15,13 @@ function Likes() {
     dispatch(getUserLikesThunk);
   }, [dispatch]);
 
-  const toggleLike = (postId) => {
-    if (likedPosts.includes(postId)) {
-      setLikedPosts(likedPosts.filter((id) => id !== postId));
-    } else {
-      setLikedPosts([...likedPosts, postId]);
+  const toggleLike = async (postId) => {
+    setLikedPosts(likedPosts.filter((id) => id !== postId));
+    try {
+      await dispatch(deleteLikeThunk(postId));
+    } catch (error) {
+      console.error("Error deleting like:", error);
     }
-    
   };
 
   return (
@@ -29,21 +29,32 @@ function Likes() {
       <div className="likes-container">
         {likes ? (
           likes.map((like) => (
-            <div key={like.id} className="post">
-              <h3 className="post-username">{like.username}</h3>
-              <h3>{like.post.title}</h3>
-              <p>{like.post.body}</p>
+            <div className="post" key={like.id}>
+              <header className="post-header">
+                <h3 className="post-username">{like?.username}</h3>
+                <div>Follow</div>
+              </header>
+              <div className={"likes-post-navlink"}>
+              <NavLink
+                to={`/posts/${like.post?.id}`}
+                className={"likes-post-navlink"}
+              >
+                <h3 className="post-title">{like.post?.title}</h3>
+                <p className="post-body">{like.post?.body}</p>
+              </NavLink>
+              </div>
               <div className="post-stats">
                 <span>
-                  <FaRegComment className="comment-icon" /> {like.post.comment_count}
+                  <FaRegComment className="comment-icon" />{" "}
+                  {like.post?.comment_count}
                 </span>
-                <span onClick={() => toggleLike(like.post.id)}>
-                  {likedPosts.includes(like.post.id) ? (
-                    <FaRegHeart className="un-liked" />
+                <span onClick={() => toggleLike(like.post?.id)}>
+                  {likedPosts.includes(like.post?.id) ? (
+                    <FaHeart className="un-liked" />
                   ) : (
-                    <FaRegHeart className="liked" />
+                    <FaHeart className="liked" />
                   )}{" "}
-                  {like.post.likes_count}
+                  {like.post?.likes_count}
                 </span>
               </div>
             </div>
