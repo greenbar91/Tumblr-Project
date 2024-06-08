@@ -1,10 +1,22 @@
 import './FollowingFormTile.css'
+// import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { unfollowUserThunk } from '../../redux/follow';
 
 function FollowingFormTile({
+    id,
     icon,
     username,
     updated,
 }){
+    const dispatch = useDispatch()
+    // const followingList = useSelector(state => state.follow.following)
+
+    const handleUnfollow = async (e) => {
+        e.preventDefault()
+
+        await dispatch(unfollowUserThunk(id)).then(data => console.log(data))
+    }
 
     return(
         <div className="following_tile">
@@ -16,7 +28,7 @@ function FollowingFormTile({
                 <label>{updated}</label>
             </div>
             <div>
-                <button>unfollow</button>
+                <button onClick={handleUnfollow}>unfollow</button>
             </div>
         </div>
     )

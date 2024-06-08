@@ -9,21 +9,15 @@ const getAllFollows = (data) => ({
     payload: data
 })
 
-// const followUser = (follower_id, followed_id) => ({
-//     type: FOLLOW_USER,
-//     payload: {
-//         follower_id,
-//         followed_id
-//     }
-// })
+const followUser = (followed_user) => ({
+    type: FOLLOW_USER,
+    payload: followed_user
+})
 
-// const unfollowUser = (follower_id, followed_id) => ({
-//     type: UNFOLLOW_USER,
-//     payload: {
-//         follower_id,
-//         followed_id
-//     }
-// })
+const unfollowUser = (followed_id) => ({
+    type: UNFOLLOW_USER,
+    payload: followed_id
+})
 
 export const getFollowsThunk = () => async (dispatch) => {
     const res = await csrfFetch('/api/following/', {
@@ -49,18 +43,75 @@ export const getFollowsThunk = () => async (dispatch) => {
     }
 }
 
+export const followUserThunk = (username) => async (dispatch) => {
+  let user
+  try {
+      user = await csrfFetch(`/api/users/${username}`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+  }
+
+  catch(e){
+    return await e.json()
+  }
+
+  if(user.ok){
+    const data = await user.json()
+    const follow = await csrfFetch(`/api/following/${data.id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if(follow.ok){
+      const followData = await follow.json()
+      await dispatch(followUser(data))
+      return followData
+    }
+    else return {'error': 'Something went wrong :('}
+  }
+
+  else return user
+}
+
+export const unfollowUserThunk = (userId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/following/${userId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+
+  if(res.ok){
+    const data = await res.json()
+    await dispatch(unfollowUser)
+    return data
+  }
+}
+
 const initialState = { following: null };
 
 function followReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_FOLLOWS:
       return { ...state, following: action.payload };
+
     case FOLLOW_USER:
-        // const newState = {...state}
-        // newState[]
-      return { ...state, following: action.payload };
+      return {...state, following: action.payload.followed_user }
+
     case UNFOLLOW_USER:
-        return {...state, following: action.payload}
+      let newState = {}
+      for(let user in state['following']){
+        newState[user.id] = user
+      }
+      delete newState[action.payload]
+
+      return {following: Object.values(newState)}
+
     default:
       return state;
   }
