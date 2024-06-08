@@ -13,7 +13,7 @@ export const fetchAllPostsThunk = () => async (dispatch) => {
     const response = await fetch(`/api/posts`, {
         method: 'GET',
         headers: {
-          'Content-Security-Policy': 'upgrade-insecure-requests'
+          "Content-Type": "application/json",
         }
       });
 
