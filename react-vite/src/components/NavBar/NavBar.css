@@ -1,6 +1,6 @@
 .nav-bar-container {
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   top: 0%;
   left: 25%;
   /* color: white; */
@@ -21,9 +21,8 @@
 }
 
 .logo-container {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 ul {
@@ -96,8 +95,8 @@ ul {
     text-decoration: none;
     display: flex;
     position: absolute;
-    top: 100%;
-    right: -6%;
+    top: 25%;
+    left: 50px;
   }
 
 .dropdown-options {
@@ -115,5 +114,5 @@ ul {
 .likes-count {
   display: flex;
   position: absolute;
-  right:15%
+  left: 30%
 }

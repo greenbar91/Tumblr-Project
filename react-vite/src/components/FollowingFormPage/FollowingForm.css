@@ -6,7 +6,10 @@
 }
 
 #following-ul{
-    border: solid green 2px;
     padding: 0;
     list-style-type: none;
+}
+
+#user-search-div button{
+    margin-left: 5px;
 }

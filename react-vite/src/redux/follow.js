@@ -104,7 +104,7 @@ function followReducer(state = initialState, action) {
       return {...state, following: action.payload.followed_user }
 
     case UNFOLLOW_USER:
-      let newState = {}
+      var newState = {}
       for(let user in state['following']){
         newState[user.id] = user
       }

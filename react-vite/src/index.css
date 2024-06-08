@@ -1,4 +1,40 @@
 /* TODO: Add sitewide styles */
+#root{
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-areas: 'nav main side';
+}
+
+/* .site-container{
+    grid-area: side;
+} */
+
+.logo-container{
+grid-area: nav;
+}
+
+.dropdown-content{
+    grid-area: nav;
+}
+
+#user-nav-ul, #custom-ul{
+    grid-area: nav;
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}
+.nav-bar-options{
+    grid-area: nav;
+}
+
+.nav-bar-container{
+    grid-area: nav;
+}
+
+.main-content{
+    grid-area: main;
+}
+
 body {
     background-color: #001935;
     box-sizing: border-box;

@@ -32,10 +32,10 @@ function FollowingFormPage(){
 
     return (
         <div className="main-content">
-        {followingList && followingList.length >= 0 && <h1>{followingList.length === 0 || !followingList.length ? 0 : followingList.length} Following</h1>}
+        {followingList && followingList.length >= 0 && <h3>{followingList.length === 0 || !followingList.length ? 0 : followingList.length} Following</h3>}
         <form id="followSearch" onSubmit={followUser}>
-            <div>
-                <input id='username_input' name="username" type="text" value={userSearch} placeholder="Seach for user" onChange={e => setUserSearch(e.target.value)}></input>
+            <div id="user-search-div">
+                <input id='username_input' name="username" type="text" value={userSearch} placeholder="Enter a username to follow" onChange={e => setUserSearch(e.target.value)}></input>
                 <button>Follow</button>
             </div>
             {errors.length && errors.user_not_found && <p>{errors.user_not_found}</p>}
@@ -44,7 +44,7 @@ function FollowingFormPage(){
             <ul id="following-ul">
                 {followingList.map(user => 
                     <li key={user.id}>
-                        <FollowingFormTile id={user.id} icon='' username={user.username} updated='Coming soon...'/>
+                        <FollowingFormTile id={user.id} icon='' username={user.username} updated='Feature TBD'/>
                     </li>)}
             </ul>
         }
