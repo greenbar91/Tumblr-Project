@@ -1,4 +1,3 @@
-
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import NavBar from "../NavBar";
@@ -38,12 +37,11 @@ function Navigation() {
         <div className="nav-bar">
           <NavBar />
         </div>
-
+      </ul>
+      <div>
         <li>
           <ProfileButton />
         </li>
-      </ul>
-      <div>
         <OpenModalMenuItem
           itemText="Sign me up"
           onItemClick={closeMenu}
