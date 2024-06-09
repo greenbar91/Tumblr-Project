@@ -38,6 +38,11 @@ def user_by_username(username):
     if user:
         return user.to_dict()
     
+    elif user and user.id == current_user.id:
+        return jsonify({'errors': {
+            'forbidden': 'Whoops! You cant follow yourself. :)'
+        }}), 403
+    
     return jsonify({'errors': {
         'user_not_found': 'Whoops! Thats not a Rumblr user.'
         }}), 400

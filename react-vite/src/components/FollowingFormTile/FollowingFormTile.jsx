@@ -15,7 +15,7 @@ function FollowingFormTile({
     const handleUnfollow = async (e) => {
         e.preventDefault()
 
-        await dispatch(unfollowUserThunk(id)).then(data => console.log(data))
+        await dispatch(unfollowUserThunk(id))
     }
 
     return(
