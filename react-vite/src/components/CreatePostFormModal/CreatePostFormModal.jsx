@@ -14,18 +14,6 @@ const CreatePostFormModal = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const resetForm = () => {
-            setValidationErrors({});
-            setTitle('');
-            setBody('');
-        };
-
-        return (() => { resetForm() });
-    }, []);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
         const errors = {};
 
         if (!title) {
@@ -34,9 +22,13 @@ const CreatePostFormModal = () => {
         if (!body) {
             errors.body = "Please enter the body";
         }
-        if (Object.values(errors).length) {
-            setValidationErrors(errors);
-        }
+
+        setValidationErrors(errors);
+
+    }, [title, body]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         const newPostFormData = {
             title,
@@ -45,11 +37,9 @@ const CreatePostFormModal = () => {
 
         const newPost = await dispatch(createNewPost(newPostFormData));
 
-        // TODO navigate to ManagePost here
-        // if (newPost) {
-        //     navigate();
-        // }
-
+        if (newPost) {
+            navigate('/');
+        }
     };
 
     return (
@@ -71,7 +61,7 @@ const CreatePostFormModal = () => {
                     onChange={e => setBody(e.target.value)}
                 />
 
-                <button type="button" onClick={closeModal()}>Close</button>
+                <button type="button" onClick={closeModal}>Close</button>
                 <button type="submit" disabled={Object.values(validationErrors).length}>Post now</button>
             </form>
         </div>
