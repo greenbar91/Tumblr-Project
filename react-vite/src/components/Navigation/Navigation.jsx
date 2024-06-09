@@ -1,4 +1,3 @@
-
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import NavBar from "../NavBar";
