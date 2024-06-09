@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useModal } from '../../context/Modal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createNewPost } from '../../redux/post';
 
@@ -12,6 +12,8 @@ const CreatePostFormModal = () => {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
         const errors = {};
@@ -32,7 +34,8 @@ const CreatePostFormModal = () => {
 
         const newPostFormData = {
             title,
-            body
+            body,
+            user_id: sessionUser.id
         };
 
         const newPost = await dispatch(createNewPost(newPostFormData));
