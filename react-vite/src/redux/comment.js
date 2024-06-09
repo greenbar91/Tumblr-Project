@@ -14,7 +14,7 @@ const getCommentsByPostId = (comments) => ({
 });
 
 export const getCommentsByPostIdThunk = (postId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/posts/${postId}/comments`, {
+  const res = await fetch(`/api/posts/${postId}/comments`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,6 @@ export const getCommentsByPostIdThunk = (postId) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-    console.log(data)
     dispatch(getCommentsByPostId(data));
   } else {
     const errors = await res.json();

@@ -14,10 +14,14 @@ function CommentsPage({ postId }) {
     dispatch(getCommentsByPostIdThunk(postId));
   }, [dispatch, postId]);
 
+  const sortedComments = comments
+  ? [...comments].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  : [];
+
   return (
     <div className="comments-container">
       <ul>
-        {comments?.map((comment) => {
+        {sortedComments?.map((comment) => {
           return (
             <li key={comment?.id}>
               <div>{comment?.username}</div>
