@@ -82,7 +82,7 @@ const Explore = () => {
                   ) : (
                     <FaRegHeart className="un-liked" />
                   )}{" "}
-                  {post.like_count}
+                 
                 </span>
               </div>
             </li>
