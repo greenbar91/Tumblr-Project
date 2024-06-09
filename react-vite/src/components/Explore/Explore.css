@@ -1,0 +1,9 @@
+.post-username:hover {
+    background-color: #F5F5F5;
+    cursor: pointer;
+}
+
+.post-item {
+    background-color: white;
+    color:black
+}

@@ -3,6 +3,7 @@ from flask_login import login_required
 from app.forms.create_comment import CommentForm
 from app.models import Post, Comment
 from app.models.db import db
+from app.models.user import User
 
 comment_routes = Blueprint('comments', __name__)
 
@@ -14,8 +15,16 @@ comment_routes = Blueprint('comments', __name__)
 @login_required
 def get_all_comments(postId):
     comments = Comment.query.filter_by(post_id=postId).all()
-    print(comments)
-    return jsonify({'comments':comment.to_dict() for comment in comments}), 200
+    comments_with_usernames = []
+
+    for comment in comments:
+        comment_dict = comment.to_dict()
+        user = User.query.filter_by(id=comment.user_id).first()
+        if user:
+            comment_dict['username'] = user.username
+        comments_with_usernames.append(comment_dict)
+
+    return jsonify({'comments': comments_with_usernames}), 200
 
 #--------------------------------------------------------------------------------------//
 #                             CREATE A COMMENT                              //
@@ -25,7 +34,7 @@ def get_all_comments(postId):
 @login_required
 def create_comment(postId):
     com_form = CommentForm()
-    
+
     if com_form.validate_on_submit():
         new_comment = CommentForm(body=com_form['comment'])
         db.session.add(new_comment)
@@ -39,15 +48,15 @@ def create_comment(postId):
     add the comment to database and commit
     redirect/refresh ?
     """
-  
+
 #--------------------------------------------------------------------------------------//
 #                             EDIT A COMMENT                              //
-#--------------------------------------------------------------------------------------//  
+#--------------------------------------------------------------------------------------//
 @comment_routes.route("/<int:postId>/comments/<int:commentId>", methods=['PUT'])
 @login_required
 def edit_comment(postId, commentId):
     com_form = CommentForm()
-    
+
     if com_form.validate_on_submit():
         the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
         the_comment.body = com_form['comment']
