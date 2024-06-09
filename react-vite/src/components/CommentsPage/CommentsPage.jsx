@@ -7,9 +7,8 @@ import { getCommentsByPostIdThunk } from "../../redux/comment";
 function CommentsPage({ postId }) {
   const dispatch = useDispatch();
   const comments = useSelector(
-    (store) => store.comments.comments_by_id.comments
+    (store) => store.comments.comments_by_id?.comments
   );
-  console.log(comments);
 
   useEffect(() => {
     dispatch(getCommentsByPostIdThunk(postId));
@@ -18,7 +17,7 @@ function CommentsPage({ postId }) {
   return (
     <div className="comments-container">
       <ul>
-        {comments.map((comment) => {
+        {comments?.map((comment) => {
           return (
             <li key={comment?.id}>
               <div>{comment?.username}</div>
