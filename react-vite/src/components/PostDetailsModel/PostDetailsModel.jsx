@@ -1,28 +1,78 @@
 import "./PostDetailsModel.css";
-import CommentsPage from "../CommentsPage"
+import CommentsPage from "../CommentsPage";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteLikeThunk, postLikeThunk } from "../../redux/like";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 function PostDetailsModel({ post }) {
-  let {
-    id,
-    title,
-    body,
-    comment_count,
-    like_count,
-    poster,
-    created_at,
-    // updated_at,
-    // user_id,
-  } = post;
+  const { id, title, body, comment_count, poster, created_at } =
+    post;
+  const dispatch = useDispatch();
+  const userLikes = useSelector((state) => state.likes.likes);
+  const hasLiked = userLikes.some((like) => like.post_id === id);
+
+  const getTimeAgo = (createdAt) => {
+    const currentTime = new Date();
+    const postTime = new Date(createdAt);
+    const timeDifference = currentTime - postTime;
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      if (days < 2) {
+        return `${days} day ago`;
+      }
+      return `${days} days ago`;
+    } else if (hours > 0) {
+      if (hours < 2) {
+        return `${hours} hour ago`;
+      }
+      return `${hours} hours ago`;
+    } else if (minutes > 0) {
+      if (minutes < 2) {
+        return `${minutes} minute ago`;
+      }
+      return `${minutes} minutes ago`;
+    } else {
+      return `${seconds} seconds ago`;
+    }
+  };
+
+  const handleLike = async (postId) => {
+    const alreadyLiked = userLikes.some((like) => like.post_id === postId);
+    if (alreadyLiked) {
+      await dispatch(deleteLikeThunk(postId));
+    } else {
+      await dispatch(postLikeThunk(postId));
+    }
+  };
 
   return (
-    <div>
-      <div>{poster}</div>
-      <div>{title}</div>
-      <div>{body}</div>
-      <div>{created_at}</div>
-      <div>{like_count}</div>
-      <div>{comment_count}</div>
-      <CommentsPage postId={id}/>
+
+    <div className="post-details">
+
+      <div className="header">
+        <div className="poster">{poster}</div>
+        <div className="time">{getTimeAgo(created_at)}</div>
+      </div>
+      <div className="title">{title}</div>
+      <div className="body">{body}</div>
+      <div className="meta">
+        <div className="left">
+        <span className="right" onClick={() => handleLike(post.id)}>
+                  {hasLiked ? (
+                    <FaHeart className="liked" />
+                  ) : (
+                    <FaRegHeart className="un-liked" />
+                  )}{" "}
+
+                </span>
+          <div>Comments: {comment_count}</div>
+        </div>
+      </div>
+      <CommentsPage postId={id} />
     </div>
   );
 }
