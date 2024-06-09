@@ -17,7 +17,7 @@ const addPost = (post) => {
     };
 };
 
-export const fetchAllPosts = () => async (dispatch) => {
+export const fetchAllPostsThunk = () => async (dispatch) => {
     const response = await csrfFetch(`/api/posts`);
 
     if (response.ok) {
