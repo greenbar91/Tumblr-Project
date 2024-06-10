@@ -6,7 +6,7 @@ const ADD_POST = 'post/ADD_POST';
 const loadAllPosts = (posts) => {
     return {
         type: LOAD_ALL_POSTS,
-        payload:posts
+        payload: posts
     };
 };
 
@@ -26,8 +26,17 @@ export const fetchAllPostsThunk = () => async (dispatch) => {
     }
 };
 
+export const getPostsByCurrentUser = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/posts/current`);
+
+    if (response.ok) {
+        const posts = await response.json();
+        dispatch(loadAllPosts(posts));
+    }
+};
+
 export const createNewPost = (formData) => async (dispatch) => {
-    const response = await csrfFetch(`api/posts`, {
+    const response = await csrfFetch(`/api/posts/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -53,7 +62,7 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 allPosts: action.payload
             };
-            case ADD_POST:
+        case ADD_POST:
             return {
                 ...state,
                 allPosts: [...state.allPosts, action.post]

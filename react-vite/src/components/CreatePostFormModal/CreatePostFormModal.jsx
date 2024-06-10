@@ -48,7 +48,8 @@ const CreatePostFormModal = () => {
     return (
         <div>
             <h1>Hello from CreatePostFormModal</h1>
-            <p></p>
+            <p>{sessionUser.username}</p>
+            <hr/>
             <form onSubmit={handleSubmit}>
                 <input
                     name="title"
