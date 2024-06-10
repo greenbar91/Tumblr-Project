@@ -30,6 +30,7 @@
 
 .post-username {
   border-bottom: 1px solid rgb(93, 93, 93);
+  text-decoration: none;
 }
 
 .liked {
@@ -50,8 +51,4 @@
 .likes-post-navlink {
   text-decoration: none;
   color: black;
-}
-
-.likes-post-navlink:hover {
-  background-color: #F5F5F5
 }

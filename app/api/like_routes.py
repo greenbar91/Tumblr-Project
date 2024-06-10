@@ -3,6 +3,8 @@ from flask_login import current_user, login_required
 from app.models import db
 from app.models.like import Like
 from app.models.post import Post
+from app.models import User
+from app.models.comment import Comment
 
 like_routes = Blueprint("likes", __name__)
 
@@ -48,13 +50,28 @@ def post_like(post_Id):
         if existing_like:
             return jsonify({"errors": "Already liked"}), 400
 
+
         new_like = Like(user_id=current_user.id, post_id=current_post.id)
-
-
         db.session.add(new_like)
         db.session.commit()
 
-        return jsonify({"like": new_like.to_dict()}), 200
+
+        added_like = Like.query.filter_by(user_id=current_user.id, post_id=post_Id).first()
+
+    
+        post_dict = current_post.to_dict()
+        user = User.query.get(current_post.user_id)
+        poster = user.username
+        post_dict["comment_count"] = Comment.query.filter_by(post_id=current_post.id).count()
+        post_dict["likes_count"] = Like.query.filter_by(post_id=current_post.id).count()
+        post_dict["poster"] = poster
+
+        like_response = {
+            **added_like.to_dict(),
+            "post": post_dict,
+        }
+
+        return jsonify({"like": like_response}), 200
 
     except Exception as e:
         db.session.rollback()
