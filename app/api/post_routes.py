@@ -36,6 +36,18 @@ def get_all_posts():
 
 
 # --------------------------------------------------------------------------------------//
+#                              GET POSTS BY CURRENT USER                                //
+# --------------------------------------------------------------------------------------//
+@post_routes.route("/current", methods=['GET'])
+@login_required
+def get_user_posts():
+    user_id = current_user.id
+    posts = Post.query.filter_by(user_id=user_id).all()
+    posts_list = [post.to_dict() for post in posts]
+    return jsonify(posts_list), 200
+
+
+# --------------------------------------------------------------------------------------//
 #                                   GET POSTS BY ID                                    //
 # --------------------------------------------------------------------------------------//
 
