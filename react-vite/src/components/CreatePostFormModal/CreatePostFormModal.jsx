@@ -35,7 +35,8 @@ const CreatePostFormModal = () => {
         const newPostFormData = {
             title,
             body,
-            user_id: sessionUser.id
+            user_id: sessionUser.id,
+            created_at: new Date().toISOString(),
         };
 
         const newPost = await dispatch(createNewPost(newPostFormData));

@@ -52,25 +52,26 @@ def create_comment(postId):
 #--------------------------------------------------------------------------------------//
 #                             EDIT A COMMENT                                           //
 #--------------------------------------------------------------------------------------//
-@comment_routes.route("/<int:postId>/comments/<int:commentId>", methods=['PUT'])
+@comment_routes.route('/comments/<int:commentId>', methods=['PUT'])
 @login_required
-def edit_comment(postId, commentId):
-    com_form = CommentForm()
+def update_comment(commentId):
+    form = CommentForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if com_form.validate_on_submit():
-        the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
-        the_comment.body = com_form['comment']
+    if form.validate_on_submit():
+        comment = Comment.query.get(commentId)
+
+        if comment is None:
+            return jsonify({'message': 'Comment not found'}), 404
+
+        if comment.user_id != current_user.id:
+            return jsonify({'message': 'Unauthorized'}), 403
+
+        comment.body = form.data["body"]
         db.session.commit()
-        return jsonify({'message': 'Success'})
-    return jsonify({'message': 'Validation Error'})
-    # The code above successully edits a comment record, needs refactor for frontend/form
-    """
-    create new comment form
-    if form validates retrieve the comment,
-    edit the applicable fields with data from form(automatically passed)
-    commit to database
-    redirect/refresh?
-    """
+        return jsonify({'comment': comment.to_dict()}), 200
+    else:
+        return jsonify({'message': 'Validation Error'}), 400
 
 #--------------------------------------------------------------------------------------//
 #                             DELETE A COMMENT                                         //
