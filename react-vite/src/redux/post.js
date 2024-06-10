@@ -27,7 +27,6 @@ const getPostById = (post) => {
 
 
 export const fetchAllPostsThunk = () => async (dispatch) => {
-    // const response = await fetch(`https://tumblr-project.onrender.com/api/posts/`);
     const response = await csrfFetch(`/api/posts/`);
 
     if (response.ok) {
