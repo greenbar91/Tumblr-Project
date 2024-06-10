@@ -1,16 +1,64 @@
 /* TODO: Add sitewide styles */
+html{
+    display: flex;
+    margin: 0 5%;
+    box-sizing: border-box;
+    justify-content: center;
+    width: minmax(500px, 1000px)
+}
+
+body{
+    background-color: #001123;
+    width: 100%;
+    margin: 0 5%;
+}
+
+h1{
+    color: whitesmoke
+}
 #root{
     display: grid;
-    grid-template-columns: 20% 50% 30%;
+    grid-gap: 10px;
+    grid-template-columns: 20% minmax(50%, 50%) 30%;
+    grid-template-rows: 100%;
     grid-template-areas: 'nav main side';
     justify-items: left;
     align-items: flex-start;
     width: 100%;
-    box-sizing: border-box;
+    margin: 0 5%;
+}
+
+.site-container{
+    width: 100%;
+}
+
+.root > div{
+    background-color: white;
+    padding: 10px;
+}
+
+ul.post-container{
+    list-style-type: none;
+    margin: 0;
+}
+
+.post{
+    grid-area: main;
+    place-self: center;
+    width: 100%;
+    height: auto;
+    margin: 50px 0;
 }
 
 .logo{
     align-items: flex-end;
+    /* position: relative;
+    right: -25px; */
+    padding: 0;
+    margin: 0;
+    width: min-content;
+    height: min-content;
+    align-self: center;
 }
 
 .nav-bar, #custom-ul{
@@ -19,16 +67,26 @@
     justify-content: left;
     margin: 0;
     padding: 0;
+    color: whitesmoke;
 }
 
 #custom-ul a, #custom-ul li{
     text-decoration: none;
     margin: 0;
     list-style-type: none;
+    color: whitesmoke;
+}
+
+.logo h3{
+    font-family: serif;
+    font-weight: bolder;
+    font-size: 24px;
 }
 
 #grouped{
     display: flex;
+    font-size: 12px;
+    padding: 5px 0;
 }
 
 #grouped div{
@@ -49,10 +107,22 @@ ul a:hover, .nav-bar-account:hover, .dropdown-options:hover{
 
 .logo-container{
 grid-area: nav;
+height: min-content;
 }
 
 .dropdown-content{
     grid-area: nav;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nav-bar-sizing{
+    padding: 5px 0;
+}
+
+ul.dropdown-content{
+    font-size: 12px;
 }
 
 #user-nav-ul, #custom-ul a, #custom-ul li{
@@ -81,19 +151,17 @@ grid-area: nav;
 
 .likes-container, .center-container{
     grid-area: main;
-    justify-self: flex-start;
-    align-self: flex-start;
+    place-self: center;
+    padding: 0;
+    margin: 0;
+    width: fit-content;
+    /* justify-self: flex-start;
+    align-self: flex-start; */
 }
 
-body {
-    background-color: #001935;
-    box-sizing: border-box;
-    padding: 5px;
-    /* width: 100vw;
-    height: 100vh; */
-    /* justify-content: center; */
-    /* ------------------ */
-}
+/* .likes-container{
+    width: min-content
+} */
 
 * {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
