@@ -1,25 +1,41 @@
 import "./Explore.css";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import { fetchAllPostsThunk } from "../../redux/post";
-import CommentsPage from "../CommentsPage";
-import { getAllCommentsThunk, getCommentsByPostIdThunk } from "../../redux/comment";
+import {getCommentsByPostIdThunk } from "../../redux/comment";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import PostDetailsModel from "../PostDetailsModel";
 
 const Explore = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postState.allPosts);
   const userLikes = useSelector((state) => state.likes.likes);
-  const comments = useSelector((state)=> state.comments.comments)
   const [selectedPostId, setSelectedPostId] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
 
   useEffect(() => {
     dispatch(fetchAllPostsThunk());
-    dispatch(getAllCommentsThunk())
-    // dispatch(getCommentsByPostIdThunk());
-  }, [dispatch, userLikes]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  const closeMenu = () => setShowMenu(false);
 
   const handleLike = async (postId) => {
     const alreadyLiked = userLikes.some((like) => like.post_id === postId);
@@ -48,7 +64,7 @@ const Explore = () => {
           const hasLiked = userLikes.some((like) => like.post_id === post.id);
           return (
             <li key={post.id} className="post-item">
-              <h3>{post.poster}</h3>
+              <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.poster} modalComponent={<PostDetailsModel post={post}/>}/></h3>
               <hr />
               <h2>{post.title}</h2>
               <p>{post.body}</p>
@@ -66,10 +82,9 @@ const Explore = () => {
                   ) : (
                     <FaRegHeart className="un-liked" />
                   )}{" "}
-                  {post.like_count}
+
                 </span>
               </div>
-              <CommentsPage postId={post.id} />
             </li>
           );
         })}

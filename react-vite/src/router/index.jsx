@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         element: <Likes/>
       },
       {
-        path: "explore/trending",
+        path: "/explore",
         element: <Explore />
 
       },

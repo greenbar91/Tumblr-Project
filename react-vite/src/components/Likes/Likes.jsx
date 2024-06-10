@@ -1,69 +1,83 @@
 import "./Likes.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { useEffect, useState, useRef } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
-import { getUserLikesThunk, deleteLikeThunk } from "../../redux/like";
-import { NavLink } from "react-router-dom";
+import { getUserLikesThunk, deleteLikeThunk, postLikeThunk } from "../../redux/like";
+import PostDetailsModel from "../PostDetailsModel";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+
 
 function Likes() {
-  const likes = useSelector((store) => store.likes.likes);
+  const userLikes = useSelector((store) => store.likes.likes);
   const dispatch = useDispatch();
-  const [likedPosts, setLikedPosts] = useState([]);
+  const ulRef = useRef();
+  const [showMenu, setShowMenu] = useState(false);
+
+  const closeMenu = () => setShowMenu(false);
 
   useEffect(() => {
     dispatch(getUserLikesThunk);
   }, [dispatch]);
 
-  const toggleLike = async (postId) => {
-    setLikedPosts(likedPosts.filter((id) => id !== postId));
-    try {
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  const handleLike = async (postId) => {
+    const alreadyLiked = userLikes.some((like) => like.post_id === postId);
+    if (alreadyLiked) {
       await dispatch(deleteLikeThunk(postId));
-    } catch (error) {
-      console.error("Error deleting like:", error);
+      dispatch(getUserLikesThunk);
+    } else {
+      await dispatch(postLikeThunk(postId));
+      dispatch(getUserLikesThunk);
     }
   };
 
+  console.log(userLikes)
+
   return (
-    <div className="center-container">
-      <div className="likes-container">
-        {likes ? (
-          likes.map((like) => (
-            <div className="post" key={like.id}>
-              <header className="post-header">
-                <h3 className="post-username">{like?.username}</h3>
-                <div>Follow</div>
-              </header>
-              <div className={"likes-post-navlink"}>
-              <NavLink
-                to={`/posts/${like.post?.id}`}
-                className={"likes-post-navlink"}
-              >
-                <h3 className="post-title">{like.post?.title}</h3>
-                <p className="post-body">{like.post?.body}</p>
-              </NavLink>
-              </div>
-              <div className="post-stats">
-                <span>
-                  <FaRegComment className="comment-icon" />{" "}
-                  {like.post?.comment_count}
-                </span>
-                <span onClick={() => toggleLike(like.post?.id)}>
-                  {likedPosts.includes(like.post?.id) ? (
-                    <FaHeart className="un-liked" />
-                  ) : (
-                    <FaHeart className="liked" />
-                  )}{" "}
-                  {like.post?.likes_count}
-                </span>
-              </div>
+    <div className="explore">
+    <ul className="post-container">
+      {userLikes?.map((post) => {
+        const hasLiked = userLikes.some((like) => like.post_id === post.post?.id);
+        return (
+          <li key={post.id} className="post-item">
+            <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.post?.poster} modalComponent={<PostDetailsModel post={post.post}/>}/></h3>
+            <hr />
+            <h2>{post.post?.title}</h2>
+            <p>{post.post?.body}</p>
+            <div className="post-stats">
+              <span>
+                <FaRegComment
+                />
+                {post.post?.comment_count}
+              </span>
+              <span onClick={() => handleLike(post.post?.id)}>
+                {hasLiked ? (
+                  <FaHeart className="liked" />
+                ) : (
+                  <FaRegHeart className="un-liked" />
+                )}{" "}
+
+              </span>
             </div>
-          ))
-        ) : (
-          <p>No liked posts available.</p>
-        )}
-      </div>
-    </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
   );
 }
 

@@ -34,10 +34,15 @@ def user_by_username(username):
     Query for a user by username, returns that user in a dictionary
     """
     user = User.query.filter_by(username=username).first()
-    
+
     if user:
         return user.to_dict()
-    
+
+    elif user and user.id == current_user.id:
+        return jsonify({'errors': {
+            'forbidden': 'Whoops! You cant follow yourself. :)'
+        }}), 403
+
     return jsonify({'errors': {
         'user_not_found': 'Whoops! Thats not a Rumblr user.'
         }}), 400
@@ -50,24 +55,25 @@ def current_user_likes():
 
     post_ids = [like.post_id for like in likes]
     posts = Post.query.filter(Post.id.in_(post_ids)).all()
-    user_ids = [post.user_id for post in posts]
-    users = User.query.filter(User.id.in_(user_ids)).all()
+
 
     # Create a map to store post information with counts
     post_map = {}
     for post in posts:
         post_dict = post.to_dict()
+        user = User.query.get(post.user_id)
+        poster = user.username
         post_dict["comment_count"] = len(Comment.query.filter_by(post_id=post.id).all())
         post_dict["likes_count"] = len(Like.query.filter_by(post_id=post.id).all())
+        post_dict["poster"] = poster
         post_map[post.id] = post_dict
 
-    user_map = {user.id: user.username for user in users}
+
 
     likes_list = [
         {
             **like.to_dict(),
             "post": post_map.get(like.post_id),
-            "username": user_map.get(post_map.get(like.post_id)["user_id"])
         }
         for like in likes
     ]

@@ -1,4 +1,5 @@
 import { csrfFetch } from './csrf';
+import {createSelector} from 'reselect';
 
 const GET_ALL_FOLLOWS = 'follows/getAllFollows'
 const FOLLOW_USER = 'follows/followUser'
@@ -29,6 +30,7 @@ export const getFollowsThunk = () => async (dispatch) => {
 
     if(res.ok){
         const data = await res.json()
+        console.log(data)
         await dispatch(getAllFollows(data))
         return data
     }
@@ -60,12 +62,18 @@ export const followUserThunk = (username) => async (dispatch) => {
 
   if(user.ok){
     const data = await user.json()
-    const follow = await csrfFetch(`/api/following/${data.id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    let follow;
+    try{
+      follow = await csrfFetch(`/api/following/${data.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+    catch(e){
+      return await e.json()
+    }
 
     if(follow.ok){
       const followData = await follow.json()
@@ -88,29 +96,32 @@ export const unfollowUserThunk = (userId) => async (dispatch) => {
 
   if(res.ok){
     const data = await res.json()
-    await dispatch(unfollowUser)
+    await dispatch(unfollowUser(data))
     return data
   }
 }
 
-const initialState = { following: null };
+// Selectors
+const getFollowing = state => state.followReducer
+export const selectAllFollowing = createSelector(getFollowing, data => Object.values(data.following))
+
+const initialState = { following: {} };
 
 function followReducer(state = initialState, action) {
+  let newState = {}
   switch (action.type) {
     case GET_ALL_FOLLOWS:
       return { ...state, following: action.payload };
 
     case FOLLOW_USER:
-      return {...state, following: action.payload.followed_user }
+      newState = {...state}
+      newState['following'][action.payload.id] = action.payload
+      return newState
 
     case UNFOLLOW_USER:
-      var newState = {}
-      for(let user in state['following']){
-        newState[user.id] = user
-      }
-      delete newState[action.payload]
-
-      return {following: Object.values(newState)}
+      newState = {...state}
+      delete newState['following'][action.payload]
+      return newState
 
     default:
       return state;

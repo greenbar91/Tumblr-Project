@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-// import { Navigate, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import FollowingFormTile from '../FollowingFormTile'
 import "./FollowingForm.css";
 import { getFollowsThunk } from "../../redux/follow";
 import { followUserThunk } from "../../redux/follow";
+import { selectAllFollowing } from "../../redux/follow";
 
 function FollowingFormPage(){
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
-    const followingList = useSelector((state) => state.follow.following, );
+    const followingList = useSelector(selectAllFollowing, {equalityFn: shallowEqual});
     const [userSearch, setUserSearch] = useState('')
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        setUserSearch('')
-        // setErrors({})
+        setErrors('')
         const getFollowing = async () => await dispatch(getFollowsThunk());
         getFollowing().then(data => console.log(data))
-    },[dispatch])
+    },[dispatch, setErrors])
+
+    useEffect(() => {
+        let newErrors = {...errors}
+        delete newErrors['user_not_found']
+        delete newErrors['forbidden']
+        setErrors(newErrors)
+    }, [userSearch])
 
     const followUser = async e => {
         e.preventDefault()
@@ -27,6 +32,10 @@ function FollowingFormPage(){
 
         if(res && res.errors){
             setErrors(res.errors)
+        }
+        else {
+        setUserSearch('')
+        setErrors({})
         }
     }
 
@@ -38,11 +47,12 @@ function FollowingFormPage(){
                 <input id='username_input' name="username" type="text" value={userSearch} placeholder="Enter a username to follow" onChange={e => setUserSearch(e.target.value)}></input>
                 <button>Follow</button>
             </div>
-            {errors.length && errors.user_not_found && <p>{errors.user_not_found}</p>}
+            {Object.keys(errors).length > 0 && errors.user_not_found && <p>{errors.user_not_found}</p>}
+            {Object.keys(errors).length > 0 && errors.forbidden && <p>{errors.forbidden}</p>}
         </form>
         {followingList && followingList &&
             <ul id="following-ul">
-                {followingList.map(user => 
+                {followingList.map(user =>
                     <li key={user.id}>
                         <FollowingFormTile id={user.id} icon='' username={user.username} updated='Feature TBD'/>
                     </li>)}

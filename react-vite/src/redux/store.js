@@ -14,7 +14,7 @@ import commentReducer from "./comment";
 const rootReducer = combineReducers({
   session: sessionReducer,
   postState: postReducer,
-  follow: followReducer,
+  followReducer,
   likes: likeReducer,
   comments: commentReducer
 });
