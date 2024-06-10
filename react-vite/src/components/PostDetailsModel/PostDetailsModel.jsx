@@ -3,13 +3,20 @@ import CommentsPage from "../CommentsPage";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteLikeThunk, postLikeThunk } from "../../redux/like";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useEffect } from "react";
+import { fetchPostByIdThunk } from "../../redux/post";
 
 function PostDetailsModel({ post }) {
-  const { id, title, body, comment_count, poster, created_at } =
+  const { id, title, body, poster, created_at } =
     post;
   const dispatch = useDispatch();
   const userLikes = useSelector((state) => state.likes.likes);
   const hasLiked = userLikes.some((like) => like.post_id === id);
+  const currentPost = useSelector((state)=> state.postState.currentPost?.post)
+
+  useEffect(()=> {
+    dispatch(fetchPostByIdThunk(id))
+  },[dispatch,id])
 
   const getTimeAgo = (createdAt) => {
     const currentTime = new Date();
@@ -69,7 +76,7 @@ function PostDetailsModel({ post }) {
                   )}{" "}
 
                 </span>
-          <div>Comments: {comment_count}</div>
+          <div>Comments: {currentPost?.comment_count}</div>
         </div>
       </div>
       <CommentsPage postId={id} />

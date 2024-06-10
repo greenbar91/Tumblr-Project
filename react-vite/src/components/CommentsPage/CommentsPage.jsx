@@ -2,6 +2,7 @@ import { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCommentsByPostIdThunk } from "../../redux/comment";
 import "./CommentsPage.css";
+import PostComment from "../PostComment";
 
 function CommentsPage({ postId }) {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function CommentsPage({ postId }) {
 
   return (
     <div className="comments-container">
+      <PostComment postId={postId}/>
       <ul>
         {sortedComments.map((comment) => (
           <li key={comment.id}>

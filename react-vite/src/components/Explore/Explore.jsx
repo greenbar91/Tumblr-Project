@@ -82,7 +82,7 @@ const Explore = () => {
                   ) : (
                     <FaRegHeart className="un-liked" />
                   )}{" "}
-                 
+
                 </span>
               </div>
             </li>
