@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const GET_ALL_COMMENTS = "comments/getAllComments"
 const GET_COMMENTS_BY_POSTID = "comments/getCommentsByPostId";
+const POST_COMMENT = "comments/postComment"
 
 const getAllComments = (comments) => ({
     type:GET_ALL_COMMENTS,

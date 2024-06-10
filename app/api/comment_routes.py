@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, redirect, request
-from flask_login import login_required
+from flask_login import current_user, login_required
 from app.forms.create_comment import CommentForm
 from app.models import Post, Comment
 from app.models.db import db
@@ -33,21 +33,21 @@ def get_all_comments(postId):
 @comment_routes.route('/<int:postId>/comments', methods=['POST'])
 @login_required
 def create_comment(postId):
-    com_form = CommentForm()
+    form = CommentForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
 
-    if com_form.validate_on_submit():
-        new_comment = CommentForm(body=com_form['comment'])
+    if form.validate_on_submit():
+        new_comment = Comment(
+            user_id=current_user.id,
+            post_id=postId,
+            body=form.data["body"]
+        )
+
         db.session.add(new_comment)
         db.session.commit()
-        return jsonify({'message': 'Success'}), 200
-    return jsonify({'message': 'Validation Error'})
-    # Code needs form/frontend data. Creates record successfully with test code above
-    """
-    create a comment form
-    if the form validates create new comment with the form data(automatically retrieved)
-    add the comment to database and commit
-    redirect/refresh ?
-    """
+        return jsonify({'comment':new_comment.to_dict()}), 201
+    else:
+        return jsonify({'message': 'Validation Error'})
 
 #--------------------------------------------------------------------------------------//
 #                             EDIT A COMMENT                              //
