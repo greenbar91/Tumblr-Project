@@ -38,12 +38,29 @@ def get_all_posts():
 # --------------------------------------------------------------------------------------//
 #                              GET POSTS BY CURRENT USER                                //
 # --------------------------------------------------------------------------------------//
-@post_routes.route("/current", methods=['GET'])
+@post_routes.route("/current", methods=["GET"])
 @login_required
 def get_user_posts():
     user_id = current_user.id
     posts = Post.query.filter_by(user_id=user_id).all()
-    posts_list = [post.to_dict() for post in posts]
+
+    if not posts:
+        return jsonify({"errors": "No posts currently posted by current user"}), 404
+
+    posts_list = []
+    for post in posts:
+        comment_count = Comment.query.filter_by(post_id=post.id).count()
+        like_count = Like.query.filter_by(post_id=post.id).count()
+        user = User.query.get(post.user_id)
+        poster = user.username
+
+        post_dict = post.to_dict()
+        post_dict["comment_count"] = comment_count
+        post_dict["like_count"] = like_count
+        post_dict["poster"] = poster
+
+        posts_list.append(post_dict)
+
     return jsonify(posts_list), 200
 
 

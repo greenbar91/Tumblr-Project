@@ -1,10 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
+import Layout from './Layout';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import FollowingFormPage from '../components/FollowingFormPage';
-import Layout from './Layout';
 import Likes from '../components/Likes';
 import Explore from '../components/Explore';
+import ManagePosts from '../components/ManagePosts';
 
 
 export const router = createBrowserRouter([
@@ -36,6 +37,9 @@ export const router = createBrowserRouter([
       {
         path: "following",
         element: <FollowingFormPage/>
+      }, {
+        path: "blog",
+        element: <ManagePosts />
       }
     ],
   },
