@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_COMMENTS = "comments/getAllComments"
 const GET_COMMENTS_BY_POSTID = "comments/getCommentsByPostId";
 const POST_COMMENT_BY_POSTID = "comments/postCommentById"
+const UPDATE_COMMENT_BY_POSTID = "comments/updateCommentById"
 
 const getAllComments = (comments) => ({
     type:GET_ALL_COMMENTS,
@@ -18,6 +19,11 @@ const postCommentByPostId = (comment) => ({
   type: POST_COMMENT_BY_POSTID,
   payload: comment,
 });
+
+const updateCommentById = (comment) => ({
+  type:UPDATE_COMMENT_BY_POSTID,
+  payload:comment
+})
 
 export const getCommentsByPostIdThunk = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/comments`, {
@@ -73,6 +79,25 @@ export const postCommentByPostIdThunk = (postId, commentData) => async (dispatch
   }
 };
 
+export const updateCommentByIdThunk = (postId, commentData) => async (dispatch) => {
+  const res = await csrfFetch(`/api/posts/${postId}/comments`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(commentData),
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(updateCommentById(data.comment));
+    return data.comment;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
 const initialState = {comments:[]};
 
 function commentReducer(state=initialState, action){
@@ -82,6 +107,8 @@ function commentReducer(state=initialState, action){
         case GET_COMMENTS_BY_POSTID:
             return {...state, comments_by_id: action.payload}
         case POST_COMMENT_BY_POSTID:
+          return { ...state, comments_by_id: [...state.comments, action.payload] };
+        case UPDATE_COMMENT_BY_POSTID:
           return { ...state, comments_by_id: [...state.comments, action.payload] };
         default:
             return state
