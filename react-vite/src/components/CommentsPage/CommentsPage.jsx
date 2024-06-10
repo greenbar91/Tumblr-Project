@@ -38,7 +38,7 @@ function CommentsPage({ postId }) {
 
   return (
     <div className="comments-container">
-      <PostComment/>
+      <PostComment postId={postId}/>
       <ul>
         {sortedComments.map((comment) => (
           <li key={comment.id}>

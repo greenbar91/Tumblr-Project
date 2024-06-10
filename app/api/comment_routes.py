@@ -27,7 +27,7 @@ def get_all_comments(postId):
     return jsonify({'comments': comments_with_usernames}), 200
 
 #--------------------------------------------------------------------------------------//
-#                             CREATE A COMMENT                              //
+#                             CREATE A COMMENT                                         //
 #--------------------------------------------------------------------------------------//
 
 @comment_routes.route('/<int:postId>/comments', methods=['POST'])
@@ -50,7 +50,7 @@ def create_comment(postId):
         return jsonify({'message': 'Validation Error'})
 
 #--------------------------------------------------------------------------------------//
-#                             EDIT A COMMENT                              //
+#                             EDIT A COMMENT                                           //
 #--------------------------------------------------------------------------------------//
 @comment_routes.route("/<int:postId>/comments/<int:commentId>", methods=['PUT'])
 @login_required
@@ -73,7 +73,7 @@ def edit_comment(postId, commentId):
     """
 
 #--------------------------------------------------------------------------------------//
-#                             DELETE A COMMENT                              //
+#                             DELETE A COMMENT                                         //
 #--------------------------------------------------------------------------------------//
 @comment_routes.route('/<int:postId>/<int:commentId>')
 @login_required

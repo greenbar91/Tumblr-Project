@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_ALL_POSTS = 'post/LOAD_ALL_POSTS';
 const ADD_POST = 'post/ADD_POST';
+const GET_POST_BY_ID = "post/getPostById"
 
 const loadAllPosts = (posts) => {
     return {
@@ -16,6 +17,14 @@ const addPost = (post) => {
         post
     };
 };
+
+const getPostById = (post) => {
+    return {
+        type: GET_POST_BY_ID,
+        payload: post
+    };
+};
+
 
 export const fetchAllPostsThunk = () => async (dispatch) => {
     const response = await fetch(`https://tumblr-project.onrender.com/api/posts/`);
@@ -51,6 +60,18 @@ export const createNewPost = (formData) => async (dispatch) => {
     }
 };
 
+export const fetchPostByIdThunk = (postId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/posts/${postId}`);
+
+    if (response.ok) {
+        const post = await response.json();
+        dispatch(getPostById(post));
+    } else {
+        const errors = await response.json();
+        return errors;
+    }
+};
+
 const initialState = {
     allPosts: []
 };
@@ -66,6 +87,11 @@ const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allPosts: [...state.allPosts, action.post]
+            };
+        case GET_POST_BY_ID:
+            return {
+                ...state,
+                currentPost: action.payload
             };
         default:
             return state;
