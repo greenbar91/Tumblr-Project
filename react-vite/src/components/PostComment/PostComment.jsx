@@ -34,8 +34,8 @@ function PostComment({ postId }) {
     const data = await dispatch(postCommentByPostIdThunk(postId, newComment));
 
     if (!data?.message) {
-      dispatch(getCommentsByPostIdThunk(postId));
       dispatch(fetchPostByIdThunk(postId));
+      dispatch(getCommentsByPostIdThunk(postId));
       setCommentText("");
     }
 
