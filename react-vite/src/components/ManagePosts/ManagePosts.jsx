@@ -24,6 +24,10 @@ const ManagePosts = () => {
                             <h2>{post.title}</h2>
                             <p>{post.body}</p>
 
+                            <div className="post-utilities"></div>
+
+                            <div className="post-stats"></div>
+
                         </li>
                     );
                 })}

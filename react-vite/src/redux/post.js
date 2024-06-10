@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const LOAD_ALL_POSTS = 'post/LOAD_ALL_POSTS';
 const ADD_POST = 'post/ADD_POST';
+const REMOVE_POST = 'post/REMOVE_POST';
 
 const loadAllPosts = (posts) => {
     return {
@@ -14,6 +15,13 @@ const addPost = (post) => {
     return {
         type: ADD_POST,
         post
+    };
+};
+
+const removePost = (postId) => {
+    return {
+        type: REMOVE_POST,
+        postId
     };
 };
 
@@ -51,6 +59,14 @@ export const createNewPost = (formData) => async (dispatch) => {
     }
 };
 
+export const deletePost = (postId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/posts/${postId}`, { method: 'DELETE' });
+
+    if (response.ok) {
+        dispatch(removePost(postId));
+    }
+};
+
 const initialState = {
     allPosts: []
 };
@@ -66,6 +82,11 @@ const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allPosts: [...state.allPosts, action.post]
+            };
+        case REMOVE_POST:
+            return {
+                ...state,
+                allPosts: state.allPosts.filter((post) => post.id !== action.postId)
             };
         default:
             return state;
