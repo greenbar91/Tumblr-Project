@@ -1,79 +1,83 @@
-import { useState, useEffect } from 'react';
-import { useModal } from '../../context/Modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { createNewPost } from '../../redux/post';
+import { useState, useEffect } from "react";
+import { useModal } from "../../context/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createNewPost, fetchAllPostsThunk } from "../../redux/post";
 
 const CreatePostFormModal = () => {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
-    const [validationErrors, setValidationErrors] = useState({});
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [validationErrors, setValidationErrors] = useState({});
 
-    const { closeModal } = useModal();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const { closeModal } = useModal();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
 
-    useEffect(() => {
-        const errors = {};
+  useEffect(() => {
+    const errors = {};
 
-        if (!title) {
-            errors.title = "Please enter a title";
-        }
-        if (!body) {
-            errors.body = "Please enter the body";
-        }
+    if (!title) {
+      errors.title = "Please enter a title";
+    }
+    if (!body) {
+      errors.body = "Please enter the body";
+    }
 
-        setValidationErrors(errors);
+    setValidationErrors(errors);
+  }, [title, body]);
 
-    }, [title, body]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const newPostFormData = {
-            title,
-            body,
-            user_id: sessionUser.id,
-            created_at: new Date().toISOString(),
-        };
-
-        const newPost = await dispatch(createNewPost(newPostFormData));
-
-        if (newPost) {
-            closeModal();
-            navigate('/');
-        }
+    const newPostFormData = {
+      title,
+      body,
+      user_id: sessionUser.id,
+      created_at: new Date().toISOString(),
     };
 
-    return (
-        <div>
-            <h1>Hello from CreatePostFormModal</h1>
-            <p>{sessionUser.username}</p>
-            <hr />
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
-                />
+    const newPost = await dispatch(createNewPost(newPostFormData));
 
-                <input
-                    type="text"
-                    name="body"
-                    placeholder="Go ahead, put anything."
-                    value={body}
-                    onChange={e => setBody(e.target.value)}
-                />
+    if (newPost) {
+      dispatch(fetchAllPostsThunk());
+      setInterval(() => {
+        navigate("/explore");
+      }, 500);
+      closeModal()
+    }
+  };
 
-                <button type="button" onClick={closeModal}>Close</button>
-                <button type="submit" disabled={Object.values(validationErrors).length}>Post now</button>
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Hello from CreatePostFormModal</h1>
+      <p>{sessionUser.username}</p>
+      <hr />
+      <form onSubmit={handleSubmit}>
+        <input
+          name="title"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
+        <input
+          name="body"
+          placeholder="Go ahead, put anything."
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+        />
+
+        <button type="button" onClick={closeModal}>
+          Close
+        </button>
+        <button type="submit" disabled={Object.values(validationErrors).length}>
+          Post now
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default CreatePostFormModal;

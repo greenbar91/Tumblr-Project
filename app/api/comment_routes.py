@@ -1,7 +1,8 @@
+from datetime import datetime, timezone
 from flask import Blueprint, jsonify, redirect, request
 from flask_login import current_user, login_required
 from app.forms.create_comment import CommentForm
-from app.models import Post, Comment
+from app.models import Comment
 from app.models.db import db
 from app.models.user import User
 
@@ -40,7 +41,8 @@ def create_comment(postId):
         new_comment = Comment(
             user_id=current_user.id,
             post_id=postId,
-            body=form.data["body"]
+            body=form.data["body"],
+            created_at=datetime.now(timezone.utc)
         )
 
         db.session.add(new_comment)
