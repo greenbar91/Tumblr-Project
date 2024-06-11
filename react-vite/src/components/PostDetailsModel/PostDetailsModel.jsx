@@ -2,7 +2,7 @@ import "./PostDetailsModel.css";
 import CommentsPage from "../CommentsPage";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteLikeThunk, postLikeThunk } from "../../redux/like";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { fetchPostByIdThunk } from "../../redux/post";
 
@@ -11,7 +11,7 @@ function PostDetailsModel({ post }) {
   const dispatch = useDispatch();
   const userLikes = useSelector((state) => state.likes.likes);
   const hasLiked = userLikes.some((like) => like.post_id === id);
-  const currentPost = useSelector((state)=> state.postState.currentPost?.post);
+  // const currentPost = useSelector((state)=> state.postState.currentPost?.post);
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -81,7 +81,7 @@ function PostDetailsModel({ post }) {
               <FaRegHeart className="un-liked" />
             )}{" "}
           </span>
-          <div>Comments: {currentPost?.comment_count}</div>
+          <div><FaRegComment/></div>
         </div>
       </div>
       <CommentsPage postId={id} />
