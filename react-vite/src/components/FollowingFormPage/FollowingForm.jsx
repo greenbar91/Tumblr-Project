@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import FollowingFormTile from '../FollowingFormTile'
 import "./FollowingForm.css";
 import { getFollowsThunk } from "../../redux/follow";
 import { followUserThunk } from "../../redux/follow";
-import { selectAllFollowing } from "../../redux/follow";
+// import { selectAllFollowing } from "../../redux/follow";
 
 function FollowingFormPage(){
     const dispatch = useDispatch();
-    const followingList = useSelector(selectAllFollowing, {equalityFn: shallowEqual});
+  
+    const followingList = useSelector(state => state.followReducer)
+    console.log(followingList['following'])
     const [userSearch, setUserSearch] = useState('')
     const [errors, setErrors] = useState({})
 
@@ -50,9 +52,9 @@ function FollowingFormPage(){
             {Object.keys(errors).length > 0 && errors.user_not_found && <p>{errors.user_not_found}</p>}
             {Object.keys(errors).length > 0 && errors.forbidden && <p>{errors.forbidden}</p>}
         </form>
-        {followingList && followingList &&
+        {followingList &&
             <ul id="following-ul">
-                {followingList.map(user =>
+                {Object.values(followingList['following']).map(user =>
                     <li key={user.id}>
                         <FollowingFormTile id={user.id} icon='' username={user.username} updated='Feature TBD'/>
                     </li>)}
