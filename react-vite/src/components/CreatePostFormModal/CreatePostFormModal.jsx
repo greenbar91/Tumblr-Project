@@ -51,9 +51,10 @@ const CreatePostFormModal = () => {
         <div>
             <h1>Hello from CreatePostFormModal</h1>
             <p>{sessionUser.username}</p>
-            <hr/>
+            <hr />
             <form onSubmit={handleSubmit}>
                 <input
+                    type="text"
                     name="title"
                     placeholder="Title"
                     value={title}
@@ -61,6 +62,7 @@ const CreatePostFormModal = () => {
                 />
 
                 <input
+                    type="text"
                     name="body"
                     placeholder="Go ahead, put anything."
                     value={body}
