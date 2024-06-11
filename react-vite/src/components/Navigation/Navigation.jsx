@@ -1,4 +1,3 @@
-import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import NavBar from "../NavBar";
 import { useState, useEffect, useRef } from 'react';
@@ -39,15 +38,11 @@ function Navigation() {
         </div>
       </ul>
       <div>
-        <li>
-          <ProfileButton />
-        </li>
         <OpenModalMenuItem
           itemText="Sign me up"
           onItemClick={closeMenu}
           modalComponent={<AuthFormModal />}
         />
-
         <OpenModalMenuItem
           itemText="Log in"
           onItemClick={closeMenu}

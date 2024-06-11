@@ -10,7 +10,7 @@ function PostDetailsModel({ post }) {
   const { id, title, body, poster, created_at } = post;
   const dispatch = useDispatch();
   const userLikes = useSelector((state) => state.likes.likes);
-  const hasLiked = userLikes.some((like) => like.post_id === id);
+  const hasLiked = userLikes?.some((like) => like.post_id === id);
   // const currentPost = useSelector((state)=> state.postState.currentPost?.post);
 
   const [currentTime, setCurrentTime] = useState(new Date());
