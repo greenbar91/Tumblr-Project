@@ -59,15 +59,21 @@ const Explore = () => {
 
   return (
     <div className="explore">
-      <ul className="post-container">
+      <ul className="post-container grid-item">
         {posts.map((post) => {
           const hasLiked = userLikes.some((like) => like.post_id === post.id);
           return (
             <li key={post.id} className="post-item">
+              <div id="pi-user">
               <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.poster} modalComponent={<PostDetailsModel post={post}/>}/></h3>
-              <hr />
-              <h2>{post.title}</h2>
+              </div>
+              {/* <hr /> */}
+              <div id="pi-title">
+              <h1>{post.title}</h1>
+              </div>
+              <div id="pi-body">
               <p>{post.body}</p>
+              </div>
               <div className="post-stats">
                 <span>
                   <FaRegComment
