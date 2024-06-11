@@ -149,6 +149,7 @@ def update_post(post_Id):
 #                                     DELETE POST                                      //
 # --------------------------------------------------------------------------------------//
 @post_routes.route("/<int:post_Id>", methods=["DELETE"])
+@login_required
 def delete_post(post_Id):
     try:
         current_post = Post.query.get(post_Id)
@@ -156,10 +157,13 @@ def delete_post(post_Id):
         if not current_post:
             return jsonify({"errors": "Post not found"}), 404
 
-        if current_user.id == current_post.user_id:
+        if current_user.id != current_post.user_id:
             return jsonify({"errors": "Unauthorized to delete"}), 401
 
         db.session.delete(current_post)
+        db.session.commit()
+
+        return jsonify({"message": "Post deleted successfully"}), 200
 
     except Exception as e:
         db.session.rollback()

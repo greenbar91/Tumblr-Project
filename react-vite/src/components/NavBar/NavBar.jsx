@@ -25,7 +25,7 @@ function NavBar() {
     e.preventDefault();
     dispatch(thunkLogout());
     handleDropdownToggle();
-    navigate("/");
+    navigate("/explore");
   };
 
   useEffect(() => {
@@ -41,44 +41,62 @@ function NavBar() {
           </NavLink>
         </li>
         <div className="nav-bar-options">
-          <div className="nav-bar-sizing">
-            <NavLink to={"/"} className={"nav-link"}>
-              <li className="nav-bar-home-container">
-                <div id="grouped">
-                  <div className="fa-home">
-                    <FaHome />
-                  </div>
-                  <div className="nav-bar-home">Home</div>
-                </div>
-              </li>
-            </NavLink>
-          </div>
-          <div className="nav-bar-sizing">
-            <NavLink to={"/explore"} className={"nav-link"}>
-              <li className="nav-bar-explore-container">
-                <div id="grouped">
-                  <div className="md-explore">
-                    <MdExplore />
-                  </div>
-                  <div className="nav-bar-explore">Explore</div>
-                </div>
-              </li>
-            </NavLink>
-          </div>
-          <div className="nav-bar-sizing">
-            <li
-              className="nav-bar-account-container"
-              onClick={handleDropdownToggle}
-            >
-              <div id="grouped">
-                <div className="person-sharp">
-                <IoPersonSharp />
-                </div>
-                <div className="nav-bar-account">Account</div>
+          {user && (
+            <>
+              <div className="nav-bar-sizing">
+                <NavLink to={"/"} className={"nav-link"}>
+                  <li className="nav-bar-home-container">
+                    <div id="grouped">
+                      <div className="fa-home">
+                        <FaHome />
+                      </div>
+                      <div className="nav-bar-home">Home</div>
+                    </div>
+                  </li>
+                </NavLink>
               </div>
-            </li>
-          </div>
-          {isDropdownVisible && (
+              <div className="nav-bar-sizing">
+                <NavLink to={"/explore"} className={"nav-link"}>
+                  <li className="nav-bar-explore-container">
+                    <div id="grouped">
+                      <div className="md-explore">
+                        <MdExplore />
+                      </div>
+                      <div className="nav-bar-explore">Explore</div>
+                    </div>
+                  </li>
+                </NavLink>
+              </div>
+              <div className="nav-bar-sizing">
+                <li
+                  className="nav-bar-account-container"
+                  onClick={handleDropdownToggle}
+                >
+                  <div id="grouped">
+                    <div className="person-sharp">
+                      <IoPersonSharp />
+                    </div>
+                    <div className="nav-bar-account">Account</div>
+                  </div>
+                </li>
+              </div>
+            </>
+          )}
+          {!user && (
+            <div className="nav-bar-sizing">
+              <NavLink to={"/explore"} className={"nav-link"}>
+                <li className="nav-bar-explore-container">
+                  <div id="grouped">
+                    <div className="md-explore">
+                      <MdExplore />
+                    </div>
+                    <div className="nav-bar-explore">Explore</div>
+                  </div>
+                </li>
+              </NavLink>
+            </div>
+          )}
+          {user && isDropdownVisible && (
             <ul className="dropdown-content" id="likes-border">
               <NavLink to={"/likes"} className={"nav-link"} id='menu-likes'>
                 <div id="grouped">
@@ -110,11 +128,12 @@ function NavBar() {
       </ul>
 
       <div>
-        <CreateContentButton />
+        {user && (<CreateContentButton />)}
       </div>
 
     </nav>
   );
 }
+
 
 export default NavBar;

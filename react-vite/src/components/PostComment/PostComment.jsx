@@ -29,6 +29,7 @@ function PostComment({ postId }) {
       user_id: Number(currentUser.id),
       post_id: postId,
       body: commentText,
+      created_at: new Date()
     };
 
     const data = await dispatch(postCommentByPostIdThunk(postId, newComment));

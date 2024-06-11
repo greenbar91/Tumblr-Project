@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD_ALL_POSTS = 'post/LOAD_ALL_POSTS';
 const ADD_POST = 'post/ADD_POST';
 const GET_POST_BY_ID = "post/getPostById"
+const REMOVE_POST = 'post/REMOVE_POST';
 
 const loadAllPosts = (posts) => {
     return {
@@ -22,6 +23,13 @@ const getPostById = (post) => {
     return {
         type: GET_POST_BY_ID,
         payload: post
+    };
+};
+
+const removePost = (postId) => {
+    return {
+        type: REMOVE_POST,
+        postId
     };
 };
 
@@ -72,6 +80,30 @@ export const fetchPostByIdThunk = (postId) => async (dispatch) => {
     }
 };
 
+export const deletePost = (postId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/posts/${postId}`, { method: 'DELETE' });
+
+    if (response.ok) {
+        dispatch(removePost(postId));
+    }
+};
+
+export const updatePost = (formData, postId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/posts/${postId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+        const updatedPost = await response.json();
+        dispatch(addPost(updatedPost));
+        return updatedPost;
+    }
+};
+
 const initialState = {
     allPosts: []
 };
@@ -83,15 +115,24 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 allPosts: action.payload
             };
-        case ADD_POST:
-            return {
+        case ADD_POST: {
+            const newState = {
                 ...state,
-                allPosts: [...state.allPosts, action.post]
+                allPosts: state.allPosts.map(post =>
+                    post.id === action.post.id ? action.post : post
+                )
             };
+            return newState;
+        }
         case GET_POST_BY_ID:
             return {
                 ...state,
                 currentPost: action.payload
+            };
+        case REMOVE_POST:
+            return {
+                ...state,
+                allPosts: state.allPosts.filter((post) => post.id !== action.postId)
             };
         default:
             return state;
