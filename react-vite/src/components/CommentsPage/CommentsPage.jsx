@@ -58,7 +58,7 @@ function CommentsPage({ postId }) {
                 {editingCommentId === comment.id ? (
                   <UpdateComment
                     postId={postId}
-                    commentId={comment.id}
+                    comment={comment}
                     onCancel={handleCancelEdit}
                   />
                 ) : (

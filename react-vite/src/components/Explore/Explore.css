@@ -1,9 +1,62 @@
-.post-username:hover {
-    background-color: #F5F5F5;
+/* .post-username:hover {
+    background-color: ;
     cursor: pointer;
+} */
+.post-container{
+    max-width: 540px;
+    height: 100vh;
 }
 
 .post-item {
-    background-color: white;
-    color:black
+    background-color: #222222;
+    color: white;
+    margin: 10px 0;
+    border-radius: 5px;
 }
+
+.post-username{
+    border-bottom: #222222 1px solid;
+}
+
+#pi-user > h3{
+    padding: 5px 0;
+}
+
+#pi-user:hover{
+    background-color: #2b2b2b;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#pi-title, #pi-body, .post-stats{
+    padding: 0 10px;
+    /* color: white; */
+}
+
+#pi-title > h1{
+    font-size: 26px;
+    font-weight: 100;
+}
+
+#pi-body > p{
+    font-size: 16px;
+}
+
+.post-stats{
+    padding: 10px 10px 10px;
+}
+
+.post-stats > span{
+    padding: 5px;
+}
+
+.post-username > li{
+    width: 100%;
+    color: white;
+    padding: 0 10px;
+    text-decoration: none;
+}
+/* 
+h3.post-username{
+    color: black;
+} */

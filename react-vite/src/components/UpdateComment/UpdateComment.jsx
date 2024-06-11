@@ -1,11 +1,14 @@
 import "./UpdateComment.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommentsByPostIdThunk, updateCommentByIdThunk } from "../../redux/comment";
+import {
+  getCommentsByPostIdThunk,
+  updateCommentByIdThunk,
+} from "../../redux/comment";
 import { fetchPostByIdThunk } from "../../redux/post";
 import { PiArrowLineRightBold } from "react-icons/pi";
 
-function UpdateComment({ postId, commentId, onCancel }) {
+function UpdateComment({ postId, comment, onCancel }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const [commentText, setCommentText] = useState("");
@@ -13,28 +16,30 @@ function UpdateComment({ postId, commentId, onCancel }) {
   const comments = useSelector((state) => state.comments.comments_by_id);
 
   useEffect(() => {
-    if (comments && comments[commentId]) {
-      setCommentText(comments[commentId].body);
+    if (comments) {
+      setCommentText(comment.body);
     }
-  }, [comments, commentId]);
+  }, [comments, comment.body]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors(null);
 
     const updatedComment = {
-      id: commentId,
+      id: comment.id,
       user_id: currentUser.id,
       post_id: postId,
       body: commentText,
     };
 
-    const data = await dispatch(updateCommentByIdThunk(commentId, updatedComment));
+    const data = await dispatch(
+      updateCommentByIdThunk(comment.id, updatedComment)
+    );
 
     if (!data?.message) {
       dispatch(fetchPostByIdThunk(postId));
       onCancel();
-      dispatch(getCommentsByPostIdThunk(postId))
+      dispatch(getCommentsByPostIdThunk(postId));
     } else {
       setErrors(data.message);
     }

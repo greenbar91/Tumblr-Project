@@ -98,9 +98,9 @@ function NavBar() {
           )}
           {user && isDropdownVisible && (
             <ul className="dropdown-content" id="likes-border">
-              <NavLink to={"/likes"} className={"nav-link"}>
+              <NavLink to={"/likes"} className={"nav-link"} id='menu-likes'>
                 <div id="grouped">
-                  <li className="dropdown-options" id="likes-sizing">
+                  <li className="dropdown-options " id="likes-sizing">
                     Likes
                   </li>
                   <div className="likes-count">{likes.length}</div>
@@ -109,7 +109,7 @@ function NavBar() {
 
               <div className="nav-bar-sizing">
                 <NavLink to={"/following"} className={"nav-link"}>
-                  <li className="dropdown-options">Following</li>
+                  <li className="dropdown-options" id='menu-following'>Following</li>
                 </NavLink>
               </div>
               <div className="nav-bar-sizing">
@@ -119,7 +119,7 @@ function NavBar() {
               </div>
               <div className="nav-bar-sizing">
                 <NavLink to={"/blog"} className={"nav-link"}>
-                  <li className="dropdown-options">Posts</li>
+                  <li className="dropdown-options" id='menu-posts'>Posts</li>
                 </NavLink>
               </div>
             </ul>
