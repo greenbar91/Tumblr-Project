@@ -15,8 +15,7 @@ const DeletePostModal = ({ postId, userId }) => {
 
     return (
         <div className="delete-post-modal">
-            <h1>Are you sure you want to delete this post?
-            </h1>
+            <h1>Are you sure you want to delete this post?</h1>
             <button className="keep-post" onClick={closeModal}>Cancel</button>
             <button className="delete-post" onClick={handleDelete}>OK</button>
         </div>
