@@ -42,6 +42,7 @@ const CreatePostFormModal = () => {
         const newPost = await dispatch(createNewPost(newPostFormData));
 
         if (newPost) {
+            closeModal();
             navigate('/');
         }
     };

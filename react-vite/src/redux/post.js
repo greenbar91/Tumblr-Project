@@ -88,6 +88,22 @@ export const deletePost = (postId) => async (dispatch) => {
     }
 };
 
+export const updatePost = (formData) => async (dispatch) => {
+    const response = await csrfFetch(`/api/posts/${postId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData.id)
+    });
+
+    if (response.ok) {
+        const updatedPost = await response.json();
+        dispatch(addPost(updatedPost));
+        return updatedPost;
+    }
+};
+
 const initialState = {
     allPosts: []
 };
@@ -104,6 +120,15 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 allPosts: [...state.allPosts, action.post]
             };
+        // case ADD_POST: {
+        //     const newState = {
+        //         ...state,
+        //         allPosts: state.allPosts.map(post =>
+        //             post.id === action.post.id ? action.post : post
+        //         )
+        //     };
+        //     return newState;
+        // }
         case GET_POST_BY_ID:
             return {
                 ...state,
