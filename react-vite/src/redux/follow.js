@@ -1,5 +1,5 @@
 import { csrfFetch } from './csrf';
-import {createSelector} from 'reselect';
+// import {createSelector} from 'reselect';
 
 const GET_ALL_FOLLOWS = 'follows/getAllFollows'
 const FOLLOW_USER = 'follows/followUser'
@@ -101,9 +101,9 @@ export const unfollowUserThunk = (userId) => async (dispatch) => {
   }
 }
 
-// Selectors
-const getFollowing = state => state.followReducer
-export const selectAllFollowing = createSelector(getFollowing, data => Object.values(data.following))
+// // Selectors
+// const getFollowing = state => state.followReducer
+// export const selectAllFollowing = createSelector(getFollowing, data => Object.values(data.following))
 
 const initialState = { following: {} };
 
