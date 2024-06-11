@@ -4,18 +4,21 @@ import { getCommentsByPostIdThunk } from "../../redux/comment";
 import "./CommentsPage.css";
 import PostComment from "../PostComment";
 import UpdateComment from "../UpdateComment";
+import DeleteComment from "../DeleteComment";
 
 function CommentsPage({ postId }) {
   const dispatch = useDispatch();
   const comments = useSelector(
     (state) => state.comments.comments_by_id?.comments || []
   );
-  const currentUserId = useSelector((state) => state.session.user?.id)
+  const currentUserId = useSelector((state) => state.session.user?.id);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [editingCommentId, setEditingCommentId] = useState(null);
 
   useEffect(() => {
-    dispatch(getCommentsByPostIdThunk(postId));
+    setTimeout(() => {
+      dispatch(getCommentsByPostIdThunk(postId));
+    }, 500);
   }, [dispatch, postId]);
 
   useEffect(() => {
@@ -89,7 +92,9 @@ function CommentsPage({ postId }) {
             <li key={adjustedComment.id}>
               <div className="comment-header">
                 <div className="username">{adjustedComment.username}</div>
-                <div className="time">{getTimeAgo(adjustedComment.created_at)}</div>
+                <div className="time">
+                  {getTimeAgo(adjustedComment.created_at)}
+                </div>
               </div>
               <div className="comment-body">
                 {editingCommentId === adjustedComment.id ? (
@@ -102,10 +107,13 @@ function CommentsPage({ postId }) {
                   <>{adjustedComment.body}</>
                 )}
               </div>
-              {!editingCommentId && currentUserId==comment.user_id && (
+              {!editingCommentId && currentUserId == comment.user_id && (
                 <button onClick={() => handleEditClick(adjustedComment.id)}>
                   Edit
                 </button>
+              )}
+              {currentUserId == comment.user_id && !editingCommentId && (
+                <DeleteComment commentId={adjustedComment.id} postId={postId} />
               )}
             </li>
           );
