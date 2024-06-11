@@ -1,14 +1,14 @@
 import './DeletePostModal.css';
 import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
-import { deletePost } from '../../redux/post.js';
+// import { deletePost } from '../../redux/post.js';
 
 const DeletePostModal = ({ postId, userId }) => {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
 
     const handleDelete = async () => {
-        await dispatch(deletePost(postId));
+        // await dispatch(deletePost(postId));
 
         closeModal();
     };

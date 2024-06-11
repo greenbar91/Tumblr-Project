@@ -76,15 +76,11 @@ def update_comment(commentId):
 #--------------------------------------------------------------------------------------//
 #                             DELETE A COMMENT                                         //
 #--------------------------------------------------------------------------------------//
-@comment_routes.route('/<int:postId>/<int:commentId>')
+@comment_routes.route('/comments/<int:commentId>', methods=["DELETE"])
 @login_required
-def delete_comment(postId, commentId):
-    the_comment = Comment.query.filter_by(post_id=postId, id=commentId).first()
-    db.session.delete(the_comment)
+def delete_comment(commentId):
+    comment = Comment.query.filter_by(id=commentId).first()
+    db.session.delete(comment)
     db.session.commit()
-    """
-    retrieve the comment from the database
-    call the session delete method on the comment
-    commit
-    redirect/refresh?
-    """
+
+    return jsonify({"message":"Successfully deleted"}), 200
