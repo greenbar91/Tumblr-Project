@@ -13,7 +13,7 @@ function PostComment({ postId }) {
   //   const comments = useSelector(
   //     (store) => store.comments.comments_by_id?.comments || []
   //   );
-  const currentUser = useSelector((store) => store.session.user);
+  const currentUser = useSelector((state) => state.session.user);
   const [commentText, setCommentText] = useState("");
   const [errors, setErrors] = useState({});
 

@@ -1,14 +1,14 @@
 import { csrfFetch } from "./csrf";
 
-const GET_ALL_COMMENTS = "comments/getAllComments"
+const GET_ALL_COMMENTS = "comments/getAllComments";
 const GET_COMMENTS_BY_POSTID = "comments/getCommentsByPostId";
-const POST_COMMENT_BY_POSTID = "comments/postCommentById"
-const UPDATE_COMMENT_BY_POSTID = "comments/updateCommentById"
+const POST_COMMENT_BY_POSTID = "comments/postCommentById";
+const UPDATE_COMMENT_BY_POSTID = "comments/updateCommentById";
 
 const getAllComments = (comments) => ({
-    type:GET_ALL_COMMENTS,
-    payload:comments
-})
+  type: GET_ALL_COMMENTS,
+  payload: comments,
+});
 
 const getCommentsByPostId = (comments) => ({
   type: GET_COMMENTS_BY_POSTID,
@@ -21,9 +21,9 @@ const postCommentByPostId = (comment) => ({
 });
 
 const updateCommentById = (comment) => ({
-  type:UPDATE_COMMENT_BY_POSTID,
-  payload:comment
-})
+  type: UPDATE_COMMENT_BY_POSTID,
+  payload: comment,
+});
 
 export const getCommentsByPostIdThunk = (postId) => async (dispatch) => {
   const res = await fetch(`/api/posts/${postId}/comments`, {
@@ -38,81 +38,88 @@ export const getCommentsByPostIdThunk = (postId) => async (dispatch) => {
     dispatch(getCommentsByPostId(data));
   } else {
     const errors = await res.json();
-    return errors
+    return errors;
   }
 };
 
 export const getAllCommentsThunk = () => async (dispatch) => {
-    const res = await csrfFetch(`/api/posts//comments`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      console.log(data)
-      dispatch(getAllComments(data));
-    } else {
-      const errors = await res.json();
-      return errors
-    }
-  };
-
-export const postCommentByPostIdThunk = (postId, commentData) => async (dispatch) => {
-  const res = await csrfFetch(`/api/posts/${postId}/comments`, {
-    method: "POST",
+  const res = await csrfFetch(`/api/posts//comments`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(commentData),
   });
 
   if (res.ok) {
     const data = await res.json();
-    dispatch(postCommentByPostId(data.comment));
-    return data.comment;
+    console.log(data);
+    dispatch(getAllComments(data));
   } else {
     const errors = await res.json();
     return errors;
   }
 };
 
-export const updateCommentByIdThunk = (postId, commentData) => async (dispatch) => {
-  const res = await csrfFetch(`/api/posts/${postId}/comments`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(commentData),
-  });
+export const postCommentByPostIdThunk =
+  (postId, commentData) => async (dispatch) => {
+    const res = await csrfFetch(`/api/posts/${postId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentData),
+    });
 
-  if (res.ok) {
-    const data = await res.json();
-    dispatch(updateCommentById(data.comment));
-    return data.comment;
-  } else {
-    const errors = await res.json();
-    return errors;
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(postCommentByPostId(data.comment));
+      return data.comment;
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
+  };
+
+export const updateCommentByIdThunk =
+  (commentId, commentData) => async (dispatch) => {
+    const res = await csrfFetch(`/api/posts/comments/${commentId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentData),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(updateCommentById(data.comment));
+      return data.comment;
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
+  };
+
+const initialState = { comments: [] };
+
+function commentReducer(state = initialState, action) {
+  switch (action.type) {
+    case GET_ALL_COMMENTS:
+      return { ...state, comments: action.payload };
+    case GET_COMMENTS_BY_POSTID:
+      return { ...state, comments_by_id: action.payload };
+    case POST_COMMENT_BY_POSTID:
+      return { ...state, comments_by_id: [...state.comments, action.payload] };
+    case UPDATE_COMMENT_BY_POSTID:
+      return {
+        ...state,
+        comments: state.comments.map((comment) =>
+          comment.id === action.payload.id ? action.payload : comment
+        ),
+      };
+    default:
+      return state;
   }
 }
 
-const initialState = {comments:[]};
-
-function commentReducer(state=initialState, action){
-    switch(action.type) {
-        case GET_ALL_COMMENTS:
-            return {...state, comments: action.payload}
-        case GET_COMMENTS_BY_POSTID:
-            return {...state, comments_by_id: action.payload}
-        case POST_COMMENT_BY_POSTID:
-          return { ...state, comments_by_id: [...state.comments, action.payload] };
-        case UPDATE_COMMENT_BY_POSTID:
-          return { ...state, comments_by_id: [...state.comments, action.payload] };
-        default:
-            return state
-    }
-}
-
-export default commentReducer
+export default commentReducer;
