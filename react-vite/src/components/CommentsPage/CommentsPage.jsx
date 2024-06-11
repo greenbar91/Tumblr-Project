@@ -3,13 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCommentsByPostIdThunk } from "../../redux/comment";
 import "./CommentsPage.css";
 import PostComment from "../PostComment";
+import UpdateComment from "../UpdateComment";
 
 function CommentsPage({ postId }) {
   const dispatch = useDispatch();
   const comments = useSelector(
-    (store) => store.comments.comments_by_id?.comments || []
+    (state) => state.comments.comments_by_id?.comments || []
   );
+  const currentUserId = useSelector((state) => state.session.user?.id)
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [editingCommentId, setEditingCommentId] = useState(null);
 
   useEffect(() => {
     dispatch(getCommentsByPostIdThunk(postId));
@@ -20,7 +23,7 @@ function CommentsPage({ postId }) {
       setCurrentTime(new Date());
     }, 60000);
 
-    return () => clearInterval(intervalId); 
+    return () => clearInterval(intervalId);
   }, []);
 
   const getTimeAgo = (createdAt) => {
@@ -61,6 +64,14 @@ function CommentsPage({ postId }) {
     };
   };
 
+  const handleEditClick = (commentId) => {
+    setEditingCommentId(commentId);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCommentId(null);
+  };
+
   const sortedComments =
     comments.length > 0
       ? [...comments].sort(
@@ -70,7 +81,7 @@ function CommentsPage({ postId }) {
 
   return (
     <div className="comments-container">
-      <PostComment postId={postId} />
+      {!editingCommentId && <PostComment postId={postId} />}
       <ul>
         {sortedComments.map((comment) => {
           const adjustedComment = adjustCommentTime(comment);
@@ -80,7 +91,22 @@ function CommentsPage({ postId }) {
                 <div className="username">{adjustedComment.username}</div>
                 <div className="time">{getTimeAgo(adjustedComment.created_at)}</div>
               </div>
-              <div className="comment-body">{adjustedComment.body}</div>
+              <div className="comment-body">
+                {editingCommentId === adjustedComment.id ? (
+                  <UpdateComment
+                    postId={postId}
+                    commentId={adjustedComment.id}
+                    onCancel={handleCancelEdit}
+                  />
+                ) : (
+                  <>{adjustedComment.body}</>
+                )}
+              </div>
+              {!editingCommentId && currentUserId==comment.user_id && (
+                <button onClick={() => handleEditClick(adjustedComment.id)}>
+                  Edit
+                </button>
+              )}
             </li>
           );
         })}
