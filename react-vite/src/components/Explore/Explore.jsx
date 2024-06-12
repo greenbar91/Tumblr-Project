@@ -78,7 +78,7 @@ const Explore = () => {
                     />
                   )}
                 </h3>
-              {Object.values(following['following']).find(user => user.id === post.user_id) === undefined && 
+              {Object.values(following['following']).find(user => user.id === post.user_id) === undefined &&
               currUser && currUser['user'] && currUser['user'].id && currUser['user'].id !== post.user_id && <FollowUserButton id={post.user_id}/>}
               </div>
               {/* <hr /> */}
