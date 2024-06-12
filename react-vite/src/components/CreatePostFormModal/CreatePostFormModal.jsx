@@ -42,10 +42,8 @@ const CreatePostFormModal = () => {
 
     if (newPost) {
       dispatch(fetchAllPostsThunk());
-      setInterval(() => {
-        navigate("/explore");
-      }, 500);
-      closeModal()
+      navigate("/blog");
+      closeModal();
     }
   };
 
