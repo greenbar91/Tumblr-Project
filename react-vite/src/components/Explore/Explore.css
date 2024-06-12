@@ -62,10 +62,13 @@
 
 .post-stats{
     padding: 10px 10px 10px;
+    display: flex;
+    flex-direction: row-reverse
 }
 
 .post-stats > span{
     padding: 5px;
+
 }
 
 .post-username > li{
@@ -74,7 +77,7 @@
     padding: 0 10px;
     text-decoration: none;
 }
-/* 
+/*
 h3.post-username{
     color: black;
 } */

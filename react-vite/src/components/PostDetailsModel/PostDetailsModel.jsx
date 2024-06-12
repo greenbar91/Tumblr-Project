@@ -1,20 +1,27 @@
-import "./PostDetailsModel.css";
-import CommentsPage from "../CommentsPage";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteLikeThunk, postLikeThunk } from "../../redux/like";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { fetchPostByIdThunk } from "../../redux/post";
+import "./PostDetailsModel.css";
+import CommentsPage from "../CommentsPage/CommentsPage";
 
 function PostDetailsModel({ post }) {
   const { id, title, body, poster, created_at } = post;
   const dispatch = useDispatch();
   const userLikes = useSelector((state) => state.likes.likes);
+  const [likesCount, setLikesCount] = useState(0);
   const hasLiked = userLikes?.some((like) => like.post_id === id);
 
   useEffect(() => {
-    dispatch(fetchPostByIdThunk(id));
+    const fetchPostDetails = async () => {
+      const res = await fetch(`/api/posts/${id}/likes`);
+      if (res.ok) {
+        const data = await res.json();
+        setLikesCount(data.likes_count);
+      }
+    };
+    fetchPostDetails();
   }, [dispatch, id]);
 
   const getTimeAgo = (createdAt) => {
@@ -25,8 +32,10 @@ function PostDetailsModel({ post }) {
     const alreadyLiked = userLikes.some((like) => like.post_id === postId);
     if (alreadyLiked) {
       await dispatch(deleteLikeThunk(postId));
+      setLikesCount((prevCount) => prevCount - 1);
     } else {
       await dispatch(postLikeThunk(postId));
+      setLikesCount((prevCount) => prevCount + 1);
     }
   };
 
@@ -46,6 +55,10 @@ function PostDetailsModel({ post }) {
             ) : (
               <FaRegHeart className="un-liked" />
             )}{" "}
+          </span>
+          <span className="likes-count">
+            {" "}
+            {likesCount === 1 ? `${likesCount} Like` : `${likesCount} Likes`}
           </span>
         </div>
       </div>
