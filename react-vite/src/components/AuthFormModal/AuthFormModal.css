@@ -2,8 +2,9 @@
     position: fixed;
     bottom: 0;
     width: 150%;
-    height: 20%;
+    height: 15%;
     background-color: #7C5CFF;
+    color: white;
     text-align: center;
     padding: 5px 0;
     transform: translateX(-40%);
@@ -74,4 +75,33 @@
 .password-check-step button {
     padding: 5px;
     margin: 15px;
+}
+
+.sign-up-step {
+    background-color: #7C5CFF;
+    color: white;
+    height: 330px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-up-step> :first-child {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.sign-up-step input {
+    margin-top: 8px;
+}
+
+.sign-up-step> :not(:first-child) {
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+.sign-up-step > :last-child {
+    padding: 5px;
+    margin-top: 8px;
 }

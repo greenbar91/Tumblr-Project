@@ -39,7 +39,7 @@ function Navigation() {
         </div>
       </ul>
       {!user && (<div className="auth-form-modal-container">
-        <p>Join over 100 million people using Rumblr to find their communities and make friends.</p>
+        <p>Join over <strong>100 million</strong> people using <strong>Rumblr</strong> to find their <strong>communities</strong> and make <strong>friends.</strong></p>
         <div className="auth-form-button">
           <button className="sign-up-btn">
             <OpenModalMenuItem

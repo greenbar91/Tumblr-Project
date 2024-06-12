@@ -68,7 +68,7 @@ const AuthFormModal = () => {
             }>
                 {step === 1 && (
                     <div className="email-check-step">
-                        <p>Rumblr</p>
+                        <p>rumblr</p>
                         <p>Enter your email to log in or register:</p>
                         <label>
                             Email
@@ -85,7 +85,7 @@ const AuthFormModal = () => {
                 )}
                 {step === 2 && isExistingUser && (
                     <div className="password-check-step">
-                        <p>Rumblr</p>
+                        <p>rumblr</p>
                         <p>Welcome back to your corner of the internet.</p>
                         <label>
                             Password
@@ -102,7 +102,9 @@ const AuthFormModal = () => {
                 )}
                 {step === 2 && !isExistingUser && (
                     <div className="sign-up-step">
-                        <p>Welcome to your corner of the internet. Glad you&apos;re here.</p>
+                        <p>rumblr</p>
+                        <p>Welcome to your corner of the internet. </p>
+                        <p>Glad you&apos;re here.</p>
                         <label>
                             Set a password
                             <input
@@ -123,11 +125,11 @@ const AuthFormModal = () => {
                             />
                         </label>
                         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-                        <button type="submit">Next</button>
+                        <button type="submit">Next ➡</button>
                     </div>
                 )}
                 {step === 3 && (
-                    <div className="get-username-stepe">
+                    <div className="get-username-step">
                         <p>What should we call you?
                             This will be how you appear to others on your URL.
                             Don&apos;t worry, you can change this later.
