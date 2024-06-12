@@ -4,6 +4,7 @@ import {
   deleteCommentByIdThunk,
   getCommentsByPostIdThunk,
 } from "../../redux/comment";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 function DeleteComment({ commentId, postId }) {
   const dispatch = useDispatch();
@@ -28,9 +29,7 @@ function DeleteComment({ commentId, postId }) {
     <div className="delete-comment-container">
       <div className="delete-confirmation"></div>
       <div>
-        <button onClick={() => handleDelete()} className="delete-button">
-          Delete
-        </button>
+        <FaRegTrashAlt onClick={() => handleDelete()} className="delete-button"/>
       </div>
     </div>
   );

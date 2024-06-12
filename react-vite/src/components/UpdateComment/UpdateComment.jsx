@@ -11,18 +11,15 @@ import { PiArrowLineRightBold } from "react-icons/pi";
 function UpdateComment({ postId, comment, onCancel }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
-  const [commentText, setCommentText] = useState("");
+  const [commentText, setCommentText] = useState(comment.body);
   const [errors, setErrors] = useState(null);
-  const comments = useSelector((state) => state.comments.comments_by_id);
+  const isCommentEmpty = commentText.trim().length === 0;
 
   useEffect(() => {
-    if (comments) {
-      setCommentText(comment.body);
-    }
-  }, [comments, comment.body]);
+    setCommentText(comment.body);
+  }, [comment.body]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setErrors(null);
 
     const updatedComment = {
@@ -45,6 +42,13 @@ function UpdateComment({ postId, comment, onCancel }) {
     }
   };
 
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    if (!isCommentEmpty) {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className="update-comment-container">
       <div className="update-comment-form-container">
@@ -59,8 +63,8 @@ function UpdateComment({ postId, comment, onCancel }) {
           <div className="update-comment-buttons">
             <button
               type="submit"
-              className="submit-update-comment"
-              disabled={commentText.length < 1}
+              className={`submit-update-comment ${isCommentEmpty ? 'disabled' : ''}`}
+              onClick={handleButtonClick}
             >
               <PiArrowLineRightBold />
             </button>
