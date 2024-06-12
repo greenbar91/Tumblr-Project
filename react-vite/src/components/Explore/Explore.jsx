@@ -1,21 +1,23 @@
 import "./Explore.css";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { FaRegComment } from "react-icons/fa";
-import { useEffect, useState , useRef} from "react";
+import { FaRegTrashAlt, FaRegHeart, FaHeart, FaRegComment } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import { fetchAllPostsThunk } from "../../redux/post";
-import {getCommentsByPostIdThunk } from "../../redux/comment";
+import { getCommentsByPostIdThunk } from "../../redux/comment";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeletePostModal from '../DeletePostModal';
+import UpdatePostModal from '../UpdatePostModal';
 import PostDetailsModel from "../PostDetailsModel";
-import AuthFormModal from "../AuthFormModal";
+// import AuthFormModal from "../AuthFormModal";
 
 
 const Explore = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postState.allPosts);
   const userLikes = useSelector((state) => state.likes.likes);
-  const currentUser = useSelector((state)=> state.session.user)
+  const currentUser = useSelector((state) => state.session.user)
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -42,7 +44,7 @@ const Explore = () => {
   const closeMenu = () => setShowMenu(false);
 
   const handleLike = async (postId) => {
-    if(!currentUser){
+    if (!currentUser) {
       return
     }
     const alreadyLiked = userLikes?.some((like) => like.post_id === postId);
@@ -72,15 +74,28 @@ const Explore = () => {
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
-              <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.poster} modalComponent={<PostDetailsModel post={post}/>}/></h3>
+                <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.poster} modalComponent={<PostDetailsModel post={post} />} /></h3>
               </div>
               {/* <hr /> */}
               <div id="pi-title">
-              <h1>{post.title}</h1>
+                <h1>{post.title}</h1>
               </div>
               <div id="pi-body">
-              <p>{post.body}</p>
+                <p>{post.body}</p>
               </div>
+
+              {/* <div className="post-utilities">
+                <OpenModalMenuItem
+                  itemText={<FaRegTrashAlt />}
+                  modalComponent={<DeletePostModal postId={post.id} userId={currentUser.id} />}
+                />
+
+                <OpenModalMenuItem
+                  itemText={<FaPencil />}
+                  modalComponent={<UpdatePostModal postId={post.id} userId={currentUser.id} />}
+                />
+              </div> */}
+
               <div className="post-stats">
                 <span>
                   <FaRegComment

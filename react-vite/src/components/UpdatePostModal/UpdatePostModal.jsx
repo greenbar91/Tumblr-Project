@@ -16,15 +16,15 @@ const UpdatePostModal = ({ postId }) => {
     const post = useSelector((state) => state.postState.currentPost);
     const sessionUser = useSelector((state) => state.session.user);
 
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState('')
     const [body, setBody] = useState('');
     const [validationErrors, setValidationErrors] = useState({});
 
     // Update the state once the post data is available
     useEffect(() => {
         if (post) {
-            setTitle(post.title || '');
-            setBody(post.body || '');
+            setTitle(post.title);
+            setBody(post.body);
         }
     }, [post]);
 
