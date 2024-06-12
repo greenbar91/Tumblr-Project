@@ -1,26 +1,21 @@
 import "./Explore.css";
-import {  FaRegHeart, FaHeart } from "react-icons/fa";
-// import { FaPencil } from "react-icons/fa6";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import { fetchAllPostsThunk } from "../../redux/post";
-// import { getCommentsByPostIdThunk } from "../../redux/comment";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import PostDetailsModel from "../PostDetailsModel";
 import AuthFormModal from "../AuthFormModal";
-// import AuthFormModal from "../AuthFormModal";
-
 
 const Explore = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postState.allPosts);
   const userLikes = useSelector((state) => state.likes.likes);
-  const currentUser = useSelector((state) => state.session.user)
-  // const [selectedPostId, setSelectedPostId] = useState(null);
+  const currentUser = useSelector((state) => state.session.user);
+
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-
 
   useEffect(() => {
     dispatch(fetchAllPostsThunk());
@@ -44,7 +39,7 @@ const Explore = () => {
 
   const handleLike = async (postId) => {
     if (!currentUser) {
-      return
+      return;
     }
     const alreadyLiked = userLikes?.some((like) => like.post_id === postId);
     if (alreadyLiked) {
@@ -54,17 +49,6 @@ const Explore = () => {
     }
   };
 
-  // const handleCommentClick = async (postId) => {
-  //   if (selectedPostId === postId) {
-  //     setSelectedPostId(null);
-  //   } else {
-  //     setSelectedPostId(postId);
-  //     await dispatch(getCommentsByPostIdThunk(postId));
-  //   }
-  // };
-
-
-
   return (
     <div className="explore">
       <ul className="post-container grid-item">
@@ -73,21 +57,21 @@ const Explore = () => {
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
-              <h3 className="post-username">
-        {currentUser ? (
-          <OpenModalMenuItem
-            onModalClose={closeMenu}
-            itemText={post.poster}
-            modalComponent={<PostDetailsModel post={post} />}
-          />
-        ) : (
-          <OpenModalMenuItem
-            onModalClose={closeMenu}
-            itemText={post.poster}
-            modalComponent={<AuthFormModal  />}
-          />
-        )}
-      </h3>
+                <h3 className="post-username">
+                  {currentUser ? (
+                    <OpenModalMenuItem
+                      onModalClose={closeMenu}
+                      itemText={post.poster}
+                      modalComponent={<PostDetailsModel post={post} />}
+                    />
+                  ) : (
+                    <OpenModalMenuItem
+                      onModalClose={closeMenu}
+                      itemText={post.poster}
+                      modalComponent={<AuthFormModal />}
+                    />
+                  )}
+                </h3>
               </div>
               {/* <hr /> */}
               <div id="pi-title">
@@ -110,22 +94,15 @@ const Explore = () => {
               </div> */}
 
               <div className="post-stats">
-                {/* <span>
-                  <FaRegComment
-                    onClick={() => handleCommentClick(post.id)}
-                    className={selectedPostId === post.id ? "active" : ""}
-                  />
-                  {post.comment_count}
-                </span> */}
-                {((currentUser?.id != post?.user_id) || !currentUser) && (<span onClick={() => handleLike(post.id)}>
-                  {hasLiked ? (
-                    <FaHeart className="liked" />
-                  ) : (
-                    <FaRegHeart className="un-liked" />
-                  )}{" "}
-
-                </span>)}
-
+                {currentUser && (
+                  <span onClick={() => handleLike(post.id)}>
+                    {hasLiked ? (
+                      <FaHeart className="liked" />
+                    ) : (
+                      <FaRegHeart className="un-liked" />
+                    )}{" "}
+                  </span>
+                )}
               </div>
             </li>
           );
