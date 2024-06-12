@@ -2,7 +2,7 @@ import "./Likes.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { FaRegComment } from "react-icons/fa";
+// import { FaRegComment } from "react-icons/fa";
 import { getUserLikesThunk, deleteLikeThunk, postLikeThunk } from "../../redux/like";
 import PostDetailsModel from "../PostDetailsModel";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
@@ -35,7 +35,7 @@ function Likes() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  const handleLike = async (postId) => {
+    const handleLike = async (postId) => {
     const alreadyLiked = userLikes.some((like) => like.post_id === postId);
     if (alreadyLiked) {
       await dispatch(deleteLikeThunk(postId));
@@ -60,11 +60,11 @@ function Likes() {
             <h2>{post.post?.title}</h2>
             <p>{post.post?.body}</p>
             <div className="post-stats">
-              <span>
+              {/* <span>
                 <FaRegComment
                 />
                 {post.post?.comment_count}
-              </span>
+              </span> */}
                <span onClick={() => handleLike(post.post?.id)}>
                 {hasLiked ? (
                   <FaHeart className="liked" />
