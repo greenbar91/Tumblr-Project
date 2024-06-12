@@ -44,7 +44,7 @@ function NavBar() {
           {user && (
             <>
               <div className="nav-bar-sizing">
-                <NavLink to={"/"} className={"nav-link"}>
+                <NavLink to={"/home"} className={"nav-link"}>
                   <li className="nav-bar-home-container">
                     <div id="grouped">
                       <div className="fa-home">

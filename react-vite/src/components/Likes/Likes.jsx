@@ -10,7 +10,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
 function Likes() {
   const userLikes = useSelector((state) => state.likes.likes);
-  const currentUser = useSelector((state) => state.session.user)
+  // const currentUser = useSelector((state) => state.session.user)
   const dispatch = useDispatch();
   const ulRef = useRef();
   const [showMenu, setShowMenu] = useState(false);
@@ -65,13 +65,13 @@ function Likes() {
                 />
                 {post.post?.comment_count}
               </span>
-              {currentUser.id != post.post?.user_id && (<span onClick={() => handleLike(post.post?.id)}>
+               <span onClick={() => handleLike(post.post?.id)}>
                 {hasLiked ? (
                   <FaHeart className="liked" />
                 ) : (
                   <FaRegHeart className="un-liked" />
                 )}{" "}
-              </span>)}
+              </span>
             </div>
           </li>
         );

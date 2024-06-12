@@ -4,6 +4,7 @@ import FollowingFormPage from "../components/FollowingFormPage";
 import Likes from "../components/Likes";
 import Explore from "../components/Explore";
 import ManagePosts from "../components/ManagePosts";
+import HomePage from "../components/HomePage";
 
 export const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1></h1>,
+        element: <Explore />,
       },
       {
         path: "likes",
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
         path: "blog",
         element: <ManagePosts />,
       },
+      {
+        path:"home",
+        element: <HomePage/>,
+      }
     ],
   },
 ]);
