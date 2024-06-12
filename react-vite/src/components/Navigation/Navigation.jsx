@@ -38,17 +38,29 @@ function Navigation() {
           <NavBar />
         </div>
       </ul>
-{ !user &&  (  <div className="auth-form-modal-text">
-        <OpenModalMenuItem
-          itemText="Sign me up"
-          onItemClick={closeMenu}
-          modalComponent={<AuthFormModal />}
-        />
-        <OpenModalMenuItem
-          itemText="Log in"
-          onItemClick={closeMenu}
-          modalComponent={<AuthFormModal />}
-        />
+      {!user && (<div className="auth-form-modal-container">
+        <p>Join over 100 million people using Rumblr to find their communities and make friends.</p>
+        <div className="auth-form-button">
+          <button className="sign-up-btn">
+            <OpenModalMenuItem
+
+              itemText="Sign me up"
+              onItemClick={closeMenu}
+              modalComponent={<AuthFormModal />}
+            />
+          </button>
+
+          <button className="log-in-btn">
+            <OpenModalMenuItem
+              itemText="Log in"
+              onItemClick={closeMenu}
+              modalComponent={<AuthFormModal />}
+            />
+          </button>
+        </div>
+
+
+
       </div>)}
     </div>
   );
