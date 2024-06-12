@@ -1,0 +1,37 @@
+.auth-form-modal-container {
+    position: fixed;
+    bottom: 0;
+    width: 150%;
+    height: 20%;
+    background-color: #7C5CFF;
+    text-align: center;
+    padding: 5px 0;
+    transform: translateX(-40%);
+}
+
+.auth-form-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    list-style-type: none;
+}
+
+.auth-form-modal-container .sign-up-btn,
+.auth-form-modal-container .log-in-btn {
+    background-color: black;
+    color: white;
+    width: 150px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-form-modal-container .log-in-btn {
+    background-color: #e6e6fa;
+    color: black;
+}
