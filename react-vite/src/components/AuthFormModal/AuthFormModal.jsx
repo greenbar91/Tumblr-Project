@@ -67,7 +67,8 @@ const AuthFormModal = () => {
                         : handleSignupSubmit
             }>
                 {step === 1 && (
-                    <>
+                    <div className="email-check-step">
+                        <p>Rumblr</p>
                         <p>Enter your email to log in or register:</p>
                         <label>
                             Email
@@ -79,11 +80,12 @@ const AuthFormModal = () => {
                             />
                         </label>
                         {errors.email && <p>{errors.email}</p>}
-                        <button type="submit">Next</button>
-                    </>
+                        <button type="submit">Next ➡</button>
+                    </div>
                 )}
                 {step === 2 && isExistingUser && (
-                    <>
+                    <div className="password-check-step">
+                        <p>Rumblr</p>
                         <p>Welcome back to your corner of the internet.</p>
                         <label>
                             Password
@@ -95,11 +97,11 @@ const AuthFormModal = () => {
                             />
                         </label>
                         {errors.password && <p>{errors.password}</p>}
-                        <button type="submit">Log In</button>
-                    </>
+                        <button type="submit">Log In ➡</button>
+                    </div>
                 )}
                 {step === 2 && !isExistingUser && (
-                    <>
+                    <div className="sign-up-step">
                         <p>Welcome to your corner of the internet. Glad you&apos;re here.</p>
                         <label>
                             Set a password
@@ -122,10 +124,10 @@ const AuthFormModal = () => {
                         </label>
                         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                         <button type="submit">Next</button>
-                    </>
+                    </div>
                 )}
                 {step === 3 && (
-                    <>
+                    <div className="get-username-stepe">
                         <p>What should we call you?
                             This will be how you appear to others on your URL.
                             Don&apos;t worry, you can change this later.
@@ -143,7 +145,7 @@ const AuthFormModal = () => {
                         </label>
                         {errors.username && <p>{errors.username}</p>}
                         <button type="submit">Sign Up</button>
-                    </>
+                    </div>
                 )}
             </form>
         </>
