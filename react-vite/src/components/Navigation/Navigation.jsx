@@ -37,7 +37,7 @@ function Navigation() {
           <NavBar />
         </div>
       </ul>
-      <div>
+      <div className="auth-form-modal-text">
         <OpenModalMenuItem
           itemText="Sign me up"
           onItemClick={closeMenu}
