@@ -6,6 +6,8 @@ import "./CommentsPage.css";
 import PostComment from "../PostComment";
 import UpdateComment from "../UpdateComment";
 import DeleteComment from "../DeleteComment";
+import { FaPencil } from "react-icons/fa6";
+
 
 function CommentsPage({ postId }) {
   const dispatch = useDispatch();
@@ -42,7 +44,7 @@ function CommentsPage({ postId }) {
   return (
     <div className="comments-container">
       {!editingCommentId && <PostComment postId={postId} />}
-      <ul>
+      <ul className="comments-list">
         {sortedComments.map((comment) => {
           let timeAgo = "";
           const date = new Date(comment.created_at);
@@ -65,14 +67,15 @@ function CommentsPage({ postId }) {
                   <>{comment.body}</>
                 )}
               </div>
+              <div className="icon-container">
               {!editingCommentId && currentUserId == comment.user_id && (
-                <button onClick={() => handleEditClick(comment.id)}>
-                  Edit
-                </button>
+                <FaPencil onClick={() => handleEditClick(comment.id)}/>
+
               )}
               {currentUserId == comment.user_id && !editingCommentId && (
                 <DeleteComment commentId={comment.id} postId={postId} />
               )}
+              </div>
             </li>
           );
         })}
