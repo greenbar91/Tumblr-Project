@@ -1,14 +1,16 @@
 import "./Explore.css";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { FaRegComment } from "react-icons/fa";
+import { FaRegTrashAlt, FaRegHeart, FaHeart, FaRegComment } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import { fetchAllPostsThunk } from "../../redux/post";
 import { getCommentsByPostIdThunk } from "../../redux/comment";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeletePostModal from '../DeletePostModal';
+import UpdatePostModal from '../UpdatePostModal';
 import PostDetailsModel from "../PostDetailsModel";
-import AuthFormModal from "../AuthFormModal";
+// import AuthFormModal from "../AuthFormModal";
 
 
 const Explore = () => {
@@ -82,17 +84,17 @@ const Explore = () => {
                 <p>{post.body}</p>
               </div>
 
-              <div className="post-utilities">
+              {/* <div className="post-utilities">
                 <OpenModalMenuItem
                   itemText={<FaRegTrashAlt />}
-                  modalComponent={<DeletePostModal postId={post.id} userId={sessionUser.id} />}
+                  modalComponent={<DeletePostModal postId={post.id} userId={currentUser.id} />}
                 />
 
                 <OpenModalMenuItem
                   itemText={<FaPencil />}
-                  modalComponent={<UpdatePostModal postId={post.id} userId={sessionUser.id} />}
+                  modalComponent={<UpdatePostModal postId={post.id} userId={currentUser.id} />}
                 />
-              </div>
+              </div> */}
 
               <div className="post-stats">
                 <span>

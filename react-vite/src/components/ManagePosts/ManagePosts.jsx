@@ -8,6 +8,8 @@ import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeletePostModal from '../DeletePostModal';
 import UpdatePostModal from '../UpdatePostModal';
 import PostDetailsModel from '../PostDetailsModel';
+import { getCommentsByPostIdThunk } from "../../redux/comment";
+import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 
 const ManagePosts = () => {
     const dispatch = useDispatch();
@@ -40,10 +42,10 @@ const ManagePosts = () => {
     const closeMenu = () => setShowMenu(false);
 
     const handleLike = async (postId) => {
-        if (!currentUser) {
+        if (!sessionUser) {
             return
         }
-        const alreadyLiked = userLikes?.some((like) => like.post_id === postId);
+        const alreadyLiked = likes?.some((like) => like.post_id === postId);
         if (alreadyLiked) {
             await dispatch(deleteLikeThunk(postId));
         } else {
