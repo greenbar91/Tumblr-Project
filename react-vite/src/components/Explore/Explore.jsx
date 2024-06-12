@@ -1,14 +1,12 @@
 import "./Explore.css";
-import { FaRegTrashAlt, FaRegHeart, FaHeart, FaRegComment } from "react-icons/fa";
-import { FaPencil } from "react-icons/fa6";
+import {  FaRegHeart, FaHeart } from "react-icons/fa";
+// import { FaPencil } from "react-icons/fa6";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import { fetchAllPostsThunk } from "../../redux/post";
-import { getCommentsByPostIdThunk } from "../../redux/comment";
+// import { getCommentsByPostIdThunk } from "../../redux/comment";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import DeletePostModal from '../DeletePostModal';
-import UpdatePostModal from '../UpdatePostModal';
 import PostDetailsModel from "../PostDetailsModel";
 import AuthFormModal from "../AuthFormModal";
 // import AuthFormModal from "../AuthFormModal";
@@ -19,7 +17,7 @@ const Explore = () => {
   const posts = useSelector((state) => state.postState.allPosts);
   const userLikes = useSelector((state) => state.likes.likes);
   const currentUser = useSelector((state) => state.session.user)
-  const [selectedPostId, setSelectedPostId] = useState(null);
+  // const [selectedPostId, setSelectedPostId] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -56,14 +54,14 @@ const Explore = () => {
     }
   };
 
-  const handleCommentClick = async (postId) => {
-    if (selectedPostId === postId) {
-      setSelectedPostId(null);
-    } else {
-      setSelectedPostId(postId);
-      await dispatch(getCommentsByPostIdThunk(postId));
-    }
-  };
+  // const handleCommentClick = async (postId) => {
+  //   if (selectedPostId === postId) {
+  //     setSelectedPostId(null);
+  //   } else {
+  //     setSelectedPostId(postId);
+  //     await dispatch(getCommentsByPostIdThunk(postId));
+  //   }
+  // };
 
 
 
