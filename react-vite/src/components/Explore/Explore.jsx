@@ -1,15 +1,17 @@
 import "./Explore.css";
-import {  FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 // import { FaPencil } from "react-icons/fa6";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import { fetchAllPostsThunk } from "../../redux/post";
+import { getFollowsThunk } from "../../redux/follow";
 // import { getCommentsByPostIdThunk } from "../../redux/comment";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import PostDetailsModel from "../PostDetailsModel";
 import AuthFormModal from "../AuthFormModal";
 // import AuthFormModal from "../AuthFormModal";
+import FollowUserButton from '../FollowUser/FollowUser'
 
 
 const Explore = () => {
@@ -17,6 +19,9 @@ const Explore = () => {
   const posts = useSelector((state) => state.postState.allPosts);
   const userLikes = useSelector((state) => state.likes.likes);
   const currentUser = useSelector((state) => state.session.user)
+  const following = useSelector(state => state.followReducer)
+  const currUser = useSelector(state => state.session)
+  console.log(currUser['user'])
   // const [selectedPostId, setSelectedPostId] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -24,6 +29,8 @@ const Explore = () => {
 
   useEffect(() => {
     dispatch(fetchAllPostsThunk());
+    const getFollowing = async () => await dispatch(getFollowsThunk());
+      getFollowing().then(data => console.log(data))
   }, [dispatch]);
 
   useEffect(() => {
@@ -73,21 +80,23 @@ const Explore = () => {
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
-              <h3 className="post-username">
-        {currentUser ? (
-          <OpenModalMenuItem
-            onModalClose={closeMenu}
-            itemText={post.poster}
-            modalComponent={<PostDetailsModel post={post} />}
-          />
-        ) : (
-          <OpenModalMenuItem
-            onModalClose={closeMenu}
-            itemText={post.poster}
-            modalComponent={<AuthFormModal  />}
-          />
-        )}
-      </h3>
+                <h3 className="post-username">
+                  {currentUser ? (
+                    <OpenModalMenuItem
+                      onModalClose={closeMenu}
+                      itemText={post.poster}
+                      modalComponent={<PostDetailsModel post={post} />}
+                    />
+                  ) : (
+                    <OpenModalMenuItem
+                      onModalClose={closeMenu}
+                      itemText={post.poster}
+                      modalComponent={<AuthFormModal />}
+                    />
+                  )}
+                </h3>
+              {Object.values(following['following']).find(user => user.id === post.user_id) === undefined && 
+              currUser && currUser['user'] && currUser['user'].id && currUser['user'].id !== post.user_id && <FollowUserButton id={post.user_id}/>}
               </div>
               {/* <hr /> */}
               <div id="pi-title">

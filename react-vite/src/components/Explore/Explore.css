@@ -18,8 +18,26 @@
     border-bottom: #222222 1px solid;
 }
 
+#pi-user{
+    display: flex;
+}
+
 #pi-user > h3{
     padding: 5px 0;
+}
+
+#followBtn{
+    padding: 5px 0;
+}
+#followBtn > a{
+    margin: 0;
+    font-size: 18px;
+    text-decoration: none;
+    color: #00AAC6;
+}
+
+#followBtn > a:hover{
+    text-decoration: underline;
 }
 
 #pi-user:hover{
