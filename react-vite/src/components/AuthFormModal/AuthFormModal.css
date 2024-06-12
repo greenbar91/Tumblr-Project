@@ -101,7 +101,36 @@
     margin-bottom: 8px;
 }
 
-.sign-up-step > :last-child {
+.sign-up-step> :last-child {
     padding: 5px;
     margin-top: 8px;
+}
+
+.get-username-step {
+    background-color: #7C5CFF;
+    color: white;
+    height: 300px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.get-username-step> :first-child {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.get-username-step>:not(:first-child) {
+    margin: 0;
+    margin-bottom: 8px;
+    max-width: 80%;
+}
+
+.get-username-step input {
+    margin-top: 15px;
+}
+
+.get-username-step > :last-child {
+    margin-top: 10px;
 }

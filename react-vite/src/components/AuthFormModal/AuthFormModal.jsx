@@ -130,7 +130,9 @@ const AuthFormModal = () => {
                 )}
                 {step === 3 && (
                     <div className="get-username-step">
-                        <p>What should we call you?
+                        <p>rumblr</p>
+                        <p>What should we call you?</p>
+                        <p>
                             This will be how you appear to others on your URL.
                             Don&apos;t worry, you can change this later.
                         </p>
