@@ -1,3 +1,4 @@
+import './CreatePostFormModal.css';
 import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,11 +49,11 @@ const CreatePostFormModal = () => {
   };
 
   return (
-    <div>
-      <h1>Hello from CreatePostFormModal</h1>
+    <div className="create-post-container">
       <p>{sessionUser.username}</p>
       <hr />
-      <form onSubmit={handleSubmit}>
+
+      <form onSubmit={handleSubmit} className="create-post-form">
         <input
           name="title"
           placeholder="Title"
@@ -60,19 +61,24 @@ const CreatePostFormModal = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <input
+        <textarea
           name="body"
           placeholder="Go ahead, put anything."
+          rows="8"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-        />
+        >
+        </textarea>
 
-        <button type="button" onClick={closeModal}>
-          Close
-        </button>
-        <button type="submit" disabled={Object.values(validationErrors).length}>
-          Post now
-        </button>
+        <div className="button">
+          <button type="button" onClick={closeModal}>
+            Close
+          </button>
+          <button type="submit" disabled={Object.values(validationErrors).length}>
+            Post now
+          </button>
+        </div>
+
       </form>
     </div>
   );

@@ -7,7 +7,7 @@
     color: white;
     text-align: center;
     padding: 5px 0;
-    transform: translateX(-40%);
+    transform: translateX(-31%);
 }
 
 .auth-form-button {
@@ -131,6 +131,6 @@
     margin-top: 15px;
 }
 
-.get-username-step > :last-child {
+.get-username-step> :last-child {
     margin-top: 10px;
 }
