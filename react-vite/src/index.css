@@ -1,7 +1,7 @@
 /* TODO: Add sitewide styles */
 html{
     display: flex;
-    margin: 0 5%;
+    margin: 0 30%;
     box-sizing: border-box;
     justify-content: center;
     width: minmax(500px, 1000px)
@@ -116,7 +116,7 @@ ul a:hover, .nav-bar-account:hover, .dropdown-options:hover{
 
 /* .site-container{
     grid-area: side;
-} */  
+} */
 
 .logo-container{
 grid-area: nav;
