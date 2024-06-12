@@ -10,6 +10,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeletePostModal from '../DeletePostModal';
 import UpdatePostModal from '../UpdatePostModal';
 import PostDetailsModel from "../PostDetailsModel";
+import AuthFormModal from "../AuthFormModal";
 // import AuthFormModal from "../AuthFormModal";
 
 
@@ -74,7 +75,21 @@ const Explore = () => {
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
-                <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.poster} modalComponent={<PostDetailsModel post={post} />} /></h3>
+              <h3 className="post-username">
+        {currentUser ? (
+          <OpenModalMenuItem
+            onModalClose={closeMenu}
+            itemText={post.poster}
+            modalComponent={<PostDetailsModel post={post} />}
+          />
+        ) : (
+          <OpenModalMenuItem
+            onModalClose={closeMenu}
+            itemText={post.poster}
+            modalComponent={<AuthFormModal  />}
+          />
+        )}
+      </h3>
               </div>
               {/* <hr /> */}
               <div id="pi-title">
@@ -97,13 +112,13 @@ const Explore = () => {
               </div> */}
 
               <div className="post-stats">
-                <span>
+                {/* <span>
                   <FaRegComment
                     onClick={() => handleCommentClick(post.id)}
                     className={selectedPostId === post.id ? "active" : ""}
                   />
                   {post.comment_count}
-                </span>
+                </span> */}
                 {((currentUser?.id != post?.user_id) || !currentUser) && (<span onClick={() => handleLike(post.id)}>
                   {hasLiked ? (
                     <FaHeart className="liked" />
