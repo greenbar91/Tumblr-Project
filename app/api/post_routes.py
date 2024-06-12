@@ -4,6 +4,8 @@ from app.models import Post, db, Comment, Like, User
 from sqlalchemy import func
 from flask_login import current_user, login_required
 
+from app.models.follow import Follow
+
 post_routes = Blueprint("posts", __name__)
 
 # --------------------------------------------------------------------------------------//
@@ -168,3 +170,34 @@ def delete_post(post_Id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"errors": str(e)}), 500
+
+##--------------------------------------------------------------------------------------//
+##                          GET ALL POSTS FROM FOLLOWED USERS                           //
+##--------------------------------------------------------------------------------------//
+@post_routes.route('/followed_posts', methods=['GET'])
+@login_required
+def get_followed_posts():
+    followed_user_ids = Follow.query.filter_by(follower_id=current_user.id).with_entities(Follow.followed_id).all()
+    followed_user_ids = [user_ids[0] for user_ids in followed_user_ids]
+
+    followed_posts = Post.query.filter(Post.user_id.in_(followed_user_ids)).all()
+
+    user_ids = {post.user_id for post in followed_posts}
+
+    users = User.query.filter(User.id.in_(user_ids)).all()
+    user_dict = {user.id: user.username for user in users}
+
+    posts_with_usernames = [
+        {
+            "id": post.id,
+            "title": post.title,
+            "body": post.body,
+            "user_id": post.user_id,
+            "poster": user_dict[post.user_id],
+            "created_at": post.created_at,
+            "updated_at": post.updated_at
+        }
+        for post in followed_posts
+    ]
+
+    return jsonify(posts_with_usernames)
