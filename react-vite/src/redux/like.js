@@ -20,7 +20,7 @@ const postLike = (like) => ({
 });
 
 export const getUserLikesThunk = async (dispatch) => {
-  const res = await csrfFetch("/api/users/likes", {
+  const res = await fetch("/api/users/likes", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

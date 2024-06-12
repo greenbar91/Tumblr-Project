@@ -49,15 +49,12 @@ def user_by_username(username):
 
 
 @user_routes.route("/likes", methods=["GET"])
-@login_required
 def current_user_likes():
     likes = Like.query.filter_by(user_id=current_user.id).all()
 
     post_ids = [like.post_id for like in likes]
     posts = Post.query.filter(Post.id.in_(post_ids)).all()
 
-
-    # Create a map to store post information with counts
     post_map = {}
     for post in posts:
         post_dict = post.to_dict()
