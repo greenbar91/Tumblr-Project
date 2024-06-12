@@ -5,12 +5,13 @@ import { useState, useEffect, useRef } from 'react';
 import "./Navigation.css";
 import OpenModalMenuItem from './OpenModalMenuItem';
 import AuthFormModal from '../AuthFormModal';
+import { useSelector } from "react-redux";
 
 
 function Navigation() {
 
   const [showMenu, setShowMenu] = useState(false);
-  // const user = useSelector((store) => store.session.user);
+  const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
 
   useEffect(() => {
@@ -37,7 +38,7 @@ function Navigation() {
           <NavBar />
         </div>
       </ul>
-      <div className="auth-form-modal-text">
+{ !user &&  (  <div className="auth-form-modal-text">
         <OpenModalMenuItem
           itemText="Sign me up"
           onItemClick={closeMenu}
@@ -48,7 +49,7 @@ function Navigation() {
           onItemClick={closeMenu}
           modalComponent={<AuthFormModal />}
         />
-      </div>
+      </div>)}
     </div>
   );
 }

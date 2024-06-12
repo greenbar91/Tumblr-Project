@@ -44,8 +44,8 @@ def get_user_posts():
     user_id = current_user.id
     posts = Post.query.filter_by(user_id=user_id).all()
 
-    if not posts:
-        return jsonify({"errors": "No posts currently posted by current user"}), 404
+    # if not posts:
+    #     return jsonify({"errors": "No posts currently posted by current user"}), 404
 
     posts_list = []
     for post in posts:
