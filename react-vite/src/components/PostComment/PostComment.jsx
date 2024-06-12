@@ -10,12 +10,10 @@ import { PiArrowLineRightBold } from "react-icons/pi";
 
 function PostComment({ postId }) {
   const dispatch = useDispatch();
-  //   const comments = useSelector(
-  //     (store) => store.comments.comments_by_id?.comments || []
-  //   );
   const currentUser = useSelector((state) => state.session.user);
   const [commentText, setCommentText] = useState("");
   const [errors, setErrors] = useState({});
+  const isCommentEmpty = commentText.trim().length === 0;
 
   useEffect(() => {
     dispatch(fetchPostByIdThunk(postId));
@@ -54,19 +52,26 @@ function PostComment({ postId }) {
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             className="comment-textarea"
-            placeholder={`reply as @${currentUser.username}`}
+            placeholder={`Reply as @${currentUser.username}`}
           />
-          <button
-            type="submit"
-            className="submit-comment"
-            disabled={commentText.length < 1}
+          <label
+            htmlFor="submit-comment"
+            className={`submit-comment ${isCommentEmpty ? 'disabled' : ''}`}
+            style={{ color: isCommentEmpty ? '#999' : '#000' }}
           >
-            <PiArrowLineRightBold />
-          </button>
+            <PiArrowLineRightBold id="submit-comment-icon" />
+          </label>
+          <input
+            id="submit-comment"
+            type="submit"
+            style={{ display: "none" }}
+            disabled={isCommentEmpty}
+          />
         </form>
       </div>
     </div>
   );
 }
+
 
 export default PostComment;

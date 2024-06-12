@@ -1,0 +1,80 @@
+.update-comment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding: 15px;
+    width: 100%;
+    resize: none;
+  }
+
+  .update-comment-form-container {
+    width: 100%;
+  }
+
+  .update-comment-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .update-comment-form p {
+    color: red;
+    margin-bottom: 10px;
+  }
+
+  .update-comment-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+  }
+
+  .update-comment-textarea:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+  }
+
+  .update-comment-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .submit-update-comment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-update-comment.disabled {
+    cursor: not-allowed;
+  }
+
+  .cancel-update-comment {
+    background-color: transparent;
+    color: rgb(94, 94, 94);
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .cancel-update-comment:hover,
+  .submit-update-comment:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Change background color on hover */
+  }
