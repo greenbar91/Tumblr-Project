@@ -3,7 +3,7 @@ import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { deletePost } from '../../redux/post.js';
 
-const DeletePostModal = ({ postId, userId }) => {
+const DeletePostModal = ({ postId }) => {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
 
