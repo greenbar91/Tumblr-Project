@@ -42,8 +42,8 @@ def post_like(post_Id):
         if not current_post:
             return jsonify({"errors": "Post not found"}), 404
 
-        if current_user.id == current_post.user_id:
-            return jsonify({"errors": "Unauthorized"}), 401
+        # if current_user.id == current_post.user_id:
+        #     return jsonify({"errors": "Unauthorized"}), 401
 
         existing_like = Like.query.filter_by(user_id=current_user.id, post_id=post_Id).first()
 
@@ -58,7 +58,7 @@ def post_like(post_Id):
 
         added_like = Like.query.filter_by(user_id=current_user.id, post_id=post_Id).first()
 
-    
+
         post_dict = current_post.to_dict()
         user = User.query.get(current_post.user_id)
         poster = user.username

@@ -5,6 +5,7 @@ const GET_ALL_FOLLOWS = 'follows/getAllFollows'
 const FOLLOW_USER = 'follows/followUser'
 const UNFOLLOW_USER = 'follows/unfollowUser'
 
+
 const getAllFollows = (data) => ({
     type: GET_ALL_FOLLOWS,
     payload: data
@@ -38,7 +39,7 @@ export const getFollowsThunk = () => async (dispatch) => {
     else if (res.status < 500) {
         const errorMessages = await res.json();
         return errorMessages
-      } 
+      }
 
     else {
         return { server: "Something went wrong. Please try again" }
