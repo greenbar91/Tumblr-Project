@@ -1,11 +1,10 @@
 import "./PostComment.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCommentsByPostIdThunk,
   postCommentByPostIdThunk,
 } from "../../redux/comment";
-import { fetchPostByIdThunk } from "../../redux/post";
 import { PiArrowLineRightBold } from "react-icons/pi";
 
 function PostComment({ postId }) {
@@ -15,10 +14,6 @@ function PostComment({ postId }) {
   const [errors, setErrors] = useState({});
   const isCommentEmpty = commentText.trim().length === 0;
 
-  useEffect(() => {
-    dispatch(fetchPostByIdThunk(postId));
-  }, [dispatch, postId]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -27,13 +22,12 @@ function PostComment({ postId }) {
       user_id: Number(currentUser.id),
       post_id: postId,
       body: commentText,
-      created_at: new Date()
+      created_at: new Date(),
     };
 
     const data = await dispatch(postCommentByPostIdThunk(postId, newComment));
-
+    
     if (!data?.message) {
-      dispatch(fetchPostByIdThunk(postId));
       dispatch(getCommentsByPostIdThunk(postId));
       setCommentText("");
     }
@@ -56,8 +50,8 @@ function PostComment({ postId }) {
           />
           <label
             htmlFor="submit-comment"
-            className={`submit-comment ${isCommentEmpty ? 'disabled' : ''}`}
-            style={{ color: isCommentEmpty ? '#999' : '#000' }}
+            className={`submit-comment ${isCommentEmpty ? "disabled" : ""}`}
+            style={{ color: isCommentEmpty ? "#999" : "#000" }}
           >
             <PiArrowLineRightBold id="submit-comment-icon" />
           </label>
@@ -72,6 +66,5 @@ function PostComment({ postId }) {
     </div>
   );
 }
-
 
 export default PostComment;
