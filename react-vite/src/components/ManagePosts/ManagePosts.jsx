@@ -1,14 +1,14 @@
 import "./ManagePosts.css";
-import { FaRegTrashAlt, FaRegHeart, FaHeart } from "react-icons/fa";
+import {  FaRegHeart, FaHeart } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostsByCurrentUser } from "../../redux/post.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import DeletePostModal from "../DeletePostModal";
 import UpdatePostModal from "../UpdatePostModal";
 import PostDetailsModel from "../PostDetailsModel";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
+import DeletePosts from "../DeletePosts/DeletePosts.jsx";
 
 const ManagePosts = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,9 @@ const ManagePosts = () => {
   const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
 
   useEffect(() => {
-    dispatch(getPostsByCurrentUser());
+
+      dispatch(getPostsByCurrentUser());
+
   }, [dispatch]);
 
   useEffect(() => {
@@ -79,17 +81,12 @@ const ManagePosts = () => {
               {isPoster && (
                 <div className="post-utilities">
                   <OpenModalMenuItem
-                    itemText={<FaRegTrashAlt />}
-                    modalComponent={
-                      <DeletePostModal postId={post.id} userId={sessionUser.id} />
-                    }
-                  />
-                  <OpenModalMenuItem
                     itemText={<FaPencil />}
                     modalComponent={
                       <UpdatePostModal postId={post.id} userId={sessionUser.id} />
-                    }
+                      }
                   />
+                    <DeletePosts postId={post.id}/>
                 </div>
               )}
               <div className="post-stats">

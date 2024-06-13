@@ -20,7 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    /* color: white; */
     font-size: 24px;
     margin-bottom: 5px;
     margin-right: 5px;
@@ -33,13 +33,15 @@
 
 .content-button:nth-child(1) .circle {
     background-color: white;
+    color: black;
 }
 
 .content-button:nth-child(2) .circle {
     background-color: red;
+    color: black;
 }
 
-.content-button:nth-child(3) .circle {
+/* .content-button:nth-child(3) .circle {
     background-color: orange;
 }
 
@@ -57,7 +59,7 @@
 
 .content-button:nth-child(7) .circle {
     background-color: pink;
-}
+} */
 
 .create-content-button-container {
     display: flex;
