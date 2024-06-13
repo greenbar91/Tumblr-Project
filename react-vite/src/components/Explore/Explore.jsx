@@ -17,14 +17,16 @@ const Explore = () => {
   const userLikes = useSelector((state) => state.likes.likes);
   const currentUser = useSelector((state) => state.session.user)
   const following = useSelector(state => state.followReducer)
-  const currUser = useSelector(state => state.session)
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
 
   useEffect(() => {
-    dispatch(fetchAllPostsThunk());
-    const getFollowing = async () => await dispatch(getFollowsThunk());
-      getFollowing().then(data => console.log(data))
+    dispatch(getFollowsThunk());
+
+    setTimeout(() => {
+      dispatch(fetchAllPostsThunk());
+    }, 500)
   }, [dispatch]);
 
   useEffect(() => {
@@ -60,26 +62,28 @@ const Explore = () => {
       <ul className="post-container grid-item">
         {posts.map((post) => {
           const hasLiked = userLikes?.some((like) => like.post_id === post.id);
+  
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
+                <img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>
                 <h3 className="post-username">
                   {currentUser ? (
                     <OpenModalMenuItem
                       onModalClose={closeMenu}
-                      itemText={post.poster}
+                      itemText={post.poster.username}
                       modalComponent={<PostDetailsModel post={post} />}
                     />
                   ) : (
                     <OpenModalMenuItem
                       onModalClose={closeMenu}
-                      itemText={post.poster}
+                      itemText={post.poster.username}
                       modalComponent={<AuthFormModal />}
                     />
                   )}
                 </h3>
               {Object.values(following['following']).find(user => user.id === post.user_id) === undefined &&
-              currUser && currUser['user'] && currUser['user'].id && currUser['user'].id !== post.user_id && <FollowUserButton id={post.user_id}/>}
+              currentUser && currentUser.id !== post.user_id && <FollowUserButton id={post.user_id}/>}
               </div>
               {/* <hr /> */}
               <div id="pi-title">

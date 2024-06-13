@@ -18,6 +18,7 @@ const ManagePosts = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
 
   useEffect(() => {
     dispatch(getPostsByCurrentUser());
@@ -60,9 +61,10 @@ const ManagePosts = () => {
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
+              <img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>
                 <h3 className="post-username">
                   <OpenModalMenuItem
-                    itemText={post.poster}
+                    itemText={post.poster.username}
                     modalComponent={<PostDetailsModel post={post} />}
                     onModalClose={closeMenu}
                   />

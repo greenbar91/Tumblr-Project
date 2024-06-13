@@ -25,7 +25,7 @@ def get_all_posts():
         comment_count = Comment.query.filter_by(post_id=post.id).count()
         like_count = Like.query.filter_by(post_id=post.id).count()
         user = User.query.get(post.user_id)
-        poster = user.username
+        poster = user.to_dict()
 
         post_dict = post.to_dict()
         post_dict["comment_count"] = comment_count
@@ -54,12 +54,12 @@ def get_user_posts():
         comment_count = Comment.query.filter_by(post_id=post.id).count()
         like_count = Like.query.filter_by(post_id=post.id).count()
         user = User.query.get(post.user_id)
-        poster = user.username
+        poster = user
 
         post_dict = post.to_dict()
         post_dict["comment_count"] = comment_count
         post_dict["like_count"] = like_count
-        post_dict["poster"] = poster
+        post_dict["poster"] = poster.to_dict()
 
         posts_list.append(post_dict)
 
@@ -185,7 +185,7 @@ def get_followed_posts():
     user_ids = {post.user_id for post in followed_posts}
 
     users = User.query.filter(User.id.in_(user_ids)).all()
-    user_dict = {user.id: user.username for user in users}
+    user_dict = {user.id: user.to_dict() for user in users}
 
     posts_with_usernames = [
         {
