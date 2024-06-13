@@ -13,6 +13,16 @@ function FollowingFormPage(){
     console.log(followingList['following'])
     const [userSearch, setUserSearch] = useState('')
     const [errors, setErrors] = useState({})
+    const animalIcons = ['https://rumblrbucket.s3.us-east-2.amazonaws.com/black-panther_15109156.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/duck_141831.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/elephant_713996.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/fox_185824.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/hen_141833.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/icons8-owl-64.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/monkey_235911.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/seal_185843.png',
+    'https://rumblrbucket.s3.us-east-2.amazonaws.com/squirrel_141700.png'
+]
 
     useEffect(() => {
         setErrors('')
@@ -56,7 +66,7 @@ function FollowingFormPage(){
             <ul id="following-ul">
                 {Object.values(followingList['following']).map(user =>
                     <li key={user.id}>
-                        <FollowingFormTile id={user.id} icon='' username={user.username} updated='Feature TBD'/>
+                        <FollowingFormTile id={user.id} icon={animalIcons[Math.ceil(Math.random() * 9)]} username={user.username} updated='Feature TBD'/>
                     </li>)}
             </ul>
         }
