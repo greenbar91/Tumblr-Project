@@ -43,7 +43,7 @@ function PostDetailsModel({ post }) {
   return (
     <div className="post-details">
       <div className="header">
-        <div className="poster">{poster.username}</div>
+        <div className="poster">{poster.username || poster}</div>
         <div className="time">{getTimeAgo(created_at)}</div>
       </div>
       <div className="title">{title}</div>
