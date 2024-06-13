@@ -124,7 +124,7 @@ export const deleteCommentByIdThunk = (commentId) => async (dispatch) => {
   }
 };
 
-const initialState = { comments: [] };
+const initialState = { comments: [] , comments_by_id: []};
 
 function commentReducer(state = initialState, action) {
   switch (action.type) {
