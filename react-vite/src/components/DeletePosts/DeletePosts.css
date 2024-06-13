@@ -6,7 +6,7 @@
 
   .delete-confirmation2 {
     position: absolute;
-    transform: translateX(-80%);
+    transform: translateX(-88%);
     background-color: #222222;
     display: flex;
     flex-direction: row;
