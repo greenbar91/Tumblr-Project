@@ -13,7 +13,7 @@ const UpdatePostModal = ({ postId }) => {
         dispatch(fetchPostByIdThunk(postId));
     }, [dispatch, postId]);
 
-    const post = useSelector((state) => state.postState.currentPost);
+    const post = useSelector((state) => state.postState.currentPost?.post);
     const sessionUser = useSelector((state) => state.session.user);
 
     const [title, setTitle] = useState('')
@@ -23,8 +23,8 @@ const UpdatePostModal = ({ postId }) => {
     // Update the state once the post data is available
     useEffect(() => {
         if (post) {
-            setTitle(post.title);
-            setBody(post.body);
+            setTitle(post.title || '');
+            setBody(post.body || '');
         }
     }, [post]);
 
@@ -35,7 +35,7 @@ const UpdatePostModal = ({ postId }) => {
             errors.title = "Please enter a title"
         }
         if (!body) {
-            errors.title = "Please enter the body"
+            errors.body = "Please enter the body"
         }
 
         setValidationErrors(errors);
