@@ -1,0 +1,38 @@
+.delete-comment-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .delete-confirmation {
+    position: absolute;
+    top: -16px;
+    left: -21px;
+    transform: translateX(-50%);
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .confirm-icon, .cancel-icon {
+    margin: 5px;
+    padding: 5px;
+    margin-left: -1px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.5em;
+  }
+
+  .confirm-icon {
+    color: green;
+  }
+
+  .cancel-icon {
+    color: red;
+  }
+
+  .delete-button {
+    cursor: pointer;
+  }
