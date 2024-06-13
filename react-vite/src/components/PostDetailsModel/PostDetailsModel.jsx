@@ -13,6 +13,7 @@ function PostDetailsModel({ post }) {
   const userLikes = useSelector((state) => state.likes.likes);
   const [likesCount, setLikesCount] = useState(0);
   const hasLiked = userLikes?.some((like) => like.post_id === id);
+  const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
 
   useEffect(() => {
     const fetchPostDetails = async () => {
@@ -43,6 +44,7 @@ function PostDetailsModel({ post }) {
   return (
     <div className="post-details">
       <div className="header">
+        <div className="profile-pic"><img width={50} height={50} src={poster.profile_pic ? poster.profile_pic : defaultIcon}/></div>
         <div className="poster">{poster.username}</div>
         <div className="time">{getTimeAgo(created_at)}</div>
       </div>

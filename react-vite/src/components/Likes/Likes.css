@@ -52,3 +52,7 @@
   text-decoration: none;
   color: black;
 }
+
+#user-div{
+  display: flex;
+}

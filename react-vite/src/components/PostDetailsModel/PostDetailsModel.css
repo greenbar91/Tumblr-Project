@@ -10,6 +10,10 @@
     margin-right: auto; */
   }
 
+  .profile-pic{
+    padding: 0 10px 0 0;
+  }
+
   .post-details .header {
     display: flex;
     align-items: center;

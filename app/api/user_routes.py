@@ -59,7 +59,7 @@ def current_user_likes():
     for post in posts:
         post_dict = post.to_dict()
         user = User.query.get(post.user_id)
-        poster = user.username
+        poster = user.to_dict()
         post_dict["comment_count"] = len(Comment.query.filter_by(post_id=post.id).all())
         post_dict["likes_count"] = len(Like.query.filter_by(post_id=post.id).all())
         post_dict["poster"] = poster
