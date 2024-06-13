@@ -13,6 +13,7 @@ function FollowingFormPage(){
     console.log(followingList['following'])
     const [userSearch, setUserSearch] = useState('')
     const [errors, setErrors] = useState({})
+    const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
 
     useEffect(() => {
         setErrors('')
@@ -55,9 +56,12 @@ function FollowingFormPage(){
         {followingList &&
             <ul id="following-ul">
                 {Object.values(followingList['following']).map(user =>
-                    <li key={user.id}>
-                        <FollowingFormTile id={user.id} icon='' username={user.username} updated='Feature TBD'/>
-                    </li>)}
+                    {
+                        console.log(user)
+                        return (<li key={user.id}>
+                            <FollowingFormTile id={user.id} icon={user.profile_pic ? user.profile_pic : defaultIcon} username={user.username} updated='Feature TBD'/>
+                        </li>)
+                        })}
             </ul>
         }
         </div>

@@ -29,3 +29,22 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.create-post-form .button #cancel-post {
+    background-color: #B6BAC2;
+    border-style: none;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 85px;
+    height: 35px;
+}
+
+.create-post-form .button #create-post {
+    background-color: #66BCF2;
+    color: black;
+    border-style: none;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 90px;
+    height: 35px;
+}

@@ -5,7 +5,9 @@ import { useState, useEffect, useRef } from 'react';
 import "./Navigation.css";
 import OpenModalMenuItem from './OpenModalMenuItem';
 import AuthFormModal from '../AuthFormModal';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { thunkLogin } from '../../redux/session';
+
 
 
 function Navigation() {
@@ -30,6 +32,13 @@ function Navigation() {
 
   const closeMenu = () => setShowMenu(false);
 
+  const dispatch = useDispatch();
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+
+    return dispatch(thunkLogin({ email: 'demo@aa.io', password: 'password' }));
+  };
+
   return (
 
     <div className="site-container">
@@ -38,8 +47,10 @@ function Navigation() {
           <NavBar />
         </div>
       </ul>
+
       {!user && (<div className="auth-form-modal-container">
         <p>Join over <strong>100 million</strong> people using <strong>Rumblr</strong> to find their <strong>communities</strong> and make <strong>friends.</strong></p>
+
         <div className="auth-form-button">
           <button className="sign-up-btn">
             <OpenModalMenuItem
@@ -59,7 +70,7 @@ function Navigation() {
           </button>
         </div>
 
-
+        <a href="#" onClick={handleDemoLogin}>Demo User</a>
 
       </div>)}
     </div>

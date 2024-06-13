@@ -1,5 +1,7 @@
 import './CreateContentButton.css';
 import { FaPencil } from "react-icons/fa6";
+import { IoText } from "react-icons/io5";
+import { FaCameraRetro } from "react-icons/fa";
 import { useState } from 'react';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import CreatePostFormModal from '../CreatePostFormModal';
@@ -12,12 +14,12 @@ const CreateContentButton = () => {
     };
 
     const buttons = [
-        { type: 'Photo', icon: '📷' },
-        { type: 'Quote', icon: '💬' },
-        { type: 'Link', icon: '🔗' },
-        { type: 'Chat', icon: '💬' },
-        { type: 'Audio', icon: '🎧' },
-        { type: 'Video', icon: '🎥' }
+        { type: 'Photo', icon: <FaCameraRetro /> },
+        // { type: 'Quote', icon: '💬' },
+        // { type: 'Link', icon: '🔗' },
+        // { type: 'Chat', icon: '💬' },
+        // { type: 'Audio', icon: '🎧' },
+        // { type: 'Video', icon: '🎥' }
     ];
 
     return (
@@ -31,7 +33,7 @@ const CreateContentButton = () => {
 
                     <div className="content-button">
                         <OpenModalMenuItem
-                            itemText={<div className="circle">✏️</div>}
+                            itemText={<div className="circle"><IoText /></div>}
                             modalComponent={<CreatePostFormModal />}
                         />
                         <span className="button-text">Text</span>

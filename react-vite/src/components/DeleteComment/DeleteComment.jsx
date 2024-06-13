@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./DeleteComment.css";
 import {
   deleteCommentByIdThunk,
   getCommentsByPostIdThunk,
 } from "../../redux/comment";
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt, FaCheck, FaTimes } from "react-icons/fa";
 
 function DeleteComment({ commentId, postId }) {
   const dispatch = useDispatch();
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const comments = useSelector(
     (state) => state.comments.comments_by_id?.comments
@@ -22,15 +24,21 @@ function DeleteComment({ commentId, postId }) {
 
     setTimeout(() => {
       dispatch(getCommentsByPostIdThunk(postId));
-    }, 500);
+    }, 300);
+    setShowConfirmation(false);
   };
 
   return (
     <div className="delete-comment-container">
-      <div className="delete-confirmation"></div>
-      <div>
-        <FaRegTrashAlt onClick={() => handleDelete()} className="delete-button"/>
-      </div>
+      {showConfirmation ? (
+        <div className="delete-confirmation">
+
+          <FaCheck onClick={handleDelete} className="confirm-icon" />
+          <FaTimes onClick={() => setShowConfirmation(false)} className="cancel-icon" />
+        </div>
+      ) : (
+        <FaRegTrashAlt onClick={() => setShowConfirmation(true)} className="delete-button" />
+      )}
     </div>
   );
 }

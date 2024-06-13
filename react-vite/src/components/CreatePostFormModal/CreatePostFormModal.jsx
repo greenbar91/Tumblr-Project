@@ -71,10 +71,10 @@ const CreatePostFormModal = () => {
         </textarea>
 
         <div className="button">
-          <button type="button" onClick={closeModal}>
+          <button type="button" id="cancel-post" onClick={closeModal}>
             Close
           </button>
-          <button type="submit" disabled={Object.values(validationErrors).length}>
+          <button type="submit" id="create-post" disabled={Object.values(validationErrors).length}>
             Post now
           </button>
         </div>
