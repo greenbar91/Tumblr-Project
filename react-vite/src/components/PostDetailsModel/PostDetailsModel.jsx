@@ -8,6 +8,7 @@ import CommentsPage from "../CommentsPage/CommentsPage";
 
 function PostDetailsModel({ post }) {
   const { id, title, body, poster, created_at } = post;
+
   const dispatch = useDispatch();
   const userLikes = useSelector((state) => state.likes.likes);
   const [likesCount, setLikesCount] = useState(0);
@@ -42,7 +43,7 @@ function PostDetailsModel({ post }) {
   return (
     <div className="post-details">
       <div className="header">
-        <div className="poster">{poster}</div>
+        <div className="poster">{poster.username || poster}</div>
         <div className="time">{getTimeAgo(created_at)}</div>
       </div>
       <div className="title">{title}</div>
