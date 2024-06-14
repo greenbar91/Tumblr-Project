@@ -13,6 +13,7 @@ function FollowingFormPage(){
     console.log(followingList['following'])
     const [userSearch, setUserSearch] = useState('')
     const [errors, setErrors] = useState({})
+    const [disabled, setDisabled] = useState(true)
     const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
 
     useEffect(() => {
@@ -26,7 +27,10 @@ function FollowingFormPage(){
         delete newErrors['user_not_found']
         delete newErrors['forbidden']
         setErrors(newErrors)
-    }, [userSearch])
+
+        if(userSearch) setDisabled(false)
+        else setDisabled(true)
+    }, [userSearch, disabled])
 
     const followUser = async e => {
         e.preventDefault()
@@ -48,7 +52,7 @@ function FollowingFormPage(){
         <form id="followSearch" onSubmit={followUser}>
             <div id="user-search-div">
                 <input id='username_input' name="username" type="text" value={userSearch} placeholder="Enter a username to follow" onChange={e => setUserSearch(e.target.value)}></input>
-                <button>Follow</button>
+                <button disabled={disabled} id={disabled ? 'disabled' : 'follow-btn'}>Follow</button>
             </div>
             {Object.keys(errors).length > 0 && errors.user_not_found && <p>{errors.user_not_found}</p>}
             {Object.keys(errors).length > 0 && errors.forbidden && <p>{errors.forbidden}</p>}
