@@ -1,4 +1,4 @@
-.content-buttons-container {
+.button-dropdown {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,4 +65,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.button-dropdown.hidden {
+    display: none;
 }

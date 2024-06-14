@@ -2,16 +2,36 @@ import './CreateContentButton.css';
 import { FaPencil } from "react-icons/fa6";
 import { IoText } from "react-icons/io5";
 import { FaCameraRetro } from "react-icons/fa";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import CreatePostFormModal from '../CreatePostFormModal';
 
 const CreateContentButton = () => {
     const [showButtons, setShowButtons] = useState(false);
+    const containerRef = useRef();
 
-    const handleButtonClick = () => {
+    const toggleMenu = (e) => {
+        e.stopPropagation();
         setShowButtons(!showButtons);
     };
+
+    useEffect(() => {
+        if (!showButtons) return;
+
+        const closeButtons = (e) => {
+            if (!containerRef.current.contains(e.target)) {
+                setShowButtons(false);
+            }
+        };
+
+        document.addEventListener('click', closeButtons);
+
+        return () => {
+            document.removeEventListener('click', closeButtons);
+        };
+    }, [showButtons]);
+
+    const containerClassName = "button-dropdown" + (showButtons ? "" : " hidden");
 
     const buttons = [
         { type: 'Photo', icon: <FaCameraRetro /> },
@@ -24,12 +44,12 @@ const CreateContentButton = () => {
 
     return (
         <div className="create-content-button-container">
-            <button onClick={handleButtonClick} className="main-button">
+            <button onClick={toggleMenu} className="main-button">
                 <FaPencil /> Create
             </button>
 
             {showButtons && (
-                <div className="content-buttons-container">
+                <div className={containerClassName} ref={containerRef}>
 
                     <div className="content-button">
                         <OpenModalMenuItem
