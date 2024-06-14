@@ -7,7 +7,7 @@
   .delete-confirmation2 {
     position: absolute;
     transform: translateX(-88%);
-    background-color: #222222;
+    background-color: white;
     display: flex;
     flex-direction: row;
     align-items: center;

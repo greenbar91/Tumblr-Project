@@ -1,83 +1,92 @@
-/* .post-username:hover {
-    background-color: ;
-    cursor: pointer;
-} */
-.post-container{
-    max-width: 540px;
-    height: 100vh;
-}
-
-.post-item {
-    background-color: #222222;
-    color: white;
-    margin: 10px 0;
-    border-radius: 5px;
-}
-
-.post-username{
-    border-bottom: #222222 1px solid;
-}
-
-#pi-user{
+#pi-user {
     display: flex;
-}
+    align-items: center;
+    padding: 5px 10px;
+  }
 
-#pi-user > h3{
-    padding: 5px 0;
-}
+  #pi-user img {
+    margin-right: 10px;
+  }
 
-#followBtn{
-    padding: 5px 0;
-}
-#followBtn > a{
+  #user-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #username-follow {
+    display: flex;
+    align-items: center;
+  }
+
+  #username-follow h3 {
     margin: 0;
-    font-size: 18px;
+    padding-left: 10px;
+  }
+
+  #followBtn {
+    padding: 5px 0;
+  }
+
+  #followBtn > a {
+    font-size: 14px;
     text-decoration: none;
-    color: #00AAC6;
-}
+    color: #00C5FB;
+    font-weight: bold;
+    padding-left: 10px;
+  }
 
-#followBtn > a:hover{
+  #followBtn > a:hover {
     text-decoration: underline;
-}
+  }
 
-#pi-user:hover{
-    background-color: #2b2b2b;
-    width: 100%;
+  #pi-user:hover {
+    background-color: #F5F5F5 !important;
     border-radius: 5px;
-}
+  }
 
-#pi-title, #pi-body, .post-stats{
+  .time-ago {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+  }
+
+  #pi-title,
+  #pi-body,
+  .post-stats {
     padding: 0 10px;
-    /* color: white; */
-}
+  }
 
-#pi-title > h1{
+  #pi-title > h1 {
     font-size: 26px;
     font-weight: 100;
-}
+  }
 
-#pi-body > p{
+  #pi-body > p {
     font-size: 16px;
-}
+  }
 
-.post-stats{
+  .post-stats {
     padding: 10px 10px 10px;
     display: flex;
-    flex-direction: row-reverse
-}
+    flex-direction: row-reverse;
+  }
 
-.post-stats > span{
+  .post-stats > span {
     padding: 5px;
+  }
 
-}
+  .post-container {
+    max-width: 540px;
+    height: 100vh;
+  }
 
-.post-username > li{
+  .post-item {
+    background-color: white !important;
+    color: black !important;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+
+  /* .post-username {
     width: 100%;
-    color: white;
-    padding: 0 10px;
-    text-decoration: none;
-}
-
-.post-username{
-    width: 100%
-}
+  } */

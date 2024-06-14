@@ -9,6 +9,7 @@ import UpdatePostModal from "../UpdatePostModal";
 import PostDetailsModel from "../PostDetailsModel";
 import { postLikeThunk, deleteLikeThunk } from "../../redux/like";
 import DeletePosts from "../DeletePosts/DeletePosts.jsx";
+import { formatDistanceToNow } from "date-fns";
 
 const ManagePosts = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,9 @@ const ManagePosts = () => {
         {posts?.map((post) => {
           const hasLiked = likes?.some((like) => like.post_id === post.id);
           const isPoster = sessionUser?.id === post.user_id;
+          const timeAgo = formatDistanceToNow(new Date(post.created_at), {
+            addSuffix: true,
+          });
 
           return (
             <li key={post.id} className="post-item">
@@ -80,6 +84,7 @@ const ManagePosts = () => {
                       modalComponent={<PostDetailsModel post={post} />}
                       onModalClose={closeMenu}
                     />
+                    <div className="time-ago">{timeAgo}</div>
                   </h3>
                 )}
               </div>
