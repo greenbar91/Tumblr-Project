@@ -1,5 +1,5 @@
 import "./NavBar.css";
-import CreateContentButton from '../CreateContentButton';
+import CreateContentButton from "../CreateContentButton";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
@@ -34,7 +34,6 @@ function NavBar() {
 
   return (
     <nav className="nav-bar-container">
-
       <ul id="user-nav-ul">
         <li className="logo-container">
           <NavLink to={"/"} className="logo">
@@ -45,19 +44,19 @@ function NavBar() {
           {user && (
             <>
               <div className="nav-bar-sizing">
-                <NavLink to={"/home"} className={"nav-link"} activeClassName="active">
+                <NavLink to={"/home"} className={"nav-link"}>
                   <li className="nav-bar-home-container">
                     <div id="grouped">
                       <div className="fa-home">
                         <FaHome />
                       </div>
-                      <div className="nav-bar-home" >Home</div>
+                      <div className="nav-bar-home">Home</div>
                     </div>
                   </li>
                 </NavLink>
               </div>
               <div className="nav-bar-sizing">
-                <NavLink to={"/explore"} className={"nav-link"} activeClassName="active">
+                <NavLink to={"/explore"} className={"nav-link"}>
                   <li className="nav-bar-explore-container">
                     <div id="grouped">
                       <div className="md-explore">
@@ -85,7 +84,7 @@ function NavBar() {
           )}
           {!user && (
             <div className="nav-bar-sizing">
-              <NavLink to={"/explore"} className={"nav-link"} activeClassName="active">
+              <NavLink to={"/explore"} className={"nav-link"}>
                 <li className="nav-bar-explore-container">
                   <div id="grouped">
                     <div className="md-explore">
@@ -99,7 +98,7 @@ function NavBar() {
           )}
           {user && isDropdownVisible && (
             <ul className="dropdown-content" id="likes-border">
-              <NavLink to={"/likes"} className={"nav-link"} id='menu-likes' activeClassName="active">
+              <NavLink to={"/likes"} className={"nav-link"} id="menu-likes">
                 <div id="grouped">
                   <li className="dropdown-options " id="likes-sizing">
                     Likes
@@ -109,18 +108,26 @@ function NavBar() {
               </NavLink>
 
               <div className="nav-bar-sizing">
-                <NavLink to={"/following"} className={"nav-link"} activeClassName="active">
-                  <li className="dropdown-options" id='menu-following'>Following</li>
+                <NavLink to={"/following"} className={"nav-link"}>
+                  <li className="dropdown-options" id="menu-following">
+                    Following
+                  </li>
                 </NavLink>
               </div>
               <div className="nav-bar-sizing">
-                <li className="dropdown-options" id='logout-styling' onClick={logout}>
+                <li
+                  className="dropdown-options"
+                  id="logout-styling"
+                  onClick={logout}
+                >
                   Log Out
                 </li>
               </div>
               <div className="nav-bar-sizing">
-                <NavLink to={"/blog"} className={"nav-link"} >
-                  <li className="dropdown-options" id='menu-posts'>Posts</li>
+                <NavLink to={"/blog"} className={"nav-link"}>
+                  <li className="dropdown-options" id="menu-posts">
+                    Posts
+                  </li>
                 </NavLink>
               </div>
             </ul>
@@ -128,13 +135,9 @@ function NavBar() {
         </div>
       </ul>
 
-      <div>
-        {user && (<CreateContentButton />)}
-      </div>
-
+      <div>{user && <CreateContentButton />}</div>
     </nav>
   );
 }
-
 
 export default NavBar;
