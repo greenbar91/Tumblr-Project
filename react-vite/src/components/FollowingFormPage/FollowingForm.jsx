@@ -63,7 +63,7 @@ function FollowingFormPage(){
                     {
                         console.log(user)
                         return (<li key={user.id}>
-                            <FollowingFormTile id={user.id} icon={user.profile_pic ? user.profile_pic : defaultIcon} username={user.username} updated='Feature TBD'/>
+                            <FollowingFormTile id={user.id} icon={user.profile_pic ? user.profile_pic : defaultIcon} username={user.username} updated=''/>
                         </li>)
                         })}
             </ul>
