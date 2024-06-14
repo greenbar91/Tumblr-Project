@@ -3,9 +3,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 550px;
+  height: 95vh;
   position: fixed;
   left: 27%;
+}
+
+.nav-bar-container h3,
+.nav-bar-container .nav-bar-home,
+.nav-bar-container .nav-bar-explore,
+.nav-bar-container .nav-bar-account,
+.nav-bar-container .dropdown-options {
+  font-size: 15px;
 }
 
 #logout-styling,
