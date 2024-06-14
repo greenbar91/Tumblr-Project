@@ -25,11 +25,11 @@ console.log(icon)
                 <img src={icon} alt="icon" width={50} height={50}></img>
             </div>
             <div id='user_updated'>
-                <label >{username}</label>
-                <label>{updated}</label>
+                <label id='tile-username'>{username}</label>
+                <label id='tile-updated'>{updated}</label>
             </div>
-            <div>
-                <button onClick={handleUnfollow}>unfollow</button>
+            <div className='btn-div'>
+                <button id='tile-unfollow-btn' onClick={handleUnfollow}>unfollow</button>
             </div>
         </div>
     )
