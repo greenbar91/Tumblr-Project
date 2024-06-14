@@ -16,6 +16,7 @@ function Likes() {
   const [showMenu, setShowMenu] = useState(false);
 
   const closeMenu = () => setShowMenu(false);
+  const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
 
   useEffect(() => {
     dispatch(getUserLikesThunk);
@@ -53,10 +54,14 @@ function Likes() {
     <ul className="post-container">
       {userLikes?.map((post) => {
         const hasLiked = userLikes.some((like) => like.post_id === post.post?.id);
+        console.log(post)
         return (
           <li key={post.id} className="post-item">
-            <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.post?.poster} modalComponent={<PostDetailsModel post={post.post}/>}/></h3>
-            <hr />
+            <div id="user-div">
+            <img width={50} height={50} src={post.post.poster.profile_pic ? post.post.poster.profile_pic : defaultIcon}/>
+            <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.post?.poster.username} modalComponent={<PostDetailsModel post={post.post}/>}/></h3>
+            </div>
+            {/* <hr /> */}
             <h2>{post.post?.title}</h2>
             <p>{post.post?.body}</p>
             <div className="post-stats">
