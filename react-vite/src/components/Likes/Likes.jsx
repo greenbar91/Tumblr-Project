@@ -6,6 +6,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { getUserLikesThunk, deleteLikeThunk, postLikeThunk } from "../../redux/like";
 import PostDetailsModel from "../PostDetailsModel";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import { formatDistanceToNow } from "date-fns";
 
 
 function Likes() {
@@ -54,13 +55,16 @@ function Likes() {
     <ul className="post-container">
       {userLikes?.map((post) => {
         const hasLiked = userLikes.some((like) => like.post_id === post.post?.id);
-        console.log(post)
+        const timeAgo = formatDistanceToNow(new Date(post.post.created_at), {
+          addSuffix: true,
+        });
         return (
           <li key={post.id} className="post-item">
-            <div id="user-div">
+            <div id="pi-user">
             {post.post.poster && (<img width={50} height={50} src={post.post.poster.profile_pic ? post.post.poster.profile_pic : defaultIcon}/>)}
-            <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.post.poster?.username} modalComponent={<PostDetailsModel post={post.post}/>}/></h3>
+            <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.post.poster?.username} modalComponent={<PostDetailsModel post={post.post}/>}/><div className="time-ago">{timeAgo}</div></h3>
             </div>
+
             {/* <hr /> */}
             <h2>{post.post?.title}</h2>
             <p>{post.post?.body}</p>

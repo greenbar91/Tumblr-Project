@@ -44,19 +44,19 @@ function NavBar() {
           {user && (
             <>
               <div className="nav-bar-sizing">
-                <NavLink to={"/home"} className={"nav-link"}>
+                <NavLink to={"/home"} className={"nav-link"} activeClassName="active">
                   <li className="nav-bar-home-container">
                     <div id="grouped">
                       <div className="fa-home">
                         <FaHome />
                       </div>
-                      <div className="nav-bar-home">Home</div>
+                      <div className="nav-bar-home" >Home</div>
                     </div>
                   </li>
                 </NavLink>
               </div>
               <div className="nav-bar-sizing">
-                <NavLink to={"/explore"} className={"nav-link"}>
+                <NavLink to={"/explore"} className={"nav-link"} activeClassName="active">
                   <li className="nav-bar-explore-container">
                     <div id="grouped">
                       <div className="md-explore">
@@ -84,7 +84,7 @@ function NavBar() {
           )}
           {!user && (
             <div className="nav-bar-sizing">
-              <NavLink to={"/explore"} className={"nav-link"}>
+              <NavLink to={"/explore"} className={"nav-link"} activeClassName="active">
                 <li className="nav-bar-explore-container">
                   <div id="grouped">
                     <div className="md-explore">
@@ -98,7 +98,7 @@ function NavBar() {
           )}
           {user && isDropdownVisible && (
             <ul className="dropdown-content" id="likes-border">
-              <NavLink to={"/likes"} className={"nav-link"} id='menu-likes'>
+              <NavLink to={"/likes"} className={"nav-link"} id='menu-likes' activeClassName="active">
                 <div id="grouped">
                   <li className="dropdown-options " id="likes-sizing">
                     Likes
@@ -108,17 +108,17 @@ function NavBar() {
               </NavLink>
 
               <div className="nav-bar-sizing">
-                <NavLink to={"/following"} className={"nav-link"}>
+                <NavLink to={"/following"} className={"nav-link"} activeClassName="active">
                   <li className="dropdown-options" id='menu-following'>Following</li>
                 </NavLink>
               </div>
               <div className="nav-bar-sizing">
-                <li className="dropdown-options" onClick={logout}>
+                <li className="dropdown-options" id='logout-styling' onClick={logout}>
                   Log Out
                 </li>
               </div>
               <div className="nav-bar-sizing">
-                <NavLink to={"/blog"} className={"nav-link"}>
+                <NavLink to={"/blog"} className={"nav-link"} >
                   <li className="dropdown-options" id='menu-posts'>Posts</li>
                 </NavLink>
               </div>

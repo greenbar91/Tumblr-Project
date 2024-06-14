@@ -1,8 +1,8 @@
 .auth-form-modal-container {
     position: fixed;
     bottom: 0;
-    width: 150%;
-    height: 20%;
+    width: 100%;
+    height: 15%;
     background-color: #7C5CFF;
     color: white;
     text-align: center;
