@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createNewPost, fetchAllPostsThunk } from "../../redux/post";
+import { createNewPost,  getPostsByCurrentUser } from "../../redux/post";
 
 const CreatePostFormModal = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
-
+  
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const CreatePostFormModal = () => {
     const newPost = await dispatch(createNewPost(newPostFormData));
 
     if (newPost) {
-      dispatch(fetchAllPostsThunk());
+      dispatch(getPostsByCurrentUser);
       closeModal();
       setTimeout(() => {
         navigate("/blog");

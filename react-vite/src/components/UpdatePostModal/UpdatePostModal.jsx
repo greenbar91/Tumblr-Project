@@ -2,7 +2,7 @@ import './UpdatePostModal.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from '../../context/Modal';
-import { fetchPostByIdThunk, updatePost } from '../../redux/post.js';
+import { fetchPostByIdThunk, getPostsByCurrentUser, updatePost } from '../../redux/post.js';
 
 const UpdatePostModal = ({ postId }) => {
     const { closeModal } = useModal();
@@ -55,7 +55,7 @@ const UpdatePostModal = ({ postId }) => {
         const updatedPost = await dispatch(updatePost(updatedPostFormData, postId));
 
         if (updatedPost) {
-            dispatch(fetchPostByIdThunk(postId));
+            dispatch(getPostsByCurrentUser());
             closeModal();
         }
     };
