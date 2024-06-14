@@ -58,8 +58,8 @@ function Likes() {
         return (
           <li key={post.id} className="post-item">
             <div id="user-div">
-            <img width={50} height={50} src={post.post.poster.profile_pic ? post.post.poster.profile_pic : defaultIcon}/>
-            <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.post?.poster.username} modalComponent={<PostDetailsModel post={post.post}/>}/></h3>
+            {post.post.poster && (<img width={50} height={50} src={post.post.poster.profile_pic ? post.post.poster.profile_pic : defaultIcon}/>)}
+            <h3 className="post-username"><OpenModalMenuItem onModalClose={closeMenu} itemText={post.post.poster?.username} modalComponent={<PostDetailsModel post={post.post}/>}/></h3>
             </div>
             {/* <hr /> */}
             <h2>{post.post?.title}</h2>

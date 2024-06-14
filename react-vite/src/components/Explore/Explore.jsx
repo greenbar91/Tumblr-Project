@@ -71,13 +71,13 @@ const Explore = () => {
                   {currentUser ? (
                     <OpenModalMenuItem
                       onModalClose={closeMenu}
-                      itemText={post.poster.username}
+                      itemText={post.poster?.username}
                       modalComponent={<PostDetailsModel post={post} />}
                     />
                   ) : (
                     <OpenModalMenuItem
                       onModalClose={closeMenu}
-                      itemText={post.poster.username}
+                      itemText={post.poster?.username}
                       modalComponent={<AuthFormModal />}
                     />
                   )}
@@ -87,10 +87,10 @@ const Explore = () => {
               </div>
               {/* <hr /> */}
               <div id="pi-title">
-                <h1>{post.title}</h1>
+                <h1>{post?.title}</h1>
               </div>
               <div id="pi-body">
-                <p>{post.body}</p>
+                <p>{post?.body}</p>
               </div>
 
               {/* <div className="post-utilities">
