@@ -44,7 +44,7 @@ const CreateContentButton = () => {
     return (
         <div className="create-content-button-container">
             <button onClick={toggleMenu} className="main-button">
-                <FaPencil /> Create
+                <FaPencil />  Create
             </button>
 
             {showButtons && (
