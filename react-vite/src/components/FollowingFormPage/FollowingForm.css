@@ -16,23 +16,29 @@
 }
 
 #username_input{
-    background-color: #2b2b2b;
-    color: white;
+    background-color: white;
+    color: black;
     border-radius: 5px;
 }
 
 .following_tile{
     box-sizing: border-box;
-    background-color: #2b2b2b;
+    background-color: white;
     margin: 10px 0;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px;
+    border: solid 2px #2b2b2b;
 }
 
 #tile-unfollow-btn{
     border-radius: 5px;
-    background-color: #00B8F9;
-    color: black;
+    background-color: white;
+    color: #00B8F9;
+    border: none;
+}
+
+#tile-unfollow-btn:hover{
+    cursor: pointer;
 }
 
 .btn-div{
@@ -43,21 +49,22 @@
     border-radius: 5px;
     background-color: #00B8F9;
     color: black; 
+    border: none;
 }
 
 #disabled{
-    background-color: black;
+    background-color: #2b2b2b;
     border: solid 2px #2b2b2b;
-    color: #2b2b2b;
+    color: black;
     border-radius: 5px;
 }
 
 
-#follow-btn:hover, #tile-unfollow-btn:hover{
+#follow-btn:hover{
     cursor: pointer;
     color: white;
 }
 
 #tile-username{
-    color: white
+    color: black;
 }
