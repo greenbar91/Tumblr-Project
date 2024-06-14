@@ -81,7 +81,8 @@ ul.post-container{
     justify-content: left;
     margin: 0;
     padding: 0;
-    color: whitesmoke;
+    color: #8A95A2;
+    font-weight: bold;
 }
 
 #custom-ul a, #custom-ul li{
@@ -112,8 +113,12 @@ ul a:visited {
     color: inherit;
 }
 
-ul a:hover, .nav-bar-account:hover, .dropdown-options:hover{
+/* ul a:hover, .nav-bar-account:hover, .dropdown-options > li:hover ,.nav-bar-explore:hover, .nav-bar-home:hover{
     color: white;
+} */
+
+.nav-bar-sizing:hover, #menu-likes:hover{
+    background-color: #122943;
 }
 
 /* .site-container{
