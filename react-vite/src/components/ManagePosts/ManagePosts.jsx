@@ -1,5 +1,5 @@
 import "./ManagePosts.css";
-import {  FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,12 +18,11 @@ const ManagePosts = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const defaultIcon = 'https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png';
+  const defaultIcon =
+    "https://rumblrbucket.s3.us-east-2.amazonaws.com/DefaultIcon.png";
 
   useEffect(() => {
-
-      dispatch(getPostsByCurrentUser());
-
+    dispatch(getPostsByCurrentUser());
   }, [dispatch]);
 
   useEffect(() => {
@@ -63,30 +62,45 @@ const ManagePosts = () => {
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
-              <img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>
-                <h3 className="post-username">
-                  <OpenModalMenuItem
-                    itemText={post.poster.username}
-                    modalComponent={<PostDetailsModel post={post} />}
-                    onModalClose={closeMenu}
+                {post.poster && (
+                  <img
+                    width={50}
+                    height={50}
+                    src={
+                      post.poster.profile_pic
+                        ? post.poster.profile_pic
+                        : defaultIcon
+                    }
                   />
-                </h3>
+                )}
+                {post.poster && (
+                  <h3 className="post-username">
+                    <OpenModalMenuItem
+                      itemText={post.poster.username}
+                      modalComponent={<PostDetailsModel post={post} />}
+                      onModalClose={closeMenu}
+                    />
+                  </h3>
+                )}
               </div>
               <div id="pi-title">
-                <h2>{post.title}</h2>
+                <h2>{post?.title}</h2>
               </div>
               <div id="pi-body">
-                <p>{post.body}</p>
+                <p>{post?.body}</p>
               </div>
               {isPoster && (
                 <div className="post-utilities">
                   <OpenModalMenuItem
                     itemText={<FaPencil />}
                     modalComponent={
-                      <UpdatePostModal postId={post.id} userId={sessionUser.id} />
-                      }
+                      <UpdatePostModal
+                        postId={post.id}
+                        userId={sessionUser.id}
+                      />
+                    }
                   />
-                    <DeletePosts postId={post.id}/>
+                  <DeletePosts postId={post.id} />
                 </div>
               )}
               <div className="post-stats">

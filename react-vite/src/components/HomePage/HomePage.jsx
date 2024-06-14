@@ -60,18 +60,18 @@ function HomePage(){
             return (
               <li key={post.id} className="post-item">
                 <div id="pi-user">
-                  <img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>
+                  {post.poster && (<img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>)}
                   <h3 className="post-username">
                     {currentUser ? (
                       <OpenModalMenuItem
                         onModalClose={closeMenu}
-                        itemText={post.poster.username}
+                        itemText={post.poster?.username}
                         modalComponent={<PostDetailsModel post={post} />}
                       />
                     ) : (
                       <OpenModalMenuItem
                         onModalClose={closeMenu}
-                        itemText={post.poster.username}
+                        itemText={post.poster?.username}
                         modalComponent={<AuthFormModal />}
                       />
                     )}
@@ -79,10 +79,10 @@ function HomePage(){
                 </div>
                 {/* <hr /> */}
                 <div id="pi-title">
-                  <h1>{post.title}</h1>
+                  <h1>{post?.title}</h1>
                 </div>
                 <div id="pi-body">
-                  <p>{post.body}</p>
+                  <p>{post?.body}</p>
                 </div>
 
                 {/* <div className="post-utilities">
