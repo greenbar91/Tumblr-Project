@@ -31,7 +31,6 @@ const CreateContentButton = () => {
         };
     }, [showButtons]);
 
-    const containerClassName = "button-dropdown" + (showButtons ? "" : " hidden");
 
     const buttons = [
         { type: 'Photo', icon: <FaCameraRetro /> },
@@ -49,7 +48,7 @@ const CreateContentButton = () => {
             </button>
 
             {showButtons && (
-                <div className={containerClassName} ref={containerRef}>
+                <div className="button-dropdown" ref={containerRef}>
 
                     <div className="content-button">
                         <OpenModalMenuItem
