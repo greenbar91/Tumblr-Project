@@ -9,7 +9,7 @@ const CreatePostFormModal = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
-  
+
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const CreatePostFormModal = () => {
     const newPost = await dispatch(createNewPost(newPostFormData));
 
     if (newPost) {
-      dispatch(getPostsByCurrentUser);
+      await dispatch(getPostsByCurrentUser());
       closeModal();
       setTimeout(() => {
         navigate("/blog");
