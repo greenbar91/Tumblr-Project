@@ -1,4 +1,4 @@
-import './CreatePostFormModal.css';
+import "./CreatePostFormModal.css";
 import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,8 +43,10 @@ const CreatePostFormModal = () => {
 
     if (newPost) {
       dispatch(fetchAllPostsThunk());
-      navigate("/blog");
       closeModal();
+      setTimeout(() => {
+        navigate("/blog");
+      }, 500);
     }
   };
 
@@ -67,18 +69,20 @@ const CreatePostFormModal = () => {
           rows="8"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-        >
-        </textarea>
+        ></textarea>
 
         <div className="button">
           <button type="button" id="cancel-post" onClick={closeModal}>
             Close
           </button>
-          <button type="submit" id="create-post" disabled={Object.values(validationErrors).length}>
+          <button
+            type="submit"
+            id="create-post"
+            disabled={Object.values(validationErrors).length}
+          >
             Post now
           </button>
         </div>
-
       </form>
     </div>
   );

@@ -55,6 +55,7 @@ const UpdatePostModal = ({ postId }) => {
         const updatedPost = await dispatch(updatePost(updatedPostFormData, postId));
 
         if (updatedPost) {
+            dispatch(fetchPostByIdThunk(postId));
             closeModal();
         }
     };
