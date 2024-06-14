@@ -1,6 +1,6 @@
+import "./NavBar.css";
 import CreateContentButton from '../CreateContentButton';
 import { NavLink, useNavigate } from "react-router-dom";
-import "./NavBar.css";
 import { FaHome } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { IoPersonSharp } from "react-icons/io5";
@@ -34,6 +34,7 @@ function NavBar() {
 
   return (
     <nav className="nav-bar-container">
+
       <ul id="user-nav-ul">
         <li className="logo-container">
           <NavLink to={"/"} className="logo">
