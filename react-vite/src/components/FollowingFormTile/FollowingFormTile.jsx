@@ -29,7 +29,7 @@ console.log(icon)
                 <label id='tile-updated'>{updated}</label>
             </div>
             <div className='btn-div'>
-                <button id='tile-unfollow-btn' onClick={handleUnfollow}>unfollow</button>
+                <button id='tile-unfollow-btn' onClick={handleUnfollow}>Unfollow</button>
             </div>
         </div>
     )
