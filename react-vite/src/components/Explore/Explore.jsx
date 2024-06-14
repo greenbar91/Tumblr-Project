@@ -62,11 +62,11 @@ const Explore = () => {
       <ul className="post-container grid-item">
         {posts.map((post) => {
           const hasLiked = userLikes?.some((like) => like.post_id === post.id);
-  
+
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
-                <img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>
+                {post.poster && (<img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>)}
                 <h3 className="post-username">
                   {currentUser ? (
                     <OpenModalMenuItem

@@ -63,7 +63,7 @@ const ManagePosts = () => {
           return (
             <li key={post.id} className="post-item">
               <div id="pi-user">
-              <img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>
+              {post.poster && (<img width={50} height={50} src={post.poster.profile_pic ? post.poster.profile_pic : defaultIcon}/>)}
                 <h3 className="post-username">
                   <OpenModalMenuItem
                     itemText={post.poster.username}
