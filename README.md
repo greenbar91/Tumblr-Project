@@ -1,8 +1,8 @@
 # Rumblr
 
 Post your next adventure on [Rumblr](https://tumblr-project.onrender.com/)!
-
-by Jacob Dietz and Asazay Luvaiku
+![](https://i.imgur.com/BgmyTZ8.png)
+by Jacob Dietz, Asazay Luvaiku and Thi
 
 Welcome to Rumblr, your new go-to spot for sharing your thoughts, photos, and quirky cat gifs! Dive into a world where creativity meets community, and every post is a chance to shine.
 
@@ -11,8 +11,8 @@ Welcome to Rumblr, your new go-to spot for sharing your thoughts, photos, and qu
 
 - [API Documentation](https://github.com/greenbar91/Tumblr-Project/wiki/API-Routes)
 - [Database Schema](https://github.com/greenbar91/Tumblr-Project/wiki/Database-Schema)
-- [Frontend Routes]()
-- [MVP Feature List](https://github.com/greenbar91/Tumblr-Project/wiki/Frontend-Routes)
+- [Frontend Routes and Components](https://github.com/greenbar91/Tumblr-Project/wiki/Frontend-Routes)
+- [MVP Feature List](https://github.com/greenbar91/Tumblr-Project/wiki/MVP-Feature-List)
 - [User Stories](https://github.com/greenbar91/Tumblr-Project/wiki/User-Stories)
 
 # Technologies Used
