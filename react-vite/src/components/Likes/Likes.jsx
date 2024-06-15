@@ -48,7 +48,7 @@ function Likes() {
     }
   };
 
-  console.log(userLikes)
+
 
   return (
     <div className="explore">
