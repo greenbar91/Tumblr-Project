@@ -8,9 +8,8 @@ import { followUserThunk } from "../../redux/follow";
 
 function FollowingFormPage(){
     const dispatch = useDispatch();
-  
+
     const followingList = useSelector(state => state.followReducer)
-    console.log(followingList['following'])
     const [userSearch, setUserSearch] = useState('')
     const [errors, setErrors] = useState({})
     const [disabled, setDisabled] = useState(true)
@@ -19,7 +18,7 @@ function FollowingFormPage(){
     useEffect(() => {
         setErrors('')
         const getFollowing = async () => await dispatch(getFollowsThunk());
-        getFollowing().then(data => console.log(data))
+        getFollowing()
     },[dispatch, setErrors])
 
     useEffect(() => {
@@ -61,7 +60,7 @@ function FollowingFormPage(){
             <ul id="following-ul">
                 {Object.values(followingList['following']).map(user =>
                     {
-                        console.log(user)
+
                         return (<li key={user.id}>
                             <FollowingFormTile id={user.id} icon={user.profile_pic ? user.profile_pic : defaultIcon} username={user.username} updated=''/>
                         </li>)

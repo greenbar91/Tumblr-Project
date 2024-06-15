@@ -31,7 +31,7 @@ export const getFollowsThunk = () => async (dispatch) => {
 
     if(res.ok){
         const data = await res.json()
-        console.log(data)
+
         await dispatch(getAllFollows(data))
         return data
     }

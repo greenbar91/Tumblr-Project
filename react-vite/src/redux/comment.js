@@ -58,7 +58,7 @@ export const getAllCommentsThunk = () => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json();
-    console.log(data);
+
     dispatch(getAllComments(data));
   } else {
     const errors = await res.json();

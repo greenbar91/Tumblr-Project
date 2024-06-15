@@ -10,13 +10,12 @@ function FollowingFormTile({
     updated,
 }){
     const dispatch = useDispatch()
-console.log(icon)
     // const followingList = useSelector(state => state.follow.following)
 
     const handleUnfollow = async (e) => {
         e.preventDefault()
 
-        await dispatch(unfollowUserThunk(id)).then(data => console.log(data))
+        await dispatch(unfollowUserThunk(id))
     }
 
     return(
