@@ -3,7 +3,7 @@
 Post your next adventure on [Rumblr](https://tumblr-project.onrender.com/)!
 
 ![](https://i.imgur.com/BgmyTZ8.png)
-by Jacob Dietz, Asazay Luvaiku and Thi
+by Jacob Dietz, Asazay Luvaiku and ThiPhucThinh Huynh
 
 Welcome to Rumblr, your new go-to spot for sharing your thoughts, photos, and quirky cat gifs! Dive into a world where creativity meets community, and every post is a chance to shine.
 
