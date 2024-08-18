@@ -90,3 +90,15 @@
   /* .post-username {
     width: 100%;
   } */
+
+  .github-link a{
+    background-color: #00B8FF;
+    border-radius: 30px;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    width: 150px;
+    margin-top: 10px;
+    text-decoration: none !important;
+  }
