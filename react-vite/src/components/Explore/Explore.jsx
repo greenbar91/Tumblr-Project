@@ -10,6 +10,8 @@ import PostDetailsModel from "../PostDetailsModel";
 import AuthFormModal from "../AuthFormModal";
 import FollowUserButton from "../FollowUser/FollowUser";
 import { formatDistanceToNow } from "date-fns";
+import { FaGithub } from "react-icons/fa";
+
 
 const Explore = () => {
   const dispatch = useDispatch();
@@ -131,6 +133,20 @@ const Explore = () => {
           );
         })}
       </ul>
+      <div
+        className="github-link"
+        style={{
+          color: "white",
+          position: "absolute",
+          top: "3rem",
+          right: "3rem",
+        }}
+      >
+        <a href="https://github.com/greenbar91/Tumblr-Project">
+          <FaGithub style={{ paddingTop: "5px", fontSize: "18px" }}></FaGithub>
+          GitHub
+        </a>
+      </div>
     </div>
   );
 };
