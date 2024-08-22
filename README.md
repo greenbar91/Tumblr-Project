@@ -74,9 +74,7 @@ FLASK_RUN_PORT=8000
 
 ![](https://i.imgur.com/byIjiJu.png)
 
-  * Another challenge our team faced before starting the build was to clone Tumblr almost pixel-perfect while integrating our planned MVP features. Specifically, we needed to ensure that users' profile pictures appeared in every post, 
-    even though our database schema did not yet include Image tables. This issue also prevented the Demo User from logging in, as their credentials lacked a profile picture column. To address this, our team decided to seed the profile 
-    picture column and set a default profile picture for newly created users.
+  * Implemented a solution to address the challenge of cloning Tumblr's pixel-perfect design by integrating profile pictures into the User table, despite the absence of an Image table in the initial database schema. Seeded a default profile picture column for newly created users and set default profile images to maintain consistent design across the platform. Improved the application's usability by enabling the Demo User to log in without errors, ensuring a complete user experience from the start.
     
 ![](https://i.imgur.com/JWmA5U1.png)
 
@@ -86,8 +84,7 @@ FLASK_RUN_PORT=8000
 ![](https://i.imgur.com/aqmzzne.png)
 
 
-* Another challenge- in the Tumblr counterpart, the login and sign-up modals were combined and rendered based on the existence of the user's email. We decided to use a conditional statement and create a Redux Thunk to check the 
- email, subsequently rendering the appropriate slide based on the result
+* Designed a Redux Thunk to manage user authentication by checking the existence of a user's email and rendering the appropriate log-in or sign-up modal based on the result. Utilized Redux for efficient state management and conditional rendering logic. Enhanced user experience by ensuring seamless and dynamic modal presentation, aligning with the functionality of the Tumblr counterpart.
 
 ![](https://i.imgur.com/9VNqRb0.png)
 
