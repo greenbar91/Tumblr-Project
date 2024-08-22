@@ -79,7 +79,7 @@ FLASK_RUN_PORT=8000
 ![](https://i.imgur.com/JWmA5U1.png)
 
 # Challenges
-* When designing the database table "follows", we ran into some issues with defining the relationship in python. We had to reference the same primary key from the same table for two different columns in the "follows" table. After going through python and other official documentation and hours of trial and error we were finally able to figure out how to implement the relationship between the "follows" table and the "users" table.
+* When implementing follows/following feature using python and the database table "follows" , we ran into some issues with defining the relationship. We had to reference the same primary key from the same table for two different columns in the "follows" table. After going through python and other official documentation and hours of trial and error we were finally able to figure out how to implement the relationship between the "follows" table and the "users" table.
   
 ![](https://i.imgur.com/aqmzzne.png)
 
